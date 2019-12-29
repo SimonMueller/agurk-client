@@ -1,14 +1,14 @@
 import React from 'react';
 import CardList from './CardList';
 
-const Hand = () => (
-  <div className="Hand">
-    <p>
-      Hand
-    </p>
+export default function Hand() {
+  return (
+    <div className="Hand">
+      <p>
+        Hand
+      </p>
 
-    <CardList cards={[]} />
-  </div>
-);
-
-export default Hand;
+      <CardList cards={[]} />
+    </div>
+  );
+}

@@ -6,7 +6,7 @@ interface CardListProps {
   cards: CardData[]
 }
 
-const CardList = ({ cards }: CardListProps) => {
+export default function CardList({ cards }: CardListProps) {
   const cardItems = cards.map((card) => <li><Card card={card} /></li>);
 
   return (
@@ -14,6 +14,4 @@ const CardList = ({ cards }: CardListProps) => {
       { cardItems }
     </ul>
   );
-};
-
-export default CardList;
+}

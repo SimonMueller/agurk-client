@@ -5,12 +5,12 @@ interface PlayerProps {
   playerId: PlayerId
 }
 
-const Player = ({ playerId }: PlayerProps) => (
-  <div className="Player">
-    <p>
-      { playerId }
-    </p>
-  </div>
-);
-
-export default Player;
+export default function Player({ playerId }: PlayerProps) {
+  return (
+    <div className="Player">
+      <p>
+        { playerId }
+      </p>
+    </div>
+  );
+}

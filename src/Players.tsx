@@ -6,7 +6,7 @@ interface PlayerListProps {
   playerIds: PlayerId[]
 }
 
-const Players = ({ playerIds }: PlayerListProps) => {
+export default function Players({ playerIds }: PlayerListProps) {
   const playerItems = playerIds.map((playerId) => <li><Player playerId={playerId} /></li>);
 
   return (
@@ -18,6 +18,4 @@ const Players = ({ playerIds }: PlayerListProps) => {
       </ul>
     </div>
   );
-};
-
-export default Players;
+}

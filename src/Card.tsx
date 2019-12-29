@@ -15,26 +15,30 @@ interface SuitCardProps {
   card: SuitCardData
 }
 
-const JokerCard = ({ card }: JokerCardProps) => (
-  <div>
-    { card.kind }
-    {' '}
-    { card.color }
-  </div>
-);
+function JokerCard({ card }: JokerCardProps) {
+  return (
+    <div>
+      { card.kind }
+      { ' ' }
+      { card.color }
+    </div>
+  );
+}
 
-const SuitCard = ({ card }: SuitCardProps) => (
-  <div>
-    { card.suit }
-    {' '}
-    { card.rank }
-  </div>
-);
+function SuitCard({ card }: SuitCardProps) {
+  return (
+    <div>
+      { card.suit }
+      {' '}
+      { card.rank }
+    </div>
+  );
+}
 
-const Card = ({ card }: CardProps) => (
-  card.kind === 'JOKER'
-    ? <JokerCard card={card} />
-    : <SuitCard card={card} />
-);
-
-export default Card;
+export default function Card({ card }: CardProps) {
+  return (
+    card.kind === 'JOKER'
+      ? <JokerCard card={card} />
+      : <SuitCard card={card} />
+  );
+}
