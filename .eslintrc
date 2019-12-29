@@ -1,0 +1,15 @@
+{
+  "extends": [
+    "react-app",
+    "airbnb",
+    "plugin:import/typescript"
+  ],
+  "overrides": [
+    {
+      "files": ["**/*.ts?(x)"],
+      "rules": {
+        "react/jsx-filename-extension": ["warn", { "extensions": [".tsx"] }]
+      }
+    }
+  ]
+}
