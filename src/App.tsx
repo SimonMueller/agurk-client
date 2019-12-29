@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Subject } from 'rxjs';
 import { Message } from 'agurk-shared';
 import { webSocket } from 'rxjs/webSocket';
@@ -6,41 +6,23 @@ import logo from './logo.svg';
 import './App.css';
 import Game from './Game';
 
-interface AppProps {}
+export default function App() {
+  const subject: Subject<Message<object>> = webSocket('ws://localhost:3001');
 
-interface AppState {
-  subject: Subject<Message<object>>;
-}
-
-export default class App extends React.Component<AppProps, AppState> {
-  constructor(props: AppProps) {
-    super(props);
-    this.state = { subject: webSocket('ws://localhost:3001') };
-  }
-
-  componentDidMount() {
-    const { subject } = this.state;
+  useEffect(() => {
     subject.subscribe();
-  }
+    return () => subject.complete();
+  });
 
-  componentWillUnmount() {
-    const { subject } = this.state;
-    subject.complete();
-  }
+  return (
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+      </header>
 
-  render() {
-    const { subject } = this.state;
-
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-        </header>
-
-        <main>
-          <Game subject={subject} />
-        </main>
-      </div>
-    );
-  }
+      <main>
+        <Game subject={subject} />
+      </main>
+    </div>
+  );
 }
