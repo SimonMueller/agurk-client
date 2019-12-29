@@ -25,9 +25,14 @@ jobs:
 
     - name: webpack build
       run: npm run build
+      env:
+        CI: true
 
     - name: lint
       run: npm run lint
 
     - name: test
       run: npm test
+      env:
+        CI: true
+
