@@ -1,18 +1,34 @@
 import React from 'react';
+import { Message, MessageName } from 'agurk-shared';
+import { Subject } from 'rxjs';
 import Hand from './Hand';
 import Players from './Players';
 import Stack from './Stack';
 
-const Game = () => (
-  <div className="Game">
-    <p>
-      Game
-    </p>
+interface GameProps {
+  subject: Subject<Message<object>>;
+}
 
-    <Players playerIds={[]} />
-    <Stack />
-    <Hand />
-  </div>
-);
+interface GameState {}
 
-export default Game;
+export default class Game extends React.Component<GameProps, GameState> {
+  startGame() {
+    const { subject } = this.props;
+    subject.next({
+      name: MessageName.START_GAME,
+    });
+  }
+
+  render() {
+    return (
+      <div className="Game">
+
+        <button type="button" onClick={() => this.startGame()}>Start Game</button>
+
+        <Players playerIds={[]} />
+        <Stack />
+        <Hand />
+      </div>
+    );
+  }
+}
