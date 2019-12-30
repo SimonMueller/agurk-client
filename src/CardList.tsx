@@ -3,7 +3,7 @@ import { Card as CardData } from 'agurk-shared';
 import Card from './Card';
 
 interface CardListProps {
-  cards: CardData[]
+  cards: CardData[];
 }
 
 export default function CardList({ cards }: CardListProps) {

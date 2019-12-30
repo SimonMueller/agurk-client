@@ -4,15 +4,15 @@ import {
 } from 'agurk-shared';
 
 interface CardProps {
-  card: CardData
+  card: CardData;
 }
 
 interface JokerCardProps {
-  card: JokerCardData
+  card: JokerCardData;
 }
 
 interface SuitCardProps {
-  card: SuitCardData
+  card: SuitCardData;
 }
 
 function JokerCard({ card }: JokerCardProps) {

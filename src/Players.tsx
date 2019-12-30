@@ -3,7 +3,7 @@ import { PlayerId } from 'agurk-shared';
 import Player from './Player';
 
 interface PlayerListProps {
-  playerIds: PlayerId[]
+  playerIds: PlayerId[];
 }
 
 export default function Players({ playerIds }: PlayerListProps) {
