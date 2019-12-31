@@ -7,7 +7,7 @@ interface PlayerProps {
 
 export default function Player({ playerId }: PlayerProps) {
   return (
-    <div className="Player">
+    <div>
       <p>
         { playerId }
       </p>

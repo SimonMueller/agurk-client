@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Card as CardData, JokerCard as JokerCardData, SuitCard as SuitCardData,
+  Card as CardData, JOKER_CARD_KIND, JokerCard as JokerCardData, SuitCard as SuitCardData,
 } from 'agurk-shared';
 
 interface CardProps {
@@ -33,6 +33,13 @@ function SuitCard({ card }: SuitCardProps) {
       { card.rank }
     </div>
   );
+}
+
+export function generateKey(card: CardData): string {
+  if (card.kind === JOKER_CARD_KIND) {
+    return card.color + card.rank;
+  }
+  return card.suit + card.rank;
 }
 
 export default function Card({ card }: CardProps) {
