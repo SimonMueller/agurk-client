@@ -13,7 +13,7 @@ import {
 } from './communication/serverCommunication';
 
 function createServerApi(subject: WebSocketSubject<Message>) {
-  return ({
+  return {
     broadcastPlayers: broadcastPlayers.bind(null, subject),
     startGame: startGame.bind(null, subject),
     broadcastStartGame: broadcastStartGame.bind(null, subject),
@@ -35,7 +35,7 @@ function createServerApi(subject: WebSocketSubject<Message>) {
     broadcastEndGame: broadcastEndGame.bind(null, subject),
     broadcastGameError: broadcastGameError.bind(null, subject),
     availableCards: availableCards.bind(null, subject),
-  });
+  };
 }
 
 export default function App() {
