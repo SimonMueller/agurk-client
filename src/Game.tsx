@@ -1,35 +1,8 @@
 import React from 'react';
-import {
-  Card, OutPlayer, Penalty, PlayerId, TurnError, ValidatedTurn, Error,
-} from 'agurk-shared';
-import { Observable } from 'rxjs';
 import Hand from './Hand';
 import Players from './Players';
 import Stack from './Stack';
-
-interface ServerApi {
-  broadcastPlayers: () => Observable<PlayerId[]>;
-  startGame: () => void;
-  broadcastStartGame: () => Observable<void>;
-  dealtCards: () => Observable<Card[]>;
-  broadcastPlayerOrder: () => Observable<PlayerId[]>;
-  requestCards: () => Observable<void>;
-  playCards: (cards: Card[]) => void;
-  broadcastPlayerTurn: () => Observable<ValidatedTurn>;
-  broadcastPlayerTurnError: () => Observable<TurnError>;
-  broadcastRoundWinner: () => Observable<PlayerId>;
-  broadcastPenalties: () => Observable<Penalty[]>;
-  broadcastOutPlayers: () => Observable<OutPlayer[]>;
-  broadcastGameWinner: () => Observable<PlayerId>;
-  broadcastStartRound: () => Observable<void>;
-  broadcastEndRound: () => Observable<void>;
-  broadcastStartCycle: () => Observable<void>;
-  broadcastEndCycle: () => Observable<void>;
-  broadcastStartPlayerTurn: () => Observable<PlayerId>;
-  broadcastEndGame: () => Observable<void>;
-  broadcastGameError: () => Observable<Error>;
-  availableCards: () => Observable<Card[]>;
-}
+import { ServerApi } from './communication/serverApi';
 
 interface GameProps {
   serverApi: ServerApi;
