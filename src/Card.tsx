@@ -44,7 +44,7 @@ export function generateKey(card: CardData): string {
 
 export default function Card({ card }: CardProps) {
   return (
-    card.kind === 'JOKER'
+    card.kind === JOKER_CARD_KIND
       ? <JokerCard card={card} />
       : <SuitCard card={card} />
   );
