@@ -6,10 +6,10 @@ import CardList from './CardList';
 interface StackProps {
   broadcastPlayerTurn: () => Observable<ValidatedTurn>;
   broadcastPlayerTurnError: () => Observable<TurnError>;
-  broadcastStartRound: () => Observable<undefined>;
-  broadcastEndRound: () => Observable<undefined>;
-  broadcastStartCycle: () => Observable<undefined>;
-  broadcastEndCycle: () => Observable<undefined>;
+  broadcastStartRound: () => Observable<void>;
+  broadcastEndRound: () => Observable<void>;
+  broadcastStartCycle: () => Observable<void>;
+  broadcastEndCycle: () => Observable<void>;
 }
 
 export default function Stack({ broadcastPlayerTurn, broadcastEndRound, broadcastEndCycle }: StackProps) {

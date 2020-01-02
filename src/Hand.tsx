@@ -4,7 +4,7 @@ import { Card, cardEquals } from 'agurk-shared';
 import SelectableCardList, { SelectableCard } from './SelectableCardList';
 
 interface HandProps {
-  requestCards: () => Observable<undefined>;
+  requestCards: () => Observable<void>;
   playCards: (cards: Card[]) => void;
   dealtCards: () => Observable<Card[]>;
   availableCards: () => Observable<Card[]>;

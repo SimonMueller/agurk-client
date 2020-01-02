@@ -10,10 +10,10 @@ import Stack from './Stack';
 interface ServerApi {
   broadcastPlayers: () => Observable<PlayerId[]>;
   startGame: () => void;
-  broadcastStartGame: () => Observable<undefined>;
+  broadcastStartGame: () => Observable<void>;
   dealtCards: () => Observable<Card[]>;
   broadcastPlayerOrder: () => Observable<PlayerId[]>;
-  requestCards: () => Observable<undefined>;
+  requestCards: () => Observable<void>;
   playCards: (cards: Card[]) => void;
   broadcastPlayerTurn: () => Observable<ValidatedTurn>;
   broadcastPlayerTurnError: () => Observable<TurnError>;
@@ -21,12 +21,12 @@ interface ServerApi {
   broadcastPenalties: () => Observable<Penalty[]>;
   broadcastOutPlayers: () => Observable<OutPlayer[]>;
   broadcastGameWinner: () => Observable<PlayerId>;
-  broadcastStartRound: () => Observable<undefined>;
-  broadcastEndRound: () => Observable<undefined>;
-  broadcastStartCycle: () => Observable<undefined>;
-  broadcastEndCycle: () => Observable<undefined>;
+  broadcastStartRound: () => Observable<void>;
+  broadcastEndRound: () => Observable<void>;
+  broadcastStartCycle: () => Observable<void>;
+  broadcastEndCycle: () => Observable<void>;
   broadcastStartPlayerTurn: () => Observable<PlayerId>;
-  broadcastEndGame: () => Observable<undefined>;
+  broadcastEndGame: () => Observable<void>;
   broadcastGameError: () => Observable<Error>;
   availableCards: () => Observable<Card[]>;
 }

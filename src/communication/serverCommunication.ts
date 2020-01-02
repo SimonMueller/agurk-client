@@ -19,7 +19,7 @@ export function startGame(subject: Subject<Message>): void {
   return subject.next({ name: MessageName.START_GAME });
 }
 
-export function broadcastStartGame(subject: Subject<Message>): Observable<undefined> {
+export function broadcastStartGame(subject: Subject<Message>): Observable<void> {
   return subject.pipe(
     filter((val): val is BroadcastStartGame => val.name === MessageName.BROADCAST_START_GAME),
     map(() => undefined),
@@ -40,7 +40,7 @@ export function broadcastPlayerOrder(subject: Subject<Message>): Observable<Play
   );
 }
 
-export function requestCards(subject: Subject<Message>): Observable<undefined> {
+export function requestCards(subject: Subject<Message>): Observable<void> {
   return subject.pipe(
     filter((val): val is RequestCards => val.name === MessageName.REQUEST_CARDS),
     map(() => undefined),
@@ -93,28 +93,28 @@ export function broadcastGameWinner(subject: Subject<Message>): Observable<Playe
   );
 }
 
-export function broadcastStartRound(subject: Subject<Message>): Observable<undefined> {
+export function broadcastStartRound(subject: Subject<Message>): Observable<void> {
   return subject.pipe(
     filter((val): val is BroadcastStartRound => val.name === MessageName.BROADCAST_START_ROUND),
     map(() => undefined),
   );
 }
 
-export function broadcastEndRound(subject: Subject<Message>): Observable<undefined> {
+export function broadcastEndRound(subject: Subject<Message>): Observable<void> {
   return subject.pipe(
     filter((val): val is BroadcastEndRound => val.name === MessageName.BROADCAST_END_ROUND),
     map(() => undefined),
   );
 }
 
-export function broadcastStartCycle(subject: Subject<Message>): Observable<undefined> {
+export function broadcastStartCycle(subject: Subject<Message>): Observable<void> {
   return subject.pipe(
     filter((val): val is BroadcastStartCycle => val.name === MessageName.BROADCAST_START_CYCLE),
     map(() => undefined),
   );
 }
 
-export function broadcastEndCycle(subject: Subject<Message>): Observable<undefined> {
+export function broadcastEndCycle(subject: Subject<Message>): Observable<void> {
   return subject.pipe(
     filter((val): val is BroadcastEndCycle => val.name === MessageName.BROADCAST_END_CYCLE),
     map(() => undefined),
@@ -128,7 +128,7 @@ export function broadcastStartPlayerTurn(subject: Subject<Message>): Observable<
   );
 }
 
-export function broadcastEndGame(subject: Subject<Message>): Observable<undefined> {
+export function broadcastEndGame(subject: Subject<Message>): Observable<void> {
   return subject.pipe(
     filter((val): val is BroadcastStartPlayerTurn => val.name === MessageName.BROADCAST_END_GAME),
     map(() => undefined),
