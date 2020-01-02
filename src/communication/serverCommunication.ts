@@ -1,4 +1,6 @@
-import { Observable, Subject, pipe, UnaryFunction } from 'rxjs';
+import {
+  Observable, Subject, pipe, UnaryFunction,
+} from 'rxjs';
 import {
   Card, Message, Error, MessageName, Penalty, PlayerId, TurnError, ValidatedTurn, BroadcastPlayerTurn,
   BroadcastPlayerOrder, DealtCards, BroadcastPlayers, BroadcastPlayerTurnError, BroadcastRoundWinner,
@@ -10,14 +12,14 @@ import { filter, map } from 'rxjs/operators';
 
 function ofType<T extends Message>(name: MessageName): UnaryFunction< Observable<Message>, Observable<T>> {
   return pipe(
-    filter((val: Message): val is T => val.name === name),
+    filter((value: Message): value is T => value.name === name),
   );
 }
 
 export function broadcastPlayers(subject: Subject<Message>): Observable<PlayerId[]> {
   return subject.pipe(
     ofType<BroadcastPlayers>(MessageName.BROADCAST_PLAYERS),
-    map((val) => val.data),
+    map((value) => value.data),
   );
 }
 
@@ -35,14 +37,14 @@ export function broadcastStartGame(subject: Subject<Message>): Observable<void> 
 export function dealtCards(subject: Subject<Message>): Observable<Card[]> {
   return subject.pipe(
     ofType<DealtCards>(MessageName.DEALT_CARDS),
-    map((val) => val.data),
+    map((value) => value.data),
   );
 }
 
 export function broadcastPlayerOrder(subject: Subject<Message>): Observable<PlayerId[]> {
   return subject.pipe(
     ofType<BroadcastPlayerOrder>(MessageName.BROADCAST_PLAYER_ORDER),
-    map((val) => val.data),
+    map((value) => value.data),
   );
 }
 
@@ -60,42 +62,42 @@ export function playCards(subject: Subject<Message>, cards: Card[]): void {
 export function broadcastPlayerTurn(subject: Subject<Message>): Observable<ValidatedTurn> {
   return subject.pipe(
     ofType<BroadcastPlayerTurn>(MessageName.BROADCAST_PLAYER_TURN),
-    map((val) => val.data),
+    map((value) => value.data),
   );
 }
 
 export function broadcastPlayerTurnError(subject: Subject<Message>): Observable<TurnError> {
   return subject.pipe(
     ofType<BroadcastPlayerTurnError>(MessageName.BROADCAST_PLAYER_TURN_ERROR),
-    map((val) => val.data),
+    map((value) => value.data),
   );
 }
 
 export function broadcastRoundWinner(subject: Subject<Message>): Observable<PlayerId> {
   return subject.pipe(
     ofType<BroadcastRoundWinner>(MessageName.BROADCAST_ROUND_WINNER),
-    map((val) => val.data),
+    map((value) => value.data),
   );
 }
 
 export function broadcastPenalties(subject: Subject<Message>): Observable<Penalty[]> {
   return subject.pipe(
     ofType<BroadcastPenalties>(MessageName.BROADCAST_PENALTIES),
-    map((val) => val.data),
+    map((value) => value.data),
   );
 }
 
 export function broadcastOutPlayers(subject: Subject<Message>): Observable<OutPlayer[]> {
   return subject.pipe(
     ofType<BroadcastOutPlayers>(MessageName.BROADCAST_OUT_PLAYERS),
-    map((val) => val.data),
+    map((value) => value.data),
   );
 }
 
 export function broadcastGameWinner(subject: Subject<Message>): Observable<PlayerId> {
   return subject.pipe(
     ofType<BroadcastGameWinner>(MessageName.BROADCAST_GAME_WINNER),
-    map((val) => val.data),
+    map((value) => value.data),
   );
 }
 
@@ -130,7 +132,7 @@ export function broadcastEndCycle(subject: Subject<Message>): Observable<void> {
 export function broadcastStartPlayerTurn(subject: Subject<Message>): Observable<PlayerId> {
   return subject.pipe(
     ofType<BroadcastStartPlayerTurn>(MessageName.BROADCAST_START_PLAYER_TURN),
-    map((val) => val.data),
+    map((value) => value.data),
   );
 }
 
@@ -144,13 +146,13 @@ export function broadcastEndGame(subject: Subject<Message>): Observable<void> {
 export function broadcastGameError(subject: Subject<Message>): Observable<Error> {
   return subject.pipe(
     ofType<BroadcastGameError>(MessageName.BROADCAST_GAME_ERROR),
-    map((val) => val.data),
+    map((value) => value.data),
   );
 }
 
 export function availableCards(subject: Subject<Message>): Observable<Card[]> {
   return subject.pipe(
     ofType<AvailableCards>(MessageName.AVAILABLE_CARDS),
-    map((val) => val.data),
+    map((value) => value.data),
   );
 }
