@@ -1,5 +1,5 @@
 import {
-  Observable, Subject, pipe, UnaryFunction,
+  Observable, pipe, UnaryFunction,
 } from 'rxjs';
 import {
   Card, Message, Error, MessageName, Penalty, PlayerId, TurnError, ValidatedTurn, BroadcastPlayerTurn,
@@ -41,141 +41,141 @@ function ofType<T extends Message>(name: MessageName): UnaryFunction< Observable
   );
 }
 
-function broadcastPlayers(subject: Subject<Message>): Observable<PlayerId[]> {
+function broadcastPlayers(subject: WebSocketSubject<Message>): Observable<PlayerId[]> {
   return subject.pipe(
     ofType<BroadcastPlayers>(MessageName.BROADCAST_PLAYERS),
     map((value) => value.data),
   );
 }
 
-function startGame(subject: Subject<Message>): void {
+function startGame(subject: WebSocketSubject<Message>): void {
   return subject.next({ name: MessageName.START_GAME });
 }
 
-function broadcastStartGame(subject: Subject<Message>): Observable<void> {
+function broadcastStartGame(subject: WebSocketSubject<Message>): Observable<void> {
   return subject.pipe(
     ofType<BroadcastStartGame>(MessageName.BROADCAST_START_GAME),
     map(() => undefined),
   );
 }
 
-function dealtCards(subject: Subject<Message>): Observable<Card[]> {
+function dealtCards(subject: WebSocketSubject<Message>): Observable<Card[]> {
   return subject.pipe(
     ofType<DealtCards>(MessageName.DEALT_CARDS),
     map((value) => value.data),
   );
 }
 
-function broadcastPlayerOrder(subject: Subject<Message>): Observable<PlayerId[]> {
+function broadcastPlayerOrder(subject: WebSocketSubject<Message>): Observable<PlayerId[]> {
   return subject.pipe(
     ofType<BroadcastPlayerOrder>(MessageName.BROADCAST_PLAYER_ORDER),
     map((value) => value.data),
   );
 }
 
-function requestCards(subject: Subject<Message>): Observable<void> {
+function requestCards(subject: WebSocketSubject<Message>): Observable<void> {
   return subject.pipe(
     ofType<RequestCards>(MessageName.REQUEST_CARDS),
     map(() => undefined),
   );
 }
 
-function playCards(subject: Subject<Message>, cards: Card[]): void {
+function playCards(subject: WebSocketSubject<Message>, cards: Card[]): void {
   return subject.next({ name: MessageName.PLAY_CARDS, data: cards });
 }
 
-function broadcastPlayerTurn(subject: Subject<Message>): Observable<ValidatedTurn> {
+function broadcastPlayerTurn(subject: WebSocketSubject<Message>): Observable<ValidatedTurn> {
   return subject.pipe(
     ofType<BroadcastPlayerTurn>(MessageName.BROADCAST_PLAYER_TURN),
     map((value) => value.data),
   );
 }
 
-function broadcastPlayerTurnError(subject: Subject<Message>): Observable<TurnError> {
+function broadcastPlayerTurnError(subject: WebSocketSubject<Message>): Observable<TurnError> {
   return subject.pipe(
     ofType<BroadcastPlayerTurnError>(MessageName.BROADCAST_PLAYER_TURN_ERROR),
     map((value) => value.data),
   );
 }
 
-function broadcastRoundWinner(subject: Subject<Message>): Observable<PlayerId> {
+function broadcastRoundWinner(subject: WebSocketSubject<Message>): Observable<PlayerId> {
   return subject.pipe(
     ofType<BroadcastRoundWinner>(MessageName.BROADCAST_ROUND_WINNER),
     map((value) => value.data),
   );
 }
 
-function broadcastPenalties(subject: Subject<Message>): Observable<Penalty[]> {
+function broadcastPenalties(subject: WebSocketSubject<Message>): Observable<Penalty[]> {
   return subject.pipe(
     ofType<BroadcastPenalties>(MessageName.BROADCAST_PENALTIES),
     map((value) => value.data),
   );
 }
 
-function broadcastOutPlayers(subject: Subject<Message>): Observable<OutPlayer[]> {
+function broadcastOutPlayers(subject: WebSocketSubject<Message>): Observable<OutPlayer[]> {
   return subject.pipe(
     ofType<BroadcastOutPlayers>(MessageName.BROADCAST_OUT_PLAYERS),
     map((value) => value.data),
   );
 }
 
-function broadcastGameWinner(subject: Subject<Message>): Observable<PlayerId> {
+function broadcastGameWinner(subject: WebSocketSubject<Message>): Observable<PlayerId> {
   return subject.pipe(
     ofType<BroadcastGameWinner>(MessageName.BROADCAST_GAME_WINNER),
     map((value) => value.data),
   );
 }
 
-function broadcastStartRound(subject: Subject<Message>): Observable<void> {
+function broadcastStartRound(subject: WebSocketSubject<Message>): Observable<void> {
   return subject.pipe(
     ofType<BroadcastStartRound>(MessageName.BROADCAST_START_ROUND),
     map(() => undefined),
   );
 }
 
-function broadcastEndRound(subject: Subject<Message>): Observable<void> {
+function broadcastEndRound(subject: WebSocketSubject<Message>): Observable<void> {
   return subject.pipe(
     ofType<BroadcastEndRound>(MessageName.BROADCAST_END_ROUND),
     map(() => undefined),
   );
 }
 
-function broadcastStartCycle(subject: Subject<Message>): Observable<void> {
+function broadcastStartCycle(subject: WebSocketSubject<Message>): Observable<void> {
   return subject.pipe(
     ofType<BroadcastStartCycle>(MessageName.BROADCAST_START_CYCLE),
     map(() => undefined),
   );
 }
 
-function broadcastEndCycle(subject: Subject<Message>): Observable<void> {
+function broadcastEndCycle(subject: WebSocketSubject<Message>): Observable<void> {
   return subject.pipe(
     ofType<BroadcastEndCycle>(MessageName.BROADCAST_END_CYCLE),
     map(() => undefined),
   );
 }
 
-function broadcastStartPlayerTurn(subject: Subject<Message>): Observable<PlayerId> {
+function broadcastStartPlayerTurn(subject: WebSocketSubject<Message>): Observable<PlayerId> {
   return subject.pipe(
     ofType<BroadcastStartPlayerTurn>(MessageName.BROADCAST_START_PLAYER_TURN),
     map((value) => value.data),
   );
 }
 
-function broadcastEndGame(subject: Subject<Message>): Observable<void> {
+function broadcastEndGame(subject: WebSocketSubject<Message>): Observable<void> {
   return subject.pipe(
     ofType<BroadcastEndGame>(MessageName.BROADCAST_END_GAME),
     map(() => undefined),
   );
 }
 
-function broadcastGameError(subject: Subject<Message>): Observable<Error> {
+function broadcastGameError(subject: WebSocketSubject<Message>): Observable<Error> {
   return subject.pipe(
     ofType<BroadcastGameError>(MessageName.BROADCAST_GAME_ERROR),
     map((value) => value.data),
   );
 }
 
-function availableCards(subject: Subject<Message>): Observable<Card[]> {
+function availableCards(subject: WebSocketSubject<Message>): Observable<Card[]> {
   return subject.pipe(
     ofType<AvailableCards>(MessageName.AVAILABLE_CARDS),
     map((value) => value.data),
