@@ -6,8 +6,10 @@ import './App.css';
 import Game from './Game';
 import createServerApi from './communication/serverApi';
 
+const WS_SERVER_URI = 'ws://localhost:3001';
+
 export default function App() {
-  const subject: WebSocketSubject<Message> = webSocket('ws://localhost:3001');
+  const subject: WebSocketSubject<Message> = webSocket(WS_SERVER_URI);
 
   useEffect(() => {
     subject.subscribe();
