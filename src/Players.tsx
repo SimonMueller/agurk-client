@@ -17,12 +17,14 @@ export default function Players({ broadcastPlayers }: PlayersProps) {
 
   useEffect(() => {
     const subscription = broadcastPlayers().subscribe((ids) => setPlayerIds(ids));
-    return () => subscription.unsubscribe();
+    return () => {
+      subscription.unsubscribe();
+    };
   });
 
   return (
     <div>
-      <p>Players</p>
+      <h2>Players</h2>
 
       <ul>
         { playerItems }
