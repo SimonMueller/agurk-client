@@ -32,7 +32,7 @@ export default function Stack({ broadcastPlayerTurn, broadcastEndRound, broadcas
 
   return (
     <div>
-      <p>Stack</p>
+      <h2>Stack</h2>
 
       <CardList cards={playedCards} />
     </div>

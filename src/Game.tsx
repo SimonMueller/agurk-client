@@ -11,6 +11,7 @@ interface GameProps {
 export default function Game({ serverApi }: GameProps) {
   return (
     <div>
+      <h1>Agurk</h1>
 
       <button type="button" onClick={serverApi.startGame}>Start Game</button>
 

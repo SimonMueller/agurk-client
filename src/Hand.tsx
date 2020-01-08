@@ -17,7 +17,7 @@ interface PlayTurnProps {
 function PlayTurn({ playSelectedCards }: PlayTurnProps) {
   return (
     <div>
-      <p>It is your turn</p>
+      <p><b>It is your turn...</b></p>
       <button type="button" onClick={playSelectedCards}>Play Cards</button>
     </div>
   );
@@ -78,7 +78,7 @@ export default function Hand({
 
   return (
     <div>
-      <p>Hand</p>
+      <h2>Hand</h2>
 
       <SelectableCardList cards={cardsInHand} handleSelect={handleCardSelect} />
 

@@ -16,13 +16,17 @@ export default function Players({ broadcastPlayers }: PlayersProps) {
   const playerItems = playerIds.map((playerId) => <li key={playerId}><Player playerId={playerId} /></li>);
 
   useEffect(() => {
+    console.log('subscribe');
     const subscription = broadcastPlayers().subscribe((ids) => setPlayerIds(ids));
-    return () => subscription.unsubscribe();
+    return () => {
+      console.log('UNsubscribe');
+      subscription.unsubscribe();
+    };
   });
 
   return (
     <div>
-      <p>Players</p>
+      <h2>Players</h2>
 
       <ul>
         { playerItems }
