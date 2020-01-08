@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Message } from 'agurk-shared';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
 import logo from './logo.svg';
@@ -9,12 +9,12 @@ import createServerApi from './communication/serverApi';
 const WS_SERVER_URI = 'ws://localhost:3001';
 
 export default function App() {
-  const subject: WebSocketSubject<Message> = webSocket(WS_SERVER_URI);
+  const [subject] = useState<WebSocketSubject<Message>>(webSocket(WS_SERVER_URI));
 
   useEffect(() => {
     subject.subscribe();
     return () => subject.complete();
-  });
+  }, [subject]);
 
   const serverApi = createServerApi(subject);
 
