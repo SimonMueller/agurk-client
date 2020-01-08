@@ -17,9 +17,7 @@ export default function Players({ broadcastPlayers }: PlayersProps) {
 
   useEffect(() => {
     const subscription = broadcastPlayers().subscribe((ids) => setPlayerIds(ids));
-    return () => {
-      subscription.unsubscribe();
-    };
+    return () => subscription.unsubscribe();
   });
 
   return (
