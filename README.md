@@ -1,11 +1,11 @@
 ![](https://github.com/SimonMueller/agurk-client/workflows/Node%20CI/badge.svg)
+[![Greenkeeper badge](https://badges.greenkeeper.io/SimonMueller/agurk-client.svg)](https://greenkeeper.io/)
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/SimonMueller/agurk-client.svg)](https://greenkeeper.io/)
 
 In the project directory, you can run:
 
