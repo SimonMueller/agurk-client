@@ -4,7 +4,7 @@
   "author": "Simon Müller",
   "private": true,
   "license": "MIT",
-  "homepage": "https://simonmueller.github.io/agurk",
+  "homepage": "https://simonmueller.github.io/agurk-client",
   "dependencies": {
     "agurk-shared": "github:SimonMueller/agurk-shared#semver:4.4",
     "react": "^16.12.0",
