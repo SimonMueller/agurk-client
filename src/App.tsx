@@ -6,10 +6,10 @@ import './App.css';
 import Game from './Game';
 import createServerApi from './communication/serverApi';
 
-const WS_SERVER_URI = 'ws://localhost:3001';
+const WSS_SERVER_URI = process.env.REACT_APP_WSS_SERVER_URI as string;
 
 export default function App() {
-  const [subject] = useState<WebSocketSubject<Message>>(webSocket(WS_SERVER_URI));
+  const [subject] = useState<WebSocketSubject<Message>>(webSocket(WSS_SERVER_URI));
 
   useEffect(() => {
     subject.subscribe();
