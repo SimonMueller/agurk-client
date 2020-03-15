@@ -48,6 +48,19 @@ jobs:
         with:
           persist-credentials: false
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+
+      - name: npm install
+        run: npm ci
+
+      - name: webpack build
+        run: npm run build
+        env:
+          CI: true
+
       - name: install ssh client
         uses: webfactory/ssh-agent@v0.2.0
         with:
