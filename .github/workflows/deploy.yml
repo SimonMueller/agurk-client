@@ -1,7 +1,9 @@
 name: Node CI
 
-on.push.branches: [master]
-
+on:
+  push:
+    branches:
+      - master
 jobs:
   deploy:
     name: Deploy to GitHub Pages
