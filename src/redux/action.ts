@@ -44,7 +44,7 @@ interface StartRoundAction extends Action<typeof START_ROUND>{
 }
 
 interface EndRoundAction extends Action<typeof END_ROUND>{
-  readonly winner: PlayerId;
+  readonly winner: PlayerId | undefined;
   readonly penalties: Penalty[];
   readonly outPlayers: OutPlayer[];
 }
@@ -113,7 +113,7 @@ export function startRound(playerIds: PlayerId[]): GameAction {
   };
 }
 
-export function endRound(winner: PlayerId, penalties: Penalty[], outPlayers: OutPlayer[]): GameAction {
+export function endRound(winner: PlayerId | undefined, penalties: Penalty[], outPlayers: OutPlayer[]): GameAction {
   return {
     type: END_ROUND,
     winner,
