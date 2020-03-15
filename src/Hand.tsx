@@ -6,8 +6,6 @@ import SelectableCardList, { SelectableCard } from './SelectableCardList';
 interface HandProps {
   requestCards: () => Observable<void>;
   playCards: (cards: Card[]) => void;
-  dealtCards: () => Observable<Card[]>;
-  availableCards: () => Observable<Card[]>;
 }
 
 interface PlayTurnProps {
@@ -23,13 +21,7 @@ function PlayTurn({ playSelectedCards }: PlayTurnProps) {
   );
 }
 
-function toNotSelectedCards(card: Card): SelectableCard {
-  return { ...card, isSelected: false };
-}
-
-export default function Hand({
-  dealtCards, requestCards, playCards, availableCards,
-}: HandProps) {
+export default function Hand({ requestCards, playCards }: HandProps) {
   const [cardsInHand, setCardsInHand] = useState<SelectableCard[]>([]);
   const [isYourTurn, setIsYourTurn] = useState<boolean>(false);
 
@@ -56,23 +48,7 @@ export default function Hand({
   }
 
   useEffect(() => {
-    const subscription = dealtCards().subscribe((cards) => {
-      const selectableCards = cards.map(toNotSelectedCards);
-      setCardsInHand(selectableCards);
-    });
-    return () => subscription.unsubscribe();
-  });
-
-  useEffect(() => {
     const subscription = requestCards().subscribe(() => setIsYourTurn(true));
-    return () => subscription.unsubscribe();
-  });
-
-  useEffect(() => {
-    const subscription = availableCards().subscribe((cards) => {
-      const selectableCards = cards.map(toNotSelectedCards);
-      setCardsInHand(selectableCards);
-    });
     return () => subscription.unsubscribe();
   });
 

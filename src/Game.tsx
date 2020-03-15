@@ -15,26 +15,11 @@ export default function Game({ serverApi }: GameProps) {
 
       <button type="button" onClick={serverApi.startGame}>Start Game</button>
 
-      <Players
-        broadcastPlayers={serverApi.broadcastPlayers}
-        broadcastPlayerOrder={serverApi.broadcastPlayerOrder}
-        broadcastPenalties={serverApi.broadcastPenalties}
-        broadcastOutPlayers={serverApi.broadcastOutPlayers}
-        broadcastStartPlayerTurn={serverApi.broadcastStartPlayerTurn}
-      />
-      <Stack
-        broadcastPlayerTurn={serverApi.broadcastPlayerTurn}
-        broadcastPlayerTurnError={serverApi.broadcastPlayerTurnError}
-        broadcastStartRound={serverApi.broadcastStartRound}
-        broadcastEndRound={serverApi.broadcastEndRound}
-        broadcastStartCycle={serverApi.broadcastStartCycle}
-        broadcastEndCycle={serverApi.broadcastEndCycle}
-      />
+      <Players />
+      <Stack />
       <Hand
         requestCards={serverApi.requestCards}
         playCards={serverApi.playCards}
-        dealtCards={serverApi.dealtCards}
-        availableCards={serverApi.availableCards}
       />
     </div>
   );
