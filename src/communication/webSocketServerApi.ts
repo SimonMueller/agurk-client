@@ -15,7 +15,7 @@ import {
   startRound,
 } from '../redux/action';
 
-export interface ServerApi {
+export interface WebSocketServerApi {
   sendStartGame: () => void;
   sendPlayCards: (cards: Card[]) => void;
 }
@@ -28,7 +28,7 @@ function sendPlayCards(subject: WebSocketSubject<Message>, cards: Card[]): void 
   return subject.next({ name: MessageName.PLAY_CARDS, data: cards });
 }
 
-export function handleServerMessage(message: Message, dispatch: (action: GameAction) => void) {
+export function dispatchServerMessageAsAction(message: Message, dispatch: (action: GameAction) => void) {
   // eslint-disable-next-line default-case
   switch (message.name) {
     case MessageName.BROADCAST_START_GAME:
@@ -56,7 +56,7 @@ export function handleServerMessage(message: Message, dispatch: (action: GameAct
   }
 }
 
-export function createApi(subject: WebSocketSubject<Message>): ServerApi {
+export function createApi(subject: WebSocketSubject<Message>): WebSocketServerApi {
   return {
     sendStartGame: sendStartGame.bind(null, subject),
     sendPlayCards: sendPlayCards.bind(null, subject),
