@@ -1,4 +1,4 @@
-name: Tests
+name: Node CI
 
 on: [push]
 
@@ -35,3 +35,28 @@ jobs:
       run: npm test
       env:
         CI: true
+
+  deploy:
+    name: Deploy master to GitHub Pages
+    runs-on: ubuntu-latest
+    if: github.ref == 'master'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+
+      - name: install ssh client
+        uses: webfactory/ssh-agent@v0.2.0
+        with:
+          ssh-private-key: ${{ secrets.DEPLOY_KEY }}
+
+      - name: deploy
+        uses: JamesIves/github-pages-deploy-action@releases/v3
+        with:
+          SSH: true
+          BRANCH: gh-pages
+          FOLDER: build
+          CLEAN: true
+
