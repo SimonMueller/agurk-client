@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
-import { PlayerId } from 'agurk-shared';
+import React from 'react';
 import Player from './Player';
+import { PlayerState } from './redux/reducers';
 
-export default function Players() {
-  const [playerIds] = useState<PlayerId[]>([]);
-  const playerItems = playerIds.map((playerId) => <li key={playerId}><Player playerId={playerId} /></li>);
+interface PlayersProps {
+  players: PlayerState[];
+}
+
+export default function Players({ players }: PlayersProps) {
+  const playerItems = players.map((player) => <li key={player.id}><Player player={player} /></li>);
 
   return (
     <div>

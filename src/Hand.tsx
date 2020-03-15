@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { Observable } from 'rxjs';
+import React, { useState } from 'react';
 import { Card, cardEquals } from 'agurk-shared';
-import SelectableCardList, { SelectableCard } from './SelectableCardList';
+import SelectableCardList from './SelectableCardList';
 
 interface HandProps {
-  requestCards: () => Observable<void>;
   playCards: (cards: Card[]) => void;
+  cardsInHand: Card[];
 }
 
 interface PlayTurnProps {
@@ -15,42 +14,27 @@ interface PlayTurnProps {
 function PlayTurn({ playSelectedCards }: PlayTurnProps) {
   return (
     <div>
-      <p><b>It is your turn...</b></p>
       <button type="button" onClick={playSelectedCards}>Play Cards</button>
     </div>
   );
 }
 
-export default function Hand({ requestCards, playCards }: HandProps) {
-  const [cardsInHand, setCardsInHand] = useState<SelectableCard[]>([]);
-  const [isYourTurn, setIsYourTurn] = useState<boolean>(false);
+export default function Hand({ playCards, cardsInHand }: HandProps) {
+  const [selectedCards, setSelectedCards] = useState<Card[]>([]);
 
   function playSelectedCards() {
-    const selectedCards = cardsInHand.filter((card) => card.isSelected);
-    const otherCards = cardsInHand.filter((card) => !card.isSelected);
     playCards(selectedCards);
-    setIsYourTurn(false);
-    setCardsInHand(otherCards);
+    setSelectedCards([]);
   }
+  function handleCardSelect(clicked: Card) {
+    const alreadySelected = selectedCards.some((current) => cardEquals(current, clicked));
 
-  function handleCardSelect(clicked: SelectableCard) {
-    const updatedCardsInHand = cardsInHand.map((current) => {
-      if (!cardEquals(clicked, current)) {
-        return current;
-      }
-      return {
-        ...current,
-        isSelected: !current.isSelected,
-      };
-    });
-
-    setCardsInHand(updatedCardsInHand);
+    if (alreadySelected) {
+      setSelectedCards(selectedCards.filter((current) => !cardEquals(current, clicked)));
+    } else {
+      setSelectedCards([...selectedCards, clicked]);
+    }
   }
-
-  useEffect(() => {
-    const subscription = requestCards().subscribe(() => setIsYourTurn(true));
-    return () => subscription.unsubscribe();
-  });
 
   return (
     <div>
@@ -58,7 +42,7 @@ export default function Hand({ requestCards, playCards }: HandProps) {
 
       <SelectableCardList cards={cardsInHand} handleSelect={handleCardSelect} />
 
-      { isYourTurn && <PlayTurn playSelectedCards={playSelectedCards} />}
+      { <PlayTurn playSelectedCards={playSelectedCards} />}
     </div>
   );
 }

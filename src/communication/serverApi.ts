@@ -1,173 +1,64 @@
-import { Observable, pipe, UnaryFunction } from 'rxjs';
 import {
-  AvailableCards,
-  BroadcastEndCycle,
-  BroadcastEndGame,
-  BroadcastEndRound,
-  BroadcastGameError,
-  BroadcastPlayerTurn,
-  BroadcastStartCycle,
-  BroadcastStartGame,
-  BroadcastStartPlayerTurn,
-  BroadcastStartRound,
   Card,
-  DealtCards,
-  Error,
   Message,
   MessageName,
-  PlayerId,
-  RequestCards,
-  TurnError,
-  ValidatedTurn,
-  BroadcastPlayerTurnError,
-  StartRoundData,
-  EndRoundData,
-  EndCycleData,
-  EndGameData,
-  StartGameData, StartCycleData,
 } from 'agurk-shared';
-import { filter, map } from 'rxjs/operators';
 import { WebSocketSubject } from 'rxjs/webSocket';
+import {
+  addPlayerTurn, addPlayerTurnError,
+  endCycle,
+  endGame,
+  endRound,
+  GameAction, requestCards, setAvailableCardsInHand,
+  startCycle,
+  startGame, startPlayerTurn,
+  startRound,
+} from '../redux/action';
 
 export interface ServerApi {
-  startGame: () => void;
-  broadcastStartGame: () => Observable<StartGameData>;
-  dealtCards: () => Observable<Card[]>;
-  requestCards: () => Observable<void>;
-  playCards: (cards: Card[]) => void;
-  broadcastPlayerTurn: () => Observable<ValidatedTurn>;
-  broadcastPlayerTurnError: () => Observable<TurnError>;
-  broadcastStartRound: () => Observable<StartRoundData>;
-  broadcastEndRound: () => Observable<EndRoundData>;
-  broadcastStartCycle: () => Observable<StartCycleData>;
-  broadcastEndCycle: () => Observable<EndCycleData>;
-  broadcastStartPlayerTurn: () => Observable<PlayerId>;
-  broadcastEndGame: () => Observable<EndGameData>;
-  broadcastGameError: () => Observable<Error>;
-  availableCards: () => Observable<Card[]>;
+  sendStartGame: () => void;
+  sendPlayCards: (cards: Card[]) => void;
 }
 
-function ofType<T extends Message>(name: MessageName): UnaryFunction<Observable<Message>, Observable<T>> {
-  return pipe(
-    filter((value: Message): value is T => value.name === name),
-  );
-}
-
-function startGame(subject: WebSocketSubject<Message>): void {
+function sendStartGame(subject: WebSocketSubject<Message>): void {
   return subject.next({ name: MessageName.START_GAME });
 }
 
-function broadcastStartGame(subject: WebSocketSubject<Message>): Observable<StartGameData> {
-  return subject.pipe(
-    ofType<BroadcastStartGame>(MessageName.BROADCAST_START_GAME),
-    map((value) => value.data),
-  );
-}
-
-function dealtCards(subject: WebSocketSubject<Message>): Observable<Card[]> {
-  return subject.pipe(
-    ofType<DealtCards>(MessageName.DEALT_CARDS),
-    map((value) => value.data),
-  );
-}
-
-function requestCards(subject: WebSocketSubject<Message>): Observable<void> {
-  return subject.pipe(
-    ofType<RequestCards>(MessageName.REQUEST_CARDS),
-    map(() => undefined),
-  );
-}
-
-function playCards(subject: WebSocketSubject<Message>, cards: Card[]): void {
+function sendPlayCards(subject: WebSocketSubject<Message>, cards: Card[]): void {
   return subject.next({ name: MessageName.PLAY_CARDS, data: cards });
 }
 
-function broadcastPlayerTurn(subject: WebSocketSubject<Message>): Observable<ValidatedTurn> {
-  return subject.pipe(
-    ofType<BroadcastPlayerTurn>(MessageName.BROADCAST_PLAYER_TURN),
-    map((value) => value.data),
-  );
+export function handleServerMessage(message: Message, dispatch: (action: GameAction) => void) {
+  // eslint-disable-next-line default-case
+  switch (message.name) {
+    case MessageName.BROADCAST_START_GAME:
+      return dispatch(startGame(message.data.players));
+    case MessageName.BROADCAST_END_GAME:
+      return dispatch(endGame(message.data.winner));
+    case MessageName.BROADCAST_START_ROUND:
+      return dispatch(startRound(message.data.players));
+    case MessageName.BROADCAST_END_ROUND:
+      return dispatch(endRound(message.data.winner, message.data.penalties, message.data.outPlayers));
+    case MessageName.BROADCAST_START_CYCLE:
+      return dispatch(startCycle(message.data.orderedPlayers));
+    case MessageName.BROADCAST_END_CYCLE:
+      return dispatch(endCycle(message.data.outPlayers, message.data.highestTurnPlayers));
+    case MessageName.BROADCAST_PLAYER_TURN:
+      return dispatch(addPlayerTurn(message.data));
+    case MessageName.BROADCAST_PLAYER_TURN_ERROR:
+      return dispatch(addPlayerTurnError(message.data));
+    case MessageName.AVAILABLE_CARDS_IN_HAND:
+      return dispatch(setAvailableCardsInHand(message.data));
+    case MessageName.REQUEST_CARDS:
+      return dispatch(requestCards());
+    case MessageName.BROADCAST_START_PLAYER_TURN:
+      return dispatch(startPlayerTurn(message.data));
+  }
 }
 
-function broadcastPlayerTurnError(subject: WebSocketSubject<Message>): Observable<TurnError> {
-  return subject.pipe(
-    ofType<BroadcastPlayerTurnError>(MessageName.BROADCAST_PLAYER_TURN_ERROR),
-    map((value) => value.data),
-  );
-}
-
-function broadcastStartRound(subject: WebSocketSubject<Message>): Observable<StartRoundData> {
-  return subject.pipe(
-    ofType<BroadcastStartRound>(MessageName.BROADCAST_START_ROUND),
-    map((value) => value.data),
-  );
-}
-
-function broadcastEndRound(subject: WebSocketSubject<Message>): Observable<EndRoundData> {
-  return subject.pipe(
-    ofType<BroadcastEndRound>(MessageName.BROADCAST_END_ROUND),
-    map((value) => value.data),
-  );
-}
-
-function broadcastStartCycle(subject: WebSocketSubject<Message>): Observable<StartCycleData> {
-  return subject.pipe(
-    ofType<BroadcastStartCycle>(MessageName.BROADCAST_START_CYCLE),
-    map((value) => value.data),
-  );
-}
-
-function broadcastEndCycle(subject: WebSocketSubject<Message>): Observable<EndCycleData> {
-  return subject.pipe(
-    ofType<BroadcastEndCycle>(MessageName.BROADCAST_END_CYCLE),
-    map((value) => value.data),
-  );
-}
-
-function broadcastStartPlayerTurn(subject: WebSocketSubject<Message>): Observable<PlayerId> {
-  return subject.pipe(
-    ofType<BroadcastStartPlayerTurn>(MessageName.BROADCAST_START_PLAYER_TURN),
-    map((value) => value.data),
-  );
-}
-
-function broadcastEndGame(subject: WebSocketSubject<Message>): Observable<EndGameData> {
-  return subject.pipe(
-    ofType<BroadcastEndGame>(MessageName.BROADCAST_END_GAME),
-    map((value) => value.data),
-  );
-}
-
-function broadcastGameError(subject: WebSocketSubject<Message>): Observable<Error> {
-  return subject.pipe(
-    ofType<BroadcastGameError>(MessageName.BROADCAST_GAME_ERROR),
-    map((value) => value.data),
-  );
-}
-
-function availableCards(subject: WebSocketSubject<Message>): Observable<Card[]> {
-  return subject.pipe(
-    ofType<AvailableCards>(MessageName.AVAILABLE_CARDS),
-    map((value) => value.data),
-  );
-}
-
-export default function create(subject: WebSocketSubject<Message>): ServerApi {
+export function createApi(subject: WebSocketSubject<Message>): ServerApi {
   return {
-    startGame: startGame.bind(null, subject),
-    broadcastStartGame: broadcastStartGame.bind(null, subject),
-    dealtCards: dealtCards.bind(null, subject),
-    requestCards: requestCards.bind(null, subject),
-    playCards: playCards.bind(null, subject),
-    broadcastPlayerTurn: broadcastPlayerTurn.bind(null, subject),
-    broadcastPlayerTurnError: broadcastPlayerTurnError.bind(null, subject),
-    broadcastStartRound: broadcastStartRound.bind(null, subject),
-    broadcastEndRound: broadcastEndRound.bind(null, subject),
-    broadcastStartCycle: broadcastStartCycle.bind(null, subject),
-    broadcastEndCycle: broadcastEndCycle.bind(null, subject),
-    broadcastStartPlayerTurn: broadcastStartPlayerTurn.bind(null, subject),
-    broadcastEndGame: broadcastEndGame.bind(null, subject),
-    broadcastGameError: broadcastGameError.bind(null, subject),
-    availableCards: availableCards.bind(null, subject),
+    sendStartGame: sendStartGame.bind(null, subject),
+    sendPlayCards: sendPlayCards.bind(null, subject),
   };
 }
