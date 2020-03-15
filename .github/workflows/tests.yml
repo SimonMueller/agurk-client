@@ -1,4 +1,4 @@
-name: Node CI
+name: Tests
 
 on: [push]
 
@@ -18,7 +18,7 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v1
       with:
-        version: ${{ matrix.node_version }}
+        node-version: ${{ matrix.node_version }}
 
     - name: npm install
       run: npm ci
