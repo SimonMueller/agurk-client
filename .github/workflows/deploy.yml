@@ -5,22 +5,22 @@ on.push.branches: [master]
 jobs:
   deploy:
     name: Deploy to GitHub Pages
-      runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
 
-      steps:
-        - name: Checkout
-          uses: actions/checkout@v2
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+
+      - name: install ssh client
+        uses: webfactory/ssh-agent@v0.2.0
+        with:
+          ssh-private-key: ${{ secrets.DEPLOY_KEY }}
+
+      - name: deploy
+        uses: JamesIves/github-pages-deploy-action@releases/v3
           with:
-            persist-credentials: false
-
-        - name: install ssh client
-          uses: webfactory/ssh-agent@v0.2.0
-          with:
-            ssh-private-key: ${{ secrets.DEPLOY_KEY }}
-
-        - name: deploy
-          uses: JamesIves/github-pages-deploy-action@releases/v3
-            with:
-              SSH: true
-              BRANCH: master
-              FOLDER: build
+            SSH: true
+            BRANCH: master
+            FOLDER: build
