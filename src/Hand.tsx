@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, cardEquals } from 'agurk-shared';
-import SelectableCardList from './SelectableCardList';
+import SelectableCardList, { SelectableCard } from './SelectableCardList';
 
 interface HandProps {
   playCards: (cards: Card[]) => void;
@@ -20,27 +20,30 @@ function PlayTurn({ playSelectedCards }: PlayTurnProps) {
 }
 
 export default function Hand({ playCards, cardsInHand }: HandProps) {
-  const [selectedCards, setSelectedCards] = useState<Card[]>([]);
+  const [selectableCards, setSelectableCards] = useState<SelectableCard[]>([]);
+
+  useEffect(() => {
+    const cards = cardsInHand.map((card) => ({ ...card, isSelected: false }));
+    setSelectableCards(cards);
+  }, [cardsInHand]);
 
   function playSelectedCards() {
+    const selectedCards = selectableCards
+      .filter((card) => card.isSelected);
     playCards(selectedCards);
-    setSelectedCards([]);
   }
-  function handleCardSelect(clicked: Card) {
-    const alreadySelected = selectedCards.some((current) => cardEquals(current, clicked));
 
-    if (alreadySelected) {
-      setSelectedCards(selectedCards.filter((current) => !cardEquals(current, clicked)));
-    } else {
-      setSelectedCards([...selectedCards, clicked]);
-    }
+  function handleCardSelect(clicked: Card) {
+    setSelectableCards(selectableCards.map((card) => (cardEquals(card, clicked)
+      ? { ...card, isSelected: !card.isSelected }
+      : card)));
   }
 
   return (
     <div>
       <h2>Hand</h2>
 
-      <SelectableCardList cards={cardsInHand} handleSelect={handleCardSelect} />
+      <SelectableCardList cards={selectableCards} handleSelect={handleCardSelect} />
 
       { <PlayTurn playSelectedCards={playSelectedCards} />}
     </div>
