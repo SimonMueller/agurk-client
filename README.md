@@ -1,6 +1,5 @@
 ![](https://github.com/SimonMueller/agurk-client/workflows/Node%20CI/badge.svg)
-[![Greenkeeper badge](https://badges.greenkeeper.io/SimonMueller/agurk-client.svg)](https://greenkeeper.io/)
-
+[![Known Vulnerabilities](https://snyk.io/test/github/SimonMueller/agurk-client/badge.svg?targetFile=package.json)](https://snyk.io/test/github/SimonMueller/agurk-client?targetFile=package.json)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
