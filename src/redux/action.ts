@@ -14,6 +14,7 @@ export const START_CYCLE = 'START_CYCLE';
 export const END_CYCLE = 'END_CYCLE';
 export const REQUEST_CARDS = 'REQUEST_CARDS';
 export const START_PLAYER_TURN = 'START_PLAYER_TURN';
+export const RESET_GAME = 'RESET_GAME';
 
 interface StartGameAction extends Action<typeof START_GAME> {
   readonly playerIds: PlayerId[];
@@ -60,14 +61,22 @@ interface EndCycleAction extends Action<typeof END_CYCLE>{
 
 interface RequestCardsAction extends Action<typeof REQUEST_CARDS>{}
 
+interface ResetGameAction extends Action<typeof RESET_GAME>{}
+
 export type GameAction = StartGameAction | EndGameSuccessAction | EndGameErrorAction | SetCardsInHandAction |
   AddPlayerTurnAction | StartRoundAction | EndRoundAction | StartCycleAction | EndCycleAction | RequestCardsAction |
-  StartPlayerTurnAction;
+  StartPlayerTurnAction | ResetGameAction;
 
 export function startGame(playerIds: PlayerId[]): GameAction {
   return {
     type: START_GAME,
     playerIds,
+  };
+}
+
+export function resetGame(): GameAction {
+  return {
+    type: RESET_GAME,
   };
 }
 

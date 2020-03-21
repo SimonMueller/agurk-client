@@ -9,6 +9,7 @@ import {
   END_ROUND,
   GameAction,
   REQUEST_CARDS,
+  RESET_GAME,
   SET_CARDS_IN_HAND,
   START_CYCLE,
   START_GAME,
@@ -78,16 +79,25 @@ export default function reducer(state: GameState = INITIAL_STATE, action: GameAc
         players: state.players.map((player) => ({
           ...player,
           isGameWinner: player.id === action.winner,
+          isServerRequestingCards: false,
         })),
         cardsInHand: [],
         validatedTurns: [],
+      };
+    case RESET_GAME:
+      return {
+        ...state,
+        cardsInHand: [],
+        validatedTurns: [],
+        players: state.players.map((player) => ({
+          ...player,
+          isServerRequestingCards: false,
+        })),
       };
     case END_GAME_ERROR:
       return {
         ...state,
         isGameFinished: true,
-        cardsInHand: [],
-        validatedTurns: [],
       };
     case SET_CARDS_IN_HAND:
       return {

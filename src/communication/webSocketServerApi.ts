@@ -10,7 +10,7 @@ import {
   endGameError,
   endGameSuccess,
   endRound,
-  GameAction, requestCards, setAvailableCardsInHand,
+  GameAction, requestCards, resetGame, setAvailableCardsInHand,
   startCycle,
   startGame, startPlayerTurn,
   startRound,
@@ -35,9 +35,12 @@ export function dispatchServerMessageAsAction(message: Message, dispatch: (actio
     case MessageName.BROADCAST_START_GAME:
       return dispatch(startGame(message.data.players));
     case MessageName.BROADCAST_END_GAME:
-      return message.data.isValid
-        ? dispatch(endGameSuccess(message.data.winner))
-        : dispatch(endGameError(message.data.error));
+      if (message.data.isValid) {
+        dispatch(endGameSuccess(message.data.winner));
+      } else {
+        dispatch(endGameError(message.data.error));
+      }
+      return dispatch(resetGame());
     case MessageName.BROADCAST_START_ROUND:
       return dispatch(startRound(message.data.players));
     case MessageName.BROADCAST_END_ROUND:
