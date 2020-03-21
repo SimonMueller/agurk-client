@@ -1,11 +1,11 @@
 import {
-  Card, OutPlayer, Penalty, PlayerId, TurnError, ValidatedTurn,
+  Card, OutPlayer, Penalty, PlayerId, ValidatedTurn,
 } from 'agurk-shared';
 import {
   ADD_PLAYER_TURN,
-  ADD_PLAYER_TURN_ERROR,
   END_CYCLE,
-  END_GAME,
+  END_GAME_ERROR,
+  END_GAME_SUCCESS,
   END_ROUND,
   GameAction,
   REQUEST_CARDS,
@@ -29,7 +29,6 @@ export interface PlayerState {
 export interface GameState {
   isGameFinished: boolean;
   players: PlayerState[];
-  turnErrors: TurnError[];
   validatedTurns: ValidatedTurn[];
   cardsInHand: Card[];
 }
@@ -37,7 +36,6 @@ export interface GameState {
 const INITIAL_STATE: GameState = {
   isGameFinished: false,
   players: [],
-  turnErrors: [],
   validatedTurns: [],
   cardsInHand: [],
 };
@@ -73,7 +71,7 @@ export default function reducer(state: GameState = INITIAL_STATE, action: GameAc
           id: playerId,
         })),
       };
-    case END_GAME:
+    case END_GAME_SUCCESS:
       return {
         ...state,
         isGameFinished: true,
@@ -81,6 +79,15 @@ export default function reducer(state: GameState = INITIAL_STATE, action: GameAc
           ...player,
           isGameWinner: player.id === action.winner,
         })),
+        cardsInHand: [],
+        validatedTurns: [],
+      };
+    case END_GAME_ERROR:
+      return {
+        ...state,
+        isGameFinished: true,
+        cardsInHand: [],
+        validatedTurns: [],
       };
     case SET_CARDS_IN_HAND:
       return {
@@ -93,14 +100,6 @@ export default function reducer(state: GameState = INITIAL_STATE, action: GameAc
         validatedTurns: [
           ...state.validatedTurns,
           action.turn,
-        ],
-      };
-    case ADD_PLAYER_TURN_ERROR:
-      return {
-        ...state,
-        turnErrors: [
-          ...state.turnErrors,
-          action.error,
         ],
       };
     case START_ROUND:
@@ -122,7 +121,6 @@ export default function reducer(state: GameState = INITIAL_STATE, action: GameAc
       return {
         ...state,
         validatedTurns: [],
-        turnErrors: [],
       };
     case END_CYCLE:
       return {

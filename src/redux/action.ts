@@ -1,13 +1,13 @@
 import {
-  Card, OutPlayer, Penalty, PlayerId, TurnError, ValidatedTurn,
+  Card, OutPlayer, Penalty, PlayerId, ValidatedTurn, Error,
 } from 'agurk-shared';
 import { Action } from 'redux';
 
 export const START_GAME = 'START_GAME';
-export const END_GAME = 'END_GAME';
+export const END_GAME_SUCCESS = 'END_GAME_SUCCESS';
+export const END_GAME_ERROR = 'END_GAME_ERROR';
 export const SET_CARDS_IN_HAND = 'SET_CARDS_IN_HAND';
 export const ADD_PLAYER_TURN = 'ADD_PLAYER_TURN';
-export const ADD_PLAYER_TURN_ERROR = 'ADD_PLAYER_TURN_ERROR';
 export const START_ROUND = 'START_ROUND';
 export const END_ROUND = 'END_ROUND';
 export const START_CYCLE = 'START_CYCLE';
@@ -15,12 +15,16 @@ export const END_CYCLE = 'END_CYCLE';
 export const REQUEST_CARDS = 'REQUEST_CARDS';
 export const START_PLAYER_TURN = 'START_PLAYER_TURN';
 
-interface StartGameAction extends Action<typeof START_GAME>{
+interface StartGameAction extends Action<typeof START_GAME> {
   readonly playerIds: PlayerId[];
 }
 
-interface EndGameAction extends Action<typeof END_GAME>{
+interface EndGameSuccessAction extends Action<typeof END_GAME_SUCCESS>{
   readonly winner: PlayerId;
+}
+
+interface EndGameErrorAction extends Action<typeof END_GAME_ERROR>{
+  readonly error: Error;
 }
 
 interface SetCardsInHandAction extends Action<typeof SET_CARDS_IN_HAND>{
@@ -33,10 +37,6 @@ interface StartPlayerTurnAction extends Action<typeof START_PLAYER_TURN>{
 
 interface AddPlayerTurnAction extends Action<typeof ADD_PLAYER_TURN>{
   readonly turn: ValidatedTurn;
-}
-
-interface AddPlayerTurnErrorAction extends Action<typeof ADD_PLAYER_TURN_ERROR>{
-  readonly error: TurnError;
 }
 
 interface StartRoundAction extends Action<typeof START_ROUND>{
@@ -60,9 +60,9 @@ interface EndCycleAction extends Action<typeof END_CYCLE>{
 
 interface RequestCardsAction extends Action<typeof REQUEST_CARDS>{}
 
-export type GameAction = StartGameAction | EndGameAction | SetCardsInHandAction | AddPlayerTurnAction |
-  AddPlayerTurnErrorAction | StartRoundAction | EndRoundAction | StartCycleAction |
-  EndCycleAction | RequestCardsAction | StartPlayerTurnAction;
+export type GameAction = StartGameAction | EndGameSuccessAction | EndGameErrorAction | SetCardsInHandAction |
+  AddPlayerTurnAction | StartRoundAction | EndRoundAction | StartCycleAction | EndCycleAction | RequestCardsAction |
+  StartPlayerTurnAction;
 
 export function startGame(playerIds: PlayerId[]): GameAction {
   return {
@@ -71,9 +71,16 @@ export function startGame(playerIds: PlayerId[]): GameAction {
   };
 }
 
-export function endGame(winner: PlayerId): GameAction {
+export function endGameError(error: Error): GameAction {
   return {
-    type: END_GAME,
+    type: END_GAME_ERROR,
+    error,
+  };
+}
+
+export function endGameSuccess(winner: PlayerId): GameAction {
+  return {
+    type: END_GAME_SUCCESS,
     winner,
   };
 }
@@ -96,13 +103,6 @@ export function startPlayerTurn(playerId: PlayerId): GameAction {
   return {
     type: START_PLAYER_TURN,
     playerId,
-  };
-}
-
-export function addPlayerTurnError(error: TurnError): GameAction {
-  return {
-    type: ADD_PLAYER_TURN_ERROR,
-    error,
   };
 }
 

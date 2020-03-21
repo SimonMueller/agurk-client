@@ -5,9 +5,10 @@ import {
 } from 'agurk-shared';
 import { WebSocketSubject } from 'rxjs/webSocket';
 import {
-  addPlayerTurn, addPlayerTurnError,
+  addPlayerTurn,
   endCycle,
-  endGame,
+  endGameError,
+  endGameSuccess,
   endRound,
   GameAction, requestCards, setAvailableCardsInHand,
   startCycle,
@@ -34,7 +35,9 @@ export function dispatchServerMessageAsAction(message: Message, dispatch: (actio
     case MessageName.BROADCAST_START_GAME:
       return dispatch(startGame(message.data.players));
     case MessageName.BROADCAST_END_GAME:
-      return dispatch(endGame(message.data.winner));
+      return message.data.isValid
+        ? dispatch(endGameSuccess(message.data.winner))
+        : dispatch(endGameError(message.data.error));
     case MessageName.BROADCAST_START_ROUND:
       return dispatch(startRound(message.data.players));
     case MessageName.BROADCAST_END_ROUND:
@@ -45,8 +48,6 @@ export function dispatchServerMessageAsAction(message: Message, dispatch: (actio
       return dispatch(endCycle(message.data.outPlayers, message.data.highestTurnPlayers));
     case MessageName.BROADCAST_PLAYER_TURN:
       return dispatch(addPlayerTurn(message.data));
-    case MessageName.BROADCAST_PLAYER_TURN_ERROR:
-      return dispatch(addPlayerTurnError(message.data));
     case MessageName.AVAILABLE_CARDS_IN_HAND:
       return dispatch(setAvailableCardsInHand(message.data));
     case MessageName.REQUEST_CARDS:

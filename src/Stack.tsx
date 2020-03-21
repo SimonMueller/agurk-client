@@ -7,7 +7,8 @@ interface StackProps {
 }
 
 export default function Stack({ playedTurns }: StackProps) {
-  const playedCards = playedTurns.flatMap((turn) => turn.cards);
+  const validTurns = playedTurns.filter((turn) => turn.valid);
+  const playedCards = validTurns.flatMap((turn) => turn.cards);
 
   return (
     <div>
