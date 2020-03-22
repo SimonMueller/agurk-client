@@ -65,7 +65,7 @@ function Home({ isAuthenticated, authenticate }: Props) {
 
         <input type="submit" value="Submit" />
       </form>
-      { isAuthenticated && <Redirect to="/lobby" /> }
+      { isAuthenticated && <Redirect to="/game" /> }
     </div>
   );
 }
