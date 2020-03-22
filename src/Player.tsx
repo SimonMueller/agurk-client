@@ -1,15 +1,16 @@
 import React from 'react';
-import { PlayerId } from 'agurk-shared';
+import { PlayerState } from './redux/reducers';
 
 interface PlayerProps {
-  playerId: PlayerId;
+  player: PlayerState;
 }
 
-export default function Player({ playerId }: PlayerProps) {
+export default function Player({ player }: PlayerProps) {
   return (
     <div>
       <p>
-        { playerId }
+        { player.isServerRequestingCards && <span>--&gt;</span> }
+        { player.id }
       </p>
     </div>
   );

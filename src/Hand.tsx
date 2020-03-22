@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Observable } from 'rxjs';
 import { Card, cardEquals } from 'agurk-shared';
 import SelectableCardList, { SelectableCard } from './SelectableCardList';
 
 interface HandProps {
-  requestCards: () => Observable<void>;
   playCards: (cards: Card[]) => void;
+  cardsInHand: Card[];
 }
 
 interface PlayTurnProps {
@@ -15,50 +14,38 @@ interface PlayTurnProps {
 function PlayTurn({ playSelectedCards }: PlayTurnProps) {
   return (
     <div>
-      <p><b>It is your turn...</b></p>
       <button type="button" onClick={playSelectedCards}>Play Cards</button>
     </div>
   );
 }
 
-export default function Hand({ requestCards, playCards }: HandProps) {
-  const [cardsInHand, setCardsInHand] = useState<SelectableCard[]>([]);
-  const [isYourTurn, setIsYourTurn] = useState<boolean>(false);
-
-  function playSelectedCards() {
-    const selectedCards = cardsInHand.filter((card) => card.isSelected);
-    const otherCards = cardsInHand.filter((card) => !card.isSelected);
-    playCards(selectedCards);
-    setIsYourTurn(false);
-    setCardsInHand(otherCards);
-  }
-
-  function handleCardSelect(clicked: SelectableCard) {
-    const updatedCardsInHand = cardsInHand.map((current) => {
-      if (!cardEquals(clicked, current)) {
-        return current;
-      }
-      return {
-        ...current,
-        isSelected: !current.isSelected,
-      };
-    });
-
-    setCardsInHand(updatedCardsInHand);
-  }
+export default function Hand({ playCards, cardsInHand }: HandProps) {
+  const [selectableCards, setSelectableCards] = useState<SelectableCard[]>([]);
 
   useEffect(() => {
-    const subscription = requestCards().subscribe(() => setIsYourTurn(true));
-    return () => subscription.unsubscribe();
-  });
+    const cards = cardsInHand.map((card) => ({ ...card, isSelected: false }));
+    setSelectableCards(cards);
+  }, [cardsInHand]);
+
+  function playSelectedCards() {
+    const selectedCards = selectableCards
+      .filter((card) => card.isSelected);
+    playCards(selectedCards);
+  }
+
+  function handleCardSelect(clicked: Card) {
+    setSelectableCards(selectableCards.map((card) => (cardEquals(card, clicked)
+      ? { ...card, isSelected: !card.isSelected }
+      : card)));
+  }
 
   return (
     <div>
       <h2>Hand</h2>
 
-      <SelectableCardList cards={cardsInHand} handleSelect={handleCardSelect} />
+      <SelectableCardList cards={selectableCards} handleSelect={handleCardSelect} />
 
-      { isYourTurn && <PlayTurn playSelectedCards={playSelectedCards} />}
+      { <PlayTurn playSelectedCards={playSelectedCards} />}
     </div>
   );
 }

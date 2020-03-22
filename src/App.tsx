@@ -1,23 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { Message } from 'agurk-shared';
-import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
+import React from 'react';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
-import Game from './Game';
-import createServerApi from './communication/serverApi';
-
-const WS_SERVER_URI = 'ws://localhost:3001';
+import Lobby from './Lobby';
+import AuthenticatedRoute from './AuthenticatedRoute';
+import Home from './Home';
 
 export default function App() {
-  const [subject] = useState<WebSocketSubject<Message>>(webSocket(WS_SERVER_URI));
-
-  useEffect(() => {
-    subject.subscribe();
-    return () => subject.complete();
-  }, [subject]);
-
-  const serverApi = createServerApi(subject);
-
   return (
     <div className="App">
       <header className="App-header">
@@ -25,7 +14,16 @@ export default function App() {
       </header>
 
       <main>
-        <Game serverApi={serverApi} />
+        <Router>
+          <Switch>
+            <AuthenticatedRoute path="/game">
+              <Lobby />
+            </AuthenticatedRoute>
+            <Route path="/">
+              <Home />
+            </Route>
+          </Switch>
+        </Router>
       </main>
     </div>
   );

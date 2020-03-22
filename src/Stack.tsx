@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
-import { Card } from 'agurk-shared';
+import React from 'react';
+import { ValidatedTurn } from 'agurk-shared';
 import CardList from './CardList';
 
-export default function Stack() {
-  const [playedCards] = useState<Card[]>([]);
+interface StackProps {
+  playedTurns: ValidatedTurn[];
+}
+
+export default function Stack({ playedTurns }: StackProps) {
+  const validTurns = playedTurns.filter((turn) => turn.valid);
+  const playedCards = validTurns.flatMap((turn) => turn.cards);
 
   return (
     <div>

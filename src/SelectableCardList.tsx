@@ -6,11 +6,11 @@ interface Selectable {
   isSelected: boolean;
 }
 
-export type SelectableCard = CardData & Selectable;
+export type SelectableCard = Selectable & CardData;
 
 interface CardListProps {
   cards: SelectableCard[];
-  handleSelect: (card: SelectableCard) => void;
+  handleSelect: (card: CardData) => void;
 }
 
 export default function CardList({ cards, handleSelect }: CardListProps) {
