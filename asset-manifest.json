@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/agurk-client/static/css/main.baf2526e.chunk.css",
-    "main.js": "/agurk-client/static/js/main.f9e9fec1.chunk.js",
-    "main.js.map": "/agurk-client/static/js/main.f9e9fec1.chunk.js.map",
+    "main.js": "/agurk-client/static/js/main.9b59c247.chunk.js",
+    "main.js.map": "/agurk-client/static/js/main.9b59c247.chunk.js.map",
     "runtime-main.js": "/agurk-client/static/js/runtime-main.1037f6ee.js",
     "runtime-main.js.map": "/agurk-client/static/js/runtime-main.1037f6ee.js.map",
     "static/js/2.4745ad03.chunk.js": "/agurk-client/static/js/2.4745ad03.chunk.js",
     "static/js/2.4745ad03.chunk.js.map": "/agurk-client/static/js/2.4745ad03.chunk.js.map",
     "index.html": "/agurk-client/index.html",
-    "precache-manifest.69ba958b6e57c3eeed976b79b0e043fc.js": "/agurk-client/precache-manifest.69ba958b6e57c3eeed976b79b0e043fc.js",
+    "precache-manifest.673b275a023671d057c3856ce04db83d.js": "/agurk-client/precache-manifest.673b275a023671d057c3856ce04db83d.js",
     "service-worker.js": "/agurk-client/service-worker.js",
     "static/css/main.baf2526e.chunk.css.map": "/agurk-client/static/css/main.baf2526e.chunk.css.map",
     "static/js/2.4745ad03.chunk.js.LICENSE.txt": "/agurk-client/static/js/2.4745ad03.chunk.js.LICENSE.txt",
@@ -18,6 +18,6 @@
     "static/js/runtime-main.1037f6ee.js",
     "static/js/2.4745ad03.chunk.js",
     "static/css/main.baf2526e.chunk.css",
-    "static/js/main.f9e9fec1.chunk.js"
+    "static/js/main.9b59c247.chunk.js"
   ]
 }
