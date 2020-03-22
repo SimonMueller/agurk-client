@@ -3,6 +3,7 @@ import {
 } from 'agurk-shared';
 import {
   ADD_PLAYER_TURN,
+  AUTHENTICATE_WITH_TOKEN,
   END_CYCLE,
   END_GAME_ERROR,
   END_GAME_SUCCESS,
@@ -28,6 +29,10 @@ export interface PlayerState {
 }
 
 export interface GameState {
+  authentication: {
+    isAuthenticated: boolean,
+    jwt: string,
+  },
   isGameFinished: boolean;
   players: PlayerState[];
   validatedTurns: ValidatedTurn[];
@@ -35,6 +40,10 @@ export interface GameState {
 }
 
 const INITIAL_STATE: GameState = {
+  authentication: {
+    isAuthenticated: false,
+    jwt: '',
+  },
   isGameFinished: false,
   players: [],
   validatedTurns: [],
@@ -143,6 +152,14 @@ export default function reducer(state: GameState = INITIAL_STATE, action: GameAc
       };
     case REQUEST_CARDS:
       return state;
+    case AUTHENTICATE_WITH_TOKEN:
+      return {
+        ...state,
+        authentication: {
+          isAuthenticated: true,
+          jwt: action.jwt,
+        },
+      };
     case START_PLAYER_TURN:
       return {
         ...state,

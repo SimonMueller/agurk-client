@@ -16,9 +16,13 @@ import {
   startRound,
 } from '../redux/action';
 
-export interface WebSocketServerApi {
+export interface WebSocketGameApi {
   sendStartGame: () => void;
   sendPlayCards: (cards: Card[]) => void;
+}
+
+export interface WebSocketAuthenticationApi {
+  sendAuthenticate: (jwt: string) => void;
 }
 
 function sendStartGame(subject: WebSocketSubject<Message>): void {
@@ -29,7 +33,11 @@ function sendPlayCards(subject: WebSocketSubject<Message>, cards: Card[]): void 
   return subject.next({ name: MessageName.PLAY_CARDS, data: cards });
 }
 
-export function dispatchServerMessageAsAction(message: Message, dispatch: (action: GameAction) => void) {
+function sendAuthenticate(subject: WebSocketSubject<Message>, jwt: string): void {
+  return subject.next({ name: MessageName.AUTHENTICATE, data: jwt });
+}
+
+export function dispatchWebSocketMessageAsActions(message: Message, dispatch: (action: GameAction) => void) {
   // eslint-disable-next-line default-case
   switch (message.name) {
     case MessageName.BROADCAST_START_GAME:
@@ -60,9 +68,15 @@ export function dispatchServerMessageAsAction(message: Message, dispatch: (actio
   }
 }
 
-export function createApi(subject: WebSocketSubject<Message>): WebSocketServerApi {
+export function createGameApi(subject: WebSocketSubject<Message>): WebSocketGameApi {
   return {
     sendStartGame: sendStartGame.bind(null, subject),
     sendPlayCards: sendPlayCards.bind(null, subject),
+  };
+}
+
+export function createAuthenticationApi(subject: WebSocketSubject<Message>): WebSocketAuthenticationApi {
+  return {
+    sendAuthenticate: sendAuthenticate.bind(null, subject),
   };
 }

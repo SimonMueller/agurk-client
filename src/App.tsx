@@ -1,30 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { Message } from 'agurk-shared';
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
+import React from 'react';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
-import Game from './Game';
-import {
-  dispatchServerMessageAsAction, createApi as createWebSocketServerApi,
-} from './communication/webSocketServerApi';
-import reducer from './redux/reducers';
-
-const WSS_SERVER_URI = process.env.REACT_APP_WSS_SERVER_URI as string;
-
-const store = createStore(reducer);
+import Lobby from './Lobby';
+import AuthenticatedRoute from './AuthenticatedRoute';
+import Home from './Home';
 
 export default function App() {
-  const [subject] = useState<WebSocketSubject<Message>>(webSocket(WSS_SERVER_URI));
-
-  useEffect(() => {
-    subject.subscribe((message) => dispatchServerMessageAsAction(message, store.dispatch));
-    return () => subject.complete();
-  }, [subject]);
-
-  const webSocketServerApi = createWebSocketServerApi(subject);
-
   return (
     <div className="App">
       <header className="App-header">
@@ -32,9 +14,16 @@ export default function App() {
       </header>
 
       <main>
-        <Provider store={store}>
-          <Game serverApi={webSocketServerApi} />
-        </Provider>
+        <Router>
+          <Switch>
+            <AuthenticatedRoute path="/game">
+              <Lobby />
+            </AuthenticatedRoute>
+            <Route path="/">
+              <Home />
+            </Route>
+          </Switch>
+        </Router>
       </main>
     </div>
   );

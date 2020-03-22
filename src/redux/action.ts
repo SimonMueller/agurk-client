@@ -15,6 +15,7 @@ export const END_CYCLE = 'END_CYCLE';
 export const REQUEST_CARDS = 'REQUEST_CARDS';
 export const START_PLAYER_TURN = 'START_PLAYER_TURN';
 export const RESET_GAME = 'RESET_GAME';
+export const AUTHENTICATE_WITH_TOKEN = 'AUTHENTICATE_WITH_TOKEN';
 
 interface StartGameAction extends Action<typeof START_GAME> {
   readonly playerIds: PlayerId[];
@@ -63,9 +64,20 @@ interface RequestCardsAction extends Action<typeof REQUEST_CARDS>{}
 
 interface ResetGameAction extends Action<typeof RESET_GAME>{}
 
+interface AuthenticateWithTokenAction extends Action<typeof AUTHENTICATE_WITH_TOKEN>{
+  readonly jwt: string;
+}
+
 export type GameAction = StartGameAction | EndGameSuccessAction | EndGameErrorAction | SetCardsInHandAction |
   AddPlayerTurnAction | StartRoundAction | EndRoundAction | StartCycleAction | EndCycleAction | RequestCardsAction |
-  StartPlayerTurnAction | ResetGameAction;
+  StartPlayerTurnAction | ResetGameAction | AuthenticateWithTokenAction;
+
+export function authenticateWithToken(jwt: string): GameAction {
+  return {
+    type: AUTHENTICATE_WITH_TOKEN,
+    jwt,
+  };
+}
 
 export function startGame(playerIds: PlayerId[]): GameAction {
   return {

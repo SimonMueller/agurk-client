@@ -4,11 +4,11 @@ import { Card, ValidatedTurn } from 'agurk-shared';
 import Hand from './Hand';
 import Players from './Players';
 import Stack from './Stack';
-import { WebSocketServerApi } from './communication/webSocketServerApi';
 import { PlayerState, GameState } from './redux/reducers';
+import { WebSocketGameApi } from './communication/webSocketServerApi';
 
 interface GameProps {
-  serverApi: WebSocketServerApi;
+  serverApi: WebSocketGameApi;
   players: PlayerState[];
   playedTurns: ValidatedTurn[];
   cardsInHand: Card[];
@@ -35,7 +35,7 @@ function Game({
   );
 }
 
-const mapStateToProps = (state: GameState, ownProps: { serverApi: WebSocketServerApi }) => ({
+const mapStateToProps = (state: GameState, ownProps: { serverApi: WebSocketGameApi }) => ({
   playCards: ownProps.serverApi.sendPlayCards,
   startGame: ownProps.serverApi.sendStartGame,
   cardsInHand: state.cardsInHand,
