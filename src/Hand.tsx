@@ -29,10 +29,8 @@ export default function Hand({ playCards, cardsInHand, isServerRequestingCards }
   }, [cardsInHand]);
 
   function playSelectedCards() {
-    if (isServerRequestingCards) {
-      const selectedCards = selectableCards.filter((card) => card.isSelected);
-      playCards(selectedCards);
-    }
+    const selectedCards = selectableCards.filter((card) => card.isSelected);
+    playCards(selectedCards);
   }
 
   function handleCardSelect(clicked: Card) {
@@ -46,7 +44,7 @@ export default function Hand({ playCards, cardsInHand, isServerRequestingCards }
       <h2>Hand</h2>
 
       <SelectableCardList cards={selectableCards} handleSelect={handleCardSelect} />
-      <PlayTurn playSelectedCards={playSelectedCards} />
+      { isServerRequestingCards && <PlayTurn playSelectedCards={playSelectedCards} /> }
     </div>
   );
 }

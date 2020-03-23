@@ -1,5 +1,5 @@
 import {
-  Card, cardEquals, OutPlayer, Penalty, PlayerId, ValidatedTurn,
+  Card, cardEquals, JwtPayload, OutPlayer, Penalty, PlayerId, ValidatedTurn,
 } from 'agurk-shared';
 import jwtDecode from 'jwt-decode';
 import {
@@ -185,7 +185,7 @@ export default function reducer(state: GameState = INITIAL_STATE, action: GameAc
       return {
         ...state,
         authentication: {
-          subject: (jwtDecode(action.jwt) as { sub: string }).sub,
+          subject: (jwtDecode(action.jwt) as JwtPayload).sub,
           isAuthenticated: true,
           token: action.jwt,
         },
