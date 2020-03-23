@@ -1,23 +1,23 @@
 {
   "files": {
     "main.css": "/agurk-client/static/css/main.baf2526e.chunk.css",
-    "main.js": "/agurk-client/static/js/main.b2785adc.chunk.js",
-    "main.js.map": "/agurk-client/static/js/main.b2785adc.chunk.js.map",
+    "main.js": "/agurk-client/static/js/main.7464437e.chunk.js",
+    "main.js.map": "/agurk-client/static/js/main.7464437e.chunk.js.map",
     "runtime-main.js": "/agurk-client/static/js/runtime-main.1037f6ee.js",
     "runtime-main.js.map": "/agurk-client/static/js/runtime-main.1037f6ee.js.map",
-    "static/js/2.4745ad03.chunk.js": "/agurk-client/static/js/2.4745ad03.chunk.js",
-    "static/js/2.4745ad03.chunk.js.map": "/agurk-client/static/js/2.4745ad03.chunk.js.map",
+    "static/js/2.e2f1ff68.chunk.js": "/agurk-client/static/js/2.e2f1ff68.chunk.js",
+    "static/js/2.e2f1ff68.chunk.js.map": "/agurk-client/static/js/2.e2f1ff68.chunk.js.map",
     "index.html": "/agurk-client/index.html",
-    "precache-manifest.9b64090205e383099a531196b79efbc3.js": "/agurk-client/precache-manifest.9b64090205e383099a531196b79efbc3.js",
+    "precache-manifest.90a2478392dae52c73ac0ede66241d08.js": "/agurk-client/precache-manifest.90a2478392dae52c73ac0ede66241d08.js",
     "service-worker.js": "/agurk-client/service-worker.js",
     "static/css/main.baf2526e.chunk.css.map": "/agurk-client/static/css/main.baf2526e.chunk.css.map",
-    "static/js/2.4745ad03.chunk.js.LICENSE.txt": "/agurk-client/static/js/2.4745ad03.chunk.js.LICENSE.txt",
+    "static/js/2.e2f1ff68.chunk.js.LICENSE.txt": "/agurk-client/static/js/2.e2f1ff68.chunk.js.LICENSE.txt",
     "static/media/logo.svg": "/agurk-client/static/media/logo.25bf045c.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.1037f6ee.js",
-    "static/js/2.4745ad03.chunk.js",
+    "static/js/2.e2f1ff68.chunk.js",
     "static/css/main.baf2526e.chunk.css",
-    "static/js/main.b2785adc.chunk.js"
+    "static/js/main.7464437e.chunk.js"
   ]
 }
