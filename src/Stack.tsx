@@ -2,11 +2,11 @@ import React from 'react';
 import { ValidatedTurn } from 'agurk-shared';
 import CardList from './CardList';
 
-interface StackProps {
+interface Props {
   playedTurns: ValidatedTurn[];
 }
 
-export default function Stack({ playedTurns }: StackProps) {
+export default function Stack({ playedTurns }: Props) {
   const validTurns = playedTurns.filter((turn) => turn.valid);
   const playedCards = validTurns.flatMap((turn) => turn.cards);
 

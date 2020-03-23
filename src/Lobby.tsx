@@ -13,13 +13,15 @@ import { GameState } from './redux/reducers';
 
 const WSS_SERVER_URI = process.env.REACT_APP_WSS_SERVER_URI as string;
 
-interface AppProps {
+interface Props {
   dispatch: (action: Action) => void;
   authenticationToken: string;
+  isGameStarted: boolean;
 }
 
-function Lobby({ dispatch, authenticationToken }: AppProps) {
+function Lobby({ dispatch, authenticationToken, isGameStarted }: Props) {
   const [subject] = useState<WebSocketSubject<Message>>(webSocket(WSS_SERVER_URI));
+  const gameApi = createGameApi(subject);
 
   useEffect(() => {
     subject.subscribe((message) => dispatchWebSocketMessageAsActions(message, dispatch));
@@ -38,13 +40,18 @@ function Lobby({ dispatch, authenticationToken }: AppProps) {
 
   return (
     <div className="Lobby">
-      <Game serverApi={createGameApi(subject)} />
+      <h1>Agurk</h1>
+
+      { isGameStarted
+        ? <Game serverApi={gameApi} />
+        : <button type="button" onClick={gameApi.sendStartGame}>Start Game</button> }
     </div>
   );
 }
 
 const mapStateToProps = (state: GameState) => ({
-  authenticationToken: state.authentication.jwt,
+  isGameStarted: state.game.isRunning,
+  authenticationToken: state.authentication.token,
 });
 
 export default connect(mapStateToProps)(Lobby);

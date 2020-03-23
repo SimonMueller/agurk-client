@@ -1,11 +1,11 @@
 import React from 'react';
 import { PlayerState } from './redux/reducers';
 
-interface PlayerProps {
+interface Props {
   player: PlayerState;
 }
 
-export default function Player({ player }: PlayerProps) {
+export default function Player({ player }: Props) {
   return (
     <div>
       <p>

@@ -8,12 +8,12 @@ interface Selectable {
 
 export type SelectableCard = Selectable & CardData;
 
-interface CardListProps {
+interface Props {
   cards: SelectableCard[];
   handleSelect: (card: CardData) => void;
 }
 
-export default function CardList({ cards, handleSelect }: CardListProps) {
+export default function CardList({ cards, handleSelect }: Props) {
   const cardItems = cards.map((card) => (
     <li key={generateKey(card)}>
       <input type="checkbox" checked={card.isSelected} onChange={() => handleSelect(card)} />

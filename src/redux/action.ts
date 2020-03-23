@@ -4,6 +4,7 @@ import {
 import { Action } from 'redux';
 
 export const START_GAME = 'START_GAME';
+export const PLAY_CARDS = 'PLAY_CARDS';
 export const END_GAME_SUCCESS = 'END_GAME_SUCCESS';
 export const END_GAME_ERROR = 'END_GAME_ERROR';
 export const SET_CARDS_IN_HAND = 'SET_CARDS_IN_HAND';
@@ -30,6 +31,10 @@ interface EndGameErrorAction extends Action<typeof END_GAME_ERROR>{
 }
 
 interface SetCardsInHandAction extends Action<typeof SET_CARDS_IN_HAND>{
+  readonly cards: Card[];
+}
+
+interface PlayCardsAction extends Action<typeof PLAY_CARDS>{
   readonly cards: Card[];
 }
 
@@ -70,7 +75,7 @@ interface AuthenticateWithTokenAction extends Action<typeof AUTHENTICATE_WITH_TO
 
 export type GameAction = StartGameAction | EndGameSuccessAction | EndGameErrorAction | SetCardsInHandAction |
   AddPlayerTurnAction | StartRoundAction | EndRoundAction | StartCycleAction | EndCycleAction | RequestCardsAction |
-  StartPlayerTurnAction | ResetGameAction | AuthenticateWithTokenAction;
+  StartPlayerTurnAction | ResetGameAction | AuthenticateWithTokenAction | PlayCardsAction;
 
 export function authenticateWithToken(jwt: string): GameAction {
   return {
@@ -109,6 +114,13 @@ export function endGameSuccess(winner: PlayerId): GameAction {
 export function setAvailableCardsInHand(cards: Card[]): GameAction {
   return {
     type: SET_CARDS_IN_HAND,
+    cards,
+  };
+}
+
+export function playCards(cards: Card[]): GameAction {
+  return {
+    type: PLAY_CARDS,
     cards,
   };
 }

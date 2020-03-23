@@ -1,12 +1,16 @@
 import React from 'react';
-import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+import { connect } from 'react-redux';
 import logo from './logo.svg';
 import './App.css';
 import Lobby from './Lobby';
-import AuthenticatedRoute from './AuthenticatedRoute';
-import Home from './Home';
+import { GameState } from './redux/reducers';
+import Authenticate from './Authenticate';
 
-export default function App() {
+interface Props {
+  isAuthenticated: boolean;
+}
+
+function App({ isAuthenticated }: Props) {
   return (
     <div className="App">
       <header className="App-header">
@@ -14,17 +18,14 @@ export default function App() {
       </header>
 
       <main>
-        <Router>
-          <Switch>
-            <AuthenticatedRoute path="/game">
-              <Lobby />
-            </AuthenticatedRoute>
-            <Route path="/">
-              <Home />
-            </Route>
-          </Switch>
-        </Router>
+        { isAuthenticated ? <Lobby /> : <Authenticate /> }
       </main>
     </div>
   );
 }
+
+const mapStateToProps = (state: GameState) => ({
+  isAuthenticated: state.authentication.isAuthenticated,
+});
+
+export default connect(mapStateToProps)(App);

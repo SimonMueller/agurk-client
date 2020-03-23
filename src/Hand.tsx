@@ -5,6 +5,7 @@ import SelectableCardList, { SelectableCard } from './SelectableCardList';
 interface HandProps {
   playCards: (cards: Card[]) => void;
   cardsInHand: Card[];
+  isServerRequestingCards: boolean;
 }
 
 interface PlayTurnProps {
@@ -19,7 +20,7 @@ function PlayTurn({ playSelectedCards }: PlayTurnProps) {
   );
 }
 
-export default function Hand({ playCards, cardsInHand }: HandProps) {
+export default function Hand({ playCards, cardsInHand, isServerRequestingCards }: HandProps) {
   const [selectableCards, setSelectableCards] = useState<SelectableCard[]>([]);
 
   useEffect(() => {
@@ -28,9 +29,10 @@ export default function Hand({ playCards, cardsInHand }: HandProps) {
   }, [cardsInHand]);
 
   function playSelectedCards() {
-    const selectedCards = selectableCards
-      .filter((card) => card.isSelected);
-    playCards(selectedCards);
+    if (isServerRequestingCards) {
+      const selectedCards = selectableCards.filter((card) => card.isSelected);
+      playCards(selectedCards);
+    }
   }
 
   function handleCardSelect(clicked: Card) {
@@ -44,8 +46,7 @@ export default function Hand({ playCards, cardsInHand }: HandProps) {
       <h2>Hand</h2>
 
       <SelectableCardList cards={selectableCards} handleSelect={handleCardSelect} />
-
-      { <PlayTurn playSelectedCards={playSelectedCards} />}
+      <PlayTurn playSelectedCards={playSelectedCards} />
     </div>
   );
 }

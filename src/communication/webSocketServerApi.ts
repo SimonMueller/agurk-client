@@ -22,7 +22,7 @@ export interface WebSocketGameApi {
 }
 
 export interface WebSocketAuthenticationApi {
-  sendAuthenticate: (jwt: string) => void;
+  sendAuthenticate: (token: string) => void;
 }
 
 function sendStartGame(subject: WebSocketSubject<Message>): void {
@@ -33,8 +33,8 @@ function sendPlayCards(subject: WebSocketSubject<Message>, cards: Card[]): void 
   return subject.next({ name: MessageName.PLAY_CARDS, data: cards });
 }
 
-function sendAuthenticate(subject: WebSocketSubject<Message>, jwt: string): void {
-  return subject.next({ name: MessageName.AUTHENTICATE, data: jwt });
+function sendAuthenticate(subject: WebSocketSubject<Message>, token: string): void {
+  return subject.next({ name: MessageName.AUTHENTICATE, data: token });
 }
 
 export function dispatchWebSocketMessageAsActions(message: Message, dispatch: (action: GameAction) => void) {
