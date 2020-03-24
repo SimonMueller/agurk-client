@@ -83,6 +83,10 @@ function filterAvailableCardsAfterTurn(cardsInHand: Card[], turn: ValidatedTurn)
     .find((turnCard) => cardEquals(cardInHand, turnCard)) === undefined);
 }
 
+function extractSubjectFromToken(token: string) {
+  return (jwtDecode(token) as JwtPayload).sub;
+}
+
 export default function reducer(state: GameState = INITIAL_STATE, action: GameAction): GameState {
   switch (action.type) {
     case START_GAME:
@@ -193,7 +197,7 @@ export default function reducer(state: GameState = INITIAL_STATE, action: GameAc
       return {
         ...state,
         authentication: {
-          subject: (jwtDecode(action.jwt) as JwtPayload).sub,
+          subject: extractSubjectFromToken(action.jwt),
           isAuthenticated: true,
           token: action.jwt,
         },
