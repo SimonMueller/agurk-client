@@ -5,7 +5,7 @@ import { Action } from 'redux';
 import Hand from './Hand';
 import Players from './Players';
 import Stack from './Stack';
-import { PlayerState, GameState } from './redux/reducers';
+import { PlayerState, State } from './redux/reducers';
 import { WebSocketGameApi } from './communication/webSocketServerApi';
 
 interface Props {
@@ -32,7 +32,7 @@ function Game({
   );
 }
 
-const mapStateToProps = (state: GameState) => ({
+const mapStateToProps = (state: State) => ({
   cardsInHand: state.game.cardsInHand,
   players: state.game.players,
   playedTurns: state.game.validatedTurns,

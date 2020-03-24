@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Message, MessageName } from 'agurk-shared';
+import { Message, MessageName, PlayerId } from 'agurk-shared';
 import { connect } from 'react-redux';
 import { filter } from 'rxjs/operators';
 import { Action } from 'redux';
@@ -9,7 +9,8 @@ import Game from './Game';
 import {
   createAuthenticationApi, createGameApi, dispatchWebSocketMessageAsActions,
 } from './communication/webSocketServerApi';
-import { GameState } from './redux/reducers';
+import { State } from './redux/reducers';
+import PlayerIds from './PlayerIds';
 
 const WSS_SERVER_URI = process.env.REACT_APP_WSS_SERVER_URI as string;
 
@@ -17,9 +18,12 @@ interface Props {
   dispatch: (action: Action) => void;
   authenticationToken: string;
   isGameStarted: boolean;
+  players: PlayerId[];
 }
 
-function Lobby({ dispatch, authenticationToken, isGameStarted }: Props) {
+function Lobby({
+  dispatch, authenticationToken, isGameStarted, players,
+}: Props) {
   const [subject] = useState<WebSocketSubject<Message>>(webSocket(WSS_SERVER_URI));
   const gameApi = createGameApi(subject);
 
@@ -42,6 +46,8 @@ function Lobby({ dispatch, authenticationToken, isGameStarted }: Props) {
     <div className="Lobby">
       <h1>Agurk</h1>
 
+      <PlayerIds playerIds={players} />
+
       { isGameStarted
         ? <Game serverApi={gameApi} />
         : <button type="button" onClick={gameApi.sendStartGame}>Start Game</button> }
@@ -49,8 +55,9 @@ function Lobby({ dispatch, authenticationToken, isGameStarted }: Props) {
   );
 }
 
-const mapStateToProps = (state: GameState) => ({
+const mapStateToProps = (state: State) => ({
   isGameStarted: state.game.isRunning,
+  players: state.lobby.players,
   authenticationToken: state.authentication.token,
 });
 

@@ -3,6 +3,7 @@ import {
 } from 'agurk-shared';
 import { Action } from 'redux';
 
+export const SET_LOBBY_PLAYERS = 'SET_LOBBY_PLAYERS';
 export const START_GAME = 'START_GAME';
 export const END_GAME_SUCCESS = 'END_GAME_SUCCESS';
 export const END_GAME_ERROR = 'END_GAME_ERROR';
@@ -16,6 +17,10 @@ export const REQUEST_CARDS = 'REQUEST_CARDS';
 export const START_PLAYER_TURN = 'START_PLAYER_TURN';
 export const RESET_GAME = 'RESET_GAME';
 export const AUTHENTICATE_WITH_TOKEN = 'AUTHENTICATE_WITH_TOKEN';
+
+interface SetLobbyPlayersAction extends Action<typeof SET_LOBBY_PLAYERS> {
+  readonly playerIds: PlayerId[];
+}
 
 interface StartGameAction extends Action<typeof START_GAME> {
   readonly playerIds: PlayerId[];
@@ -70,12 +75,19 @@ interface AuthenticateWithTokenAction extends Action<typeof AUTHENTICATE_WITH_TO
 
 export type GameAction = StartGameAction | EndGameSuccessAction | EndGameErrorAction | SetCardsInHandAction |
   AddPlayerTurnAction | StartRoundAction | EndRoundAction | StartCycleAction | EndCycleAction | RequestCardsAction |
-  StartPlayerTurnAction | ResetGameAction | AuthenticateWithTokenAction;
+  StartPlayerTurnAction | ResetGameAction | AuthenticateWithTokenAction | SetLobbyPlayersAction;
 
 export function authenticateWithToken(jwt: string): GameAction {
   return {
     type: AUTHENTICATE_WITH_TOKEN,
     jwt,
+  };
+}
+
+export function setLobbyPlayers(playerIds: PlayerId[]): GameAction {
+  return {
+    type: SET_LOBBY_PLAYERS,
+    playerIds,
   };
 }
 

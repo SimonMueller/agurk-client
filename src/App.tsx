@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import logo from './logo.svg';
 import './App.css';
 import Lobby from './Lobby';
-import { GameState } from './redux/reducers';
+import { State } from './redux/reducers';
 import Authenticate from './Authenticate';
 
 interface Props {
@@ -24,7 +24,7 @@ function App({ isAuthenticated }: Props) {
   );
 }
 
-const mapStateToProps = (state: GameState) => ({
+const mapStateToProps = (state: State) => ({
   isAuthenticated: state.authentication.isAuthenticated,
 });
 

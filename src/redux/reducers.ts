@@ -13,6 +13,7 @@ import {
   REQUEST_CARDS,
   RESET_GAME,
   SET_CARDS_IN_HAND,
+  SET_LOBBY_PLAYERS,
   START_CYCLE,
   START_GAME,
   START_PLAYER_TURN,
@@ -29,11 +30,14 @@ export interface PlayerState {
   isServerRequestingCards: boolean;
 }
 
-export interface GameState {
+export interface State {
   authentication: {
     subject: PlayerId;
     isAuthenticated: boolean,
     token: string,
+  },
+  lobby: {
+    players: PlayerId[],
   },
   game: {
     isRunning: boolean;
@@ -43,11 +47,14 @@ export interface GameState {
   }
 }
 
-const INITIAL_STATE: GameState = {
+const INITIAL_STATE: State = {
   authentication: {
     subject: '',
     isAuthenticated: false,
     token: '',
+  },
+  lobby: {
+    players: [],
   },
   game: {
     isRunning: false,
@@ -87,8 +94,16 @@ function extractSubjectFromToken(token: string) {
   return (jwtDecode(token) as JwtPayload).sub;
 }
 
-export default function reducer(state: GameState = INITIAL_STATE, action: GameAction): GameState {
+export default function reducer(state: State = INITIAL_STATE, action: GameAction): State {
   switch (action.type) {
+    case SET_LOBBY_PLAYERS:
+      return {
+        ...state,
+        lobby: {
+          ...state.lobby,
+          players: action.playerIds,
+        },
+      };
     case START_GAME:
       return {
         ...state,

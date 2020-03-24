@@ -10,7 +10,11 @@ import {
   endGameError,
   endGameSuccess,
   endRound,
-  GameAction, requestCards, resetGame, setAvailableCardsInHand,
+  GameAction,
+  requestCards,
+  resetGame,
+  setAvailableCardsInHand,
+  setLobbyPlayers,
   startCycle,
   startGame, startPlayerTurn,
   startRound,
@@ -40,6 +44,8 @@ function sendAuthenticate(subject: WebSocketSubject<Message>, token: string): vo
 export function dispatchWebSocketMessageAsActions(message: Message, dispatch: (action: GameAction) => void) {
   // eslint-disable-next-line default-case
   switch (message.name) {
+    case MessageName.BROADCAST_LOBBY_PLAYERS:
+      return dispatch(setLobbyPlayers(message.data));
     case MessageName.BROADCAST_START_GAME:
       return dispatch(startGame(message.data.players));
     case MessageName.BROADCAST_END_GAME:
