@@ -9,7 +9,7 @@ import {
   END_GAME_ERROR,
   END_GAME_SUCCESS,
   END_ROUND,
-  GameAction, PLAY_CARDS,
+  GameAction,
   REQUEST_CARDS,
   RESET_GAME,
   SET_CARDS_IN_HAND,
@@ -74,8 +74,13 @@ function isPlayerWithIdOut(outPlayers: OutPlayer[], playerId: PlayerId) {
   return outPlayers.some((outPlayer) => outPlayer.id === playerId);
 }
 
-function isPlayerIdOneOfHighestTurnPlayers(highestTurnPlayerIds: PlayerId[], playeId: PlayerId) {
-  return highestTurnPlayerIds.some((playerId) => playerId === playeId);
+function isPlayerIdOneOfHighestTurnPlayers(highestTurnPlayerIds: PlayerId[], playerId: PlayerId) {
+  return highestTurnPlayerIds.some((highestTurnPlayerId) => highestTurnPlayerId === playerId);
+}
+
+function filterAvailableCardsAfterTurn(cardsInHand: Card[], turn: ValidatedTurn) {
+  return cardsInHand.filter((cardInHand) => turn.cards
+    .find((turnCard) => cardEquals(cardInHand, turnCard)) === undefined);
 }
 
 export default function reducer(state: GameState = INITIAL_STATE, action: GameAction): GameState {
@@ -139,6 +144,9 @@ export default function reducer(state: GameState = INITIAL_STATE, action: GameAc
             ...state.game.validatedTurns,
             action.turn,
           ],
+          cardsInHand: (action.turn.playerId === state.authentication.subject && action.turn.valid
+            ? filterAvailableCardsAfterTurn(state.game.cardsInHand, action.turn)
+            : state.game.cardsInHand),
         },
       };
     case START_ROUND:
@@ -199,15 +207,6 @@ export default function reducer(state: GameState = INITIAL_STATE, action: GameAc
             ...player,
             isServerRequestingCards: action.playerId === player.id,
           })),
-        },
-      };
-    case PLAY_CARDS:
-      return {
-        ...state,
-        game: {
-          ...state.game,
-          cardsInHand: state.game.cardsInHand
-            .filter((card) => action.cards.find((playedCard) => cardEquals(playedCard, card)) === undefined),
         },
       };
     default:

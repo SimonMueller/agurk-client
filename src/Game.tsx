@@ -7,7 +7,6 @@ import Players from './Players';
 import Stack from './Stack';
 import { PlayerState, GameState } from './redux/reducers';
 import { WebSocketGameApi } from './communication/webSocketServerApi';
-import { playCards as playCardsAction } from './redux/action';
 
 interface Props {
   players: PlayerState[];
@@ -41,10 +40,7 @@ const mapStateToProps = (state: GameState) => ({
 });
 
 const mapDispatchToProps = (dispatch: (action: Action) => void, ownProps: { serverApi: WebSocketGameApi }) => ({
-  playCards: (cards: Card[]) => {
-    dispatch(playCardsAction(cards));
-    ownProps.serverApi.sendPlayCards(cards);
-  },
+  playCards: (cards: Card[]) => ownProps.serverApi.sendPlayCards(cards),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);
