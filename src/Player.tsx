@@ -7,11 +7,9 @@ interface Props {
 
 export default function Player({ player }: Props) {
   return (
-    <div>
-      <p>
-        { player.isServerRequestingCards && <span>--&gt;</span> }
-        { player.id }
-      </p>
-    </div>
+    <span>
+      { player.isServerRequestingCards && <span>--&gt;</span> }
+      { player.id }
+    </span>
   );
 }

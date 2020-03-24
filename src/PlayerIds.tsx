@@ -6,7 +6,7 @@ interface Props {
 }
 
 export default function PlayerIds({ playerIds }: Props) {
-  const playerItems = playerIds.map((playerId) => <li key={playerId}>playerId</li>);
+  const playerItems = playerIds.map((playerId) => <li key={playerId}>{playerId}</li>);
 
   return (
     <div>
