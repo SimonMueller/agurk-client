@@ -46,11 +46,14 @@ function Lobby({
     <div className="Lobby">
       <h1>Agurk</h1>
 
-      <PlayerIds playerIds={players} />
-
       { isGameStarted
         ? <Game serverApi={gameApi} />
-        : <button type="button" onClick={gameApi.sendStartGame}>Start Game</button> }
+        : (
+          <>
+            <PlayerIds playerIds={players} />
+            <button type="button" onClick={gameApi.sendStartGame}>Start Game</button>
+          </>
+        ) }
     </div>
   );
 }
