@@ -2,20 +2,21 @@ import React, { useEffect, useState } from 'react';
 import { Message, MessageName, PlayerId } from 'agurk-shared';
 import { connect } from 'react-redux';
 import { filter } from 'rxjs/operators';
-import { Action } from 'redux';
+import { Dispatch } from 'redux';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
 import './App.css';
 import Game from './Game';
 import {
   createAuthenticationApi, createGameApi, dispatchWebSocketMessageAsActions,
 } from './communication/webSocketServerApi';
-import { State } from './redux/reducers';
+import { State } from './redux';
 import PlayerIds from './PlayerIds';
+import { GameAction } from './redux/game';
 
 const WSS_SERVER_URI = process.env.REACT_APP_WSS_SERVER_URI as string;
 
 interface Props {
-  dispatch: (action: Action) => void;
+  dispatch: Dispatch<GameAction>;
   authenticationToken: string;
   isGameStarted: boolean;
   players: PlayerId[];
@@ -44,8 +45,6 @@ function Lobby({
 
   return (
     <div className="Lobby">
-      <h1>Agurk</h1>
-
       { isGameStarted
         ? <Game serverApi={gameApi} />
         : (

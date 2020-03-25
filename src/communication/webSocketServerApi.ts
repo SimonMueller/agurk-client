@@ -4,21 +4,21 @@ import {
   MessageName,
 } from 'agurk-shared';
 import { WebSocketSubject } from 'rxjs/webSocket';
+import { Action } from 'redux';
 import {
   addPlayerTurn,
   endCycle,
   endGameError,
   endGameSuccess,
   endRound,
-  GameAction,
   requestCards,
   resetGame,
   setAvailableCardsInHand,
-  setLobbyPlayers,
   startCycle,
   startGame, startPlayerTurn,
   startRound,
-} from '../redux/action';
+} from '../redux/game';
+import { setLobbyPlayers } from '../redux/lobby';
 
 export interface WebSocketGameApi {
   sendStartGame: () => void;
@@ -41,7 +41,7 @@ function sendAuthenticate(subject: WebSocketSubject<Message>, token: string): vo
   return subject.next({ name: MessageName.AUTHENTICATE, data: token });
 }
 
-export function dispatchWebSocketMessageAsActions(message: Message, dispatch: (action: GameAction) => void) {
+export function dispatchWebSocketMessageAsActions(message: Message, dispatch: (action: Action) => void) {
   // eslint-disable-next-line default-case
   switch (message.name) {
     case MessageName.BROADCAST_LOBBY_PLAYERS:

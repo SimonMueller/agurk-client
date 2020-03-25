@@ -1,5 +1,5 @@
 import React from 'react';
-import { PlayerState } from './redux/reducers';
+import { PlayerState } from './redux/game';
 
 interface Props {
   player: PlayerState;

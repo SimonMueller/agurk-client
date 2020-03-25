@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import logo from './logo.svg';
 import './App.css';
 import Lobby from './Lobby';
-import { State } from './redux/reducers';
-import Authenticate from './Authenticate';
+import { State } from './redux';
+import Login from './Login';
 
 interface Props {
   isAuthenticated: boolean;
@@ -18,7 +18,9 @@ function App({ isAuthenticated }: Props) {
       </header>
 
       <main>
-        { isAuthenticated ? <Lobby /> : <Authenticate /> }
+        <h1>Agurk</h1>
+
+        { isAuthenticated ? <Lobby /> : <Login /> }
       </main>
     </div>
   );
