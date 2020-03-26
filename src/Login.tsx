@@ -34,14 +34,14 @@ function Login({ dispatch, error }: Props) {
       <form onSubmit={handleSubmit}>
         <label htmlFor="name">
           Player name
-          <input id="name" value={nameInput} onChange={handleNameChange} type="text" name="name" />
+          <input id="name" value={nameInput} onChange={handleNameChange} type="text" name="name" required />
         </label>
 
         <br />
 
         <label htmlFor="token">
           Access token
-          <input id="token" value={tokenInput} onChange={handleTokenChange} type="text" name="token" />
+          <input id="token" value={tokenInput} onChange={handleTokenChange} type="text" name="token" required />
         </label>
 
         <br />
