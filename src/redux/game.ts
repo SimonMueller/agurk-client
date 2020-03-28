@@ -91,23 +91,6 @@ export interface State {
   cardsInHand: Card[];
 }
 
-const INITIAL_STATE: State = {
-  isRunning: false,
-  playerId: undefined,
-  players: [],
-  validatedTurns: [],
-  cardsInHand: [],
-};
-
-const INITIAL_PLAYER_STATE = {
-  isGameWinner: false,
-  isRoundWinner: false,
-  isCycleHighestTurnPlayer: false,
-  penalties: [],
-  isOut: false,
-  isServerRequestingCards: false,
-};
-
 export function setPlayerId(playerId: string): GameAction {
   return {
     type: SET_PLAYER_ID,
@@ -200,7 +183,6 @@ export function requestCards(): GameAction {
   };
 }
 
-
 function filterPenaltiesForPlayerId(penalties: Penalty[], playerId: PlayerId) {
   return penalties.filter((penalty) => penalty.playerId === playerId);
 }
@@ -217,6 +199,23 @@ function filterAvailableCardsAfterTurn(cardsInHand: Card[], turn: ValidatedTurn)
   return cardsInHand.filter((cardInHand) => turn.cards
     .find((turnCard) => cardEquals(cardInHand, turnCard)) === undefined);
 }
+
+const INITIAL_STATE: State = {
+  isRunning: false,
+  playerId: undefined,
+  players: [],
+  validatedTurns: [],
+  cardsInHand: [],
+};
+
+const INITIAL_PLAYER_STATE = {
+  isGameWinner: false,
+  isRoundWinner: false,
+  isCycleHighestTurnPlayer: false,
+  penalties: [],
+  isOut: false,
+  isServerRequestingCards: false,
+};
 
 export function reducer(state: State = INITIAL_STATE, action: GameAction): State {
   switch (action.type) {
@@ -248,13 +247,11 @@ export function reducer(state: State = INITIAL_STATE, action: GameAction): State
     case RESET_GAME:
       return {
         ...state,
-        validatedTurns: [],
         players: state.players.map((player) => ({
           ...player,
-          isServerRequestingCards: false,
+          ...INITIAL_PLAYER_STATE,
         })),
-        cardsInHand: [],
-        isRunning: false,
+        ...INITIAL_STATE,
       };
     case END_GAME_ERROR:
       return state;
@@ -301,6 +298,7 @@ export function reducer(state: State = INITIAL_STATE, action: GameAction): State
           ...player,
           isCycleHighestTurnPlayer: isPlayerIdOneOfHighestTurnPlayers(action.highestTurnPlayerIds, player.id),
           isOut: isPlayerWithIdOut(action.outPlayers, player.id),
+          isServerRequestingCards: false,
         })),
       };
     case REQUEST_CARDS:

@@ -9,13 +9,10 @@ export const PrimaryButton = styled.button`
 
   &:hover {
     font-weight: bold;
+    cursor: pointer;
   }
 `;
 
 export const FullWitdthPrimaryButton = styled(PrimaryButton)`
   width: 100%;
-`;
-
-export const UnstyledButton = styled.button`
-  all: unset;
 `;

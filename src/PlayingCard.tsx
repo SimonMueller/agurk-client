@@ -37,8 +37,8 @@ const CardAttributeText = styled.p`
 
 const Card = styled.div`
   outline: ${(props: { isSelected: boolean }) => (props.isSelected ? '2px solid #007fff' : '1px solid grey')};
-  width: 8em;
-  height: 13em;
+  width: 7em;
+  height: 11em;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

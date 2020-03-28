@@ -10,7 +10,7 @@ interface Props {
 }
 
 const Container = styled.div`
-  max-width: 764px;
+  max-width: 50rem;
   margin: auto;
   padding: 2rem;
 `;

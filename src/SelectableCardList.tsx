@@ -2,7 +2,6 @@ import React from 'react';
 import { Card as CardData } from 'agurk-shared';
 import styled from 'styled-components';
 import PlayingCard from './PlayingCard';
-import { UnstyledButton } from './styled/button';
 
 export type SelectableCard = CardData & { isSelected: boolean };
 
@@ -19,6 +18,11 @@ const Flex = styled.div`
 
 const Box = styled.div`
    padding: 1em;
+`;
+
+const UnstyledButton = styled.button`
+  all: unset;
+  cursor: pointer;
 `;
 
 export default function CardList({ cards, handleSelect }: Props) {
