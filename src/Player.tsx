@@ -7,7 +7,7 @@ interface Props {
 }
 
 const PlayerStatus = styled.span`
-  textDecorationLine: ${(props: { isOut: boolean }) => (props.isOut ? 'line-through' : 'none')};
+  text-decoration-line: ${(props: { isOut: boolean }) => (props.isOut ? 'line-through' : 'none')};
 `;
 
 const Badge = styled.span`
