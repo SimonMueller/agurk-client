@@ -13,6 +13,6 @@ export const PrimaryButton = styled.button`
   }
 `;
 
-export const FullWitdthPrimaryButton = styled(PrimaryButton)`
+export const FullWidthPrimaryButton = styled(PrimaryButton)`
   width: 100%;
 `;

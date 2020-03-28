@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Card, cardEquals } from 'agurk-shared';
 import styled from 'styled-components';
 import SelectableCardList, { SelectableCard } from './SelectableCardList';
-import { FullWitdthPrimaryButton } from './styled/button';
+import { FullWidthPrimaryButton } from './styled/button';
 
 interface HandProps {
   playCards: (cards: Card[]) => void;
@@ -44,7 +44,7 @@ export default function Hand({ playCards, cardsInHand, isServerRequestingCards }
 
       <Centered>
         { isServerRequestingCards
-          && <FullWitdthPrimaryButton type="button" onClick={playSelectedCards}>Play Cards</FullWitdthPrimaryButton>}
+          && <FullWidthPrimaryButton type="button" onClick={playSelectedCards}>Play Cards</FullWidthPrimaryButton>}
       </Centered>
     </div>
   );
