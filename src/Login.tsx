@@ -1,9 +1,11 @@
 import React, { FormEvent, useState } from 'react';
 import { connect } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
+import { PrimaryButton } from './styled/button';
 import { GameAction } from './redux/game';
 import { authenticate } from './redux/authentication';
 import { State } from './redux';
+import { ErrorMessage, Input, Label } from './styled/form';
 
 interface Props {
   dispatch: ThunkDispatch<State, undefined, GameAction>;
@@ -28,29 +30,23 @@ function Login({ dispatch, error }: Props) {
   }
 
   return (
-    <div>
+    <>
       <h2>Login</h2>
 
       <form onSubmit={handleSubmit}>
-        <label htmlFor="name">
-          Player name
-          <input id="name" value={nameInput} onChange={handleNameChange} type="text" name="name" required />
-        </label>
+        <Label htmlFor="name">Player name</Label>
+        <Input id="name" value={nameInput} onChange={handleNameChange} type="text" name="name" required />
 
-        <br />
+        <Label htmlFor="name">Access token</Label>
+        <Input id="token" value={tokenInput} onChange={handleTokenChange} type="password" name="token" required />
 
-        <label htmlFor="token">
-          Access token
-          <input id="token" value={tokenInput} onChange={handleTokenChange} type="text" name="token" required />
-        </label>
-
-        <br />
-
-        <input type="submit" value="Submit" />
+        <PrimaryButton type="submit">Log in</PrimaryButton>
       </form>
 
-      { error && <p>{error}</p>}
-    </div>
+      <br />
+
+      { error && <ErrorMessage>{error}</ErrorMessage>}
+    </>
   );
 }
 

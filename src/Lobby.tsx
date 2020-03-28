@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { filter } from 'rxjs/operators';
 import { Dispatch } from 'redux';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
-import './App.css';
+import { PrimaryButton } from './styled/button';
 import Game from './Game';
 import {
   createAuthenticationApi, createGameApi, dispatchWebSocketMessageAsActions,
@@ -50,7 +50,7 @@ function Lobby({
         : (
           <>
             <PlayerIds playerIds={players} />
-            <button type="button" onClick={gameApi.sendStartGame}>Start Game</button>
+            <PrimaryButton type="button" onClick={gameApi.sendStartGame}>Start Game</PrimaryButton>
           </>
         ) }
     </div>

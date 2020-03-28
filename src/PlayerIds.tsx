@@ -1,5 +1,6 @@
 import React from 'react';
 import { PlayerId } from 'agurk-shared';
+import UnstyledList from './styled/list';
 
 interface Props {
   playerIds: PlayerId[];
@@ -12,9 +13,9 @@ export default function PlayerIds({ playerIds }: Props) {
     <div>
       <h2>Players</h2>
 
-      <ul>
+      <UnstyledList>
         { playerItems }
-      </ul>
+      </UnstyledList>
     </div>
   );
 }

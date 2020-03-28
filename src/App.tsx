@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import logo from './logo.svg';
-import './App.css';
+import styled from 'styled-components';
 import Lobby from './Lobby';
 import { State } from './redux';
 import Login from './Login';
@@ -10,19 +9,25 @@ interface Props {
   isAuthenticated: boolean;
 }
 
+const Container = styled.div`
+  max-width: 764px;
+  margin: auto;
+  padding: 2rem;
+`;
+
 function App({ isAuthenticated }: Props) {
   return (
-    <div className="App">
+    <Container className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        <h1>
+          Agurk
+        </h1>
       </header>
 
       <main>
-        <h1>Agurk</h1>
-
         { isAuthenticated ? <Lobby /> : <Login /> }
       </main>
-    </div>
+    </Container>
   );
 }
 

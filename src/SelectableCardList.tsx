@@ -1,29 +1,38 @@
 import React from 'react';
 import { Card as CardData } from 'agurk-shared';
-import Card, { generateKey } from './Card';
+import styled from 'styled-components';
+import PlayingCard from './PlayingCard';
+import { UnstyledButton } from './styled/button';
 
-interface Selectable {
-  isSelected: boolean;
-}
-
-export type SelectableCard = Selectable & CardData;
+export type SelectableCard = CardData & { isSelected: boolean };
 
 interface Props {
   cards: SelectableCard[];
   handleSelect: (card: CardData) => void;
 }
 
+const Flex = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+`;
+
+const Box = styled.div`
+   padding: 1em;
+`;
+
 export default function CardList({ cards, handleSelect }: Props) {
   const cardItems = cards.map((card) => (
-    <li key={generateKey(card)}>
-      <input type="checkbox" checked={card.isSelected} onChange={() => handleSelect(card)} />
-      <Card card={card} />
-    </li>
+    <Box>
+      <UnstyledButton onClick={() => handleSelect(card)}>
+        <PlayingCard card={card} isSelected={card.isSelected} />
+      </UnstyledButton>
+    </Box>
   ));
 
   return (
-    <ul>
+    <Flex>
       { cardItems }
-    </ul>
+    </Flex>
   );
 }

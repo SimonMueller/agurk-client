@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Card, cardEquals } from 'agurk-shared';
+import styled from 'styled-components';
 import SelectableCardList, { SelectableCard } from './SelectableCardList';
+import { FullWitdthPrimaryButton } from './styled/button';
 
 interface HandProps {
   playCards: (cards: Card[]) => void;
@@ -8,17 +10,10 @@ interface HandProps {
   isServerRequestingCards: boolean;
 }
 
-interface PlayTurnProps {
-  playSelectedCards: () => void;
-}
-
-function PlayTurn({ playSelectedCards }: PlayTurnProps) {
-  return (
-    <div>
-      <button type="button" onClick={playSelectedCards}>Play Cards</button>
-    </div>
-  );
-}
+const Centered = styled.div`
+  display: flex;
+  justify-content: center;
+`;
 
 export default function Hand({ playCards, cardsInHand, isServerRequestingCards }: HandProps) {
   const [selectableCards, setSelectableCards] = useState<SelectableCard[]>([]);
@@ -44,7 +39,13 @@ export default function Hand({ playCards, cardsInHand, isServerRequestingCards }
       <h2>Hand</h2>
 
       <SelectableCardList cards={selectableCards} handleSelect={handleCardSelect} />
-      { isServerRequestingCards && <PlayTurn playSelectedCards={playSelectedCards} /> }
+
+      <br />
+
+      <Centered>
+        { isServerRequestingCards
+          && <FullWitdthPrimaryButton type="button" onClick={playSelectedCards}>Play Cards</FullWitdthPrimaryButton>}
+      </Centered>
     </div>
   );
 }

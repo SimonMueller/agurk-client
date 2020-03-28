@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import { Provider } from 'react-redux';
 import { applyMiddleware, createStore } from 'redux';
 import thunk from 'redux-thunk';
@@ -8,6 +7,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import reducer from './redux/index';
+import './index.css';
 
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
 
