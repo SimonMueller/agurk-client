@@ -10,10 +10,13 @@ export const Input = styled.input`
 export const Label = styled.label`
   display: block;
   font-style: italic;
+  margin-bottom: 0.25rem;
 `;
 
 export const ErrorMessage = styled.div`
   background-color: rgba(227, 38, 54, 0.9);
   padding: 0.5rem;
+  width: 100%;
   color: white;
+  font-weight: bold;
 `;

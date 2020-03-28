@@ -1,7 +1,7 @@
 import React, { FormEvent, useState } from 'react';
 import { connect } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
-import { PrimaryButton } from './styled/button';
+import { FullWitdthPrimaryButton } from './styled/button';
 import { GameAction } from './redux/game';
 import { authenticate } from './redux/authentication';
 import { State } from './redux';
@@ -40,7 +40,7 @@ function Login({ dispatch, error }: Props) {
         <Label htmlFor="name">Access token</Label>
         <Input id="token" value={tokenInput} onChange={handleTokenChange} type="password" name="token" required />
 
-        <PrimaryButton type="submit">Log in</PrimaryButton>
+        <FullWitdthPrimaryButton type="submit">Log in</FullWitdthPrimaryButton>
       </form>
 
       <br />
