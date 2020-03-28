@@ -1,10 +1,10 @@
 import React from 'react';
-import { Card as CardData } from 'agurk-shared';
+import { ValidatedTurn } from 'agurk-shared';
 import styled from 'styled-components';
-import PlayingCard from './PlayingCard';
+import Turn from './Turn';
 
 interface Props {
-  cards: CardData[];
+  turns: ValidatedTurn[];
 }
 
 const Flex = styled.div`
@@ -13,13 +13,13 @@ const Flex = styled.div`
 `;
 
 const Box = styled.div`
-   padding: 1em;
+   padding-right: 1em;
 `;
 
-export default function CardList({ cards }: Props) {
-  const cardItems = cards.map((card) => (
+export default function TurnList({ turns }: Props) {
+  const cardItems = turns.map((turn) => (
     <Box>
-      <PlayingCard card={card} />
+      <Turn turn={turn} />
     </Box>
   ));
 
