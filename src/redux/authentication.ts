@@ -26,13 +26,6 @@ export interface State {
   error: string | undefined,
 }
 
-const INITIAL_STATE: State = {
-  subject: '',
-  isAuthenticated: false,
-  token: '',
-  error: undefined,
-};
-
 export function authenticateWithToken(token: string, subject: string): AuthenticationAction {
   return {
     type: AUTHENTICATE_WITH_TOKEN,
@@ -73,6 +66,13 @@ export function authenticate(data: AuthenticationBody) {
       }, () => dispatch(authenticationError('Could not contact server. Try again later...')));
   };
 }
+
+const INITIAL_STATE: State = {
+  subject: '',
+  isAuthenticated: false,
+  token: '',
+  error: undefined,
+};
 
 export function reducer(state: State = INITIAL_STATE, action: AuthenticationAction): State {
   switch (action.type) {
