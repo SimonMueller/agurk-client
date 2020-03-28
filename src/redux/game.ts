@@ -252,6 +252,7 @@ export function reducer(state: State = INITIAL_STATE, action: GameAction): State
           ...INITIAL_PLAYER_STATE,
         })),
         ...INITIAL_STATE,
+        playerId: state.playerId,
       };
     case END_GAME_ERROR:
       return state;
