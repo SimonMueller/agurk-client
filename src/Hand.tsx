@@ -4,22 +4,55 @@ import styled from 'styled-components';
 import SelectableCardList, { SelectableCard } from './SelectableCardList';
 import { FullWidthPrimaryButton } from './styled/Button';
 import TextTimeout from './TextTimeout';
+import { Theme } from './styled/theme';
 
-interface HandProps {
+interface Props {
   playCards: (cards: Card[]) => void;
   cardsInHand: Card[];
   isServerRequestingCards: boolean;
   turnTimeoutInMillis: number | undefined;
+  turnRetriesLeft: number;
 }
 
-const Centered = styled.div`
+interface PlayTurnProps {
+  handlePlayClick: () => void;
+  turnTimeoutInMillis: number | undefined;
+  turnRetriesLeft: number;
+}
+
+const CenteredFlex = styled.div`
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
 `;
 
+const MutedParagraph = styled.p`
+  color: ${({ theme }: { theme: Theme }) => (theme.colors.muted)};
+`;
+
+function PlayTurn({ handlePlayClick, turnTimeoutInMillis, turnRetriesLeft }: PlayTurnProps) {
+  return (
+    <>
+      <FullWidthPrimaryButton type="button" onClick={handlePlayClick}>
+      Play Cards
+        { ' ' }
+        { turnTimeoutInMillis && <TextTimeout timeoutInMillis={turnTimeoutInMillis} /> }
+      </FullWidthPrimaryButton>
+
+      <MutedParagraph>
+        { turnRetriesLeft }
+        { ' ' }
+        { turnRetriesLeft === 1
+          ? 'Retry left'
+          : 'Retries left' }
+      </MutedParagraph>
+    </>
+  );
+}
+
 export default function Hand({
-  playCards, cardsInHand, isServerRequestingCards, turnTimeoutInMillis,
-}: HandProps) {
+  playCards, cardsInHand, isServerRequestingCards, turnTimeoutInMillis, turnRetriesLeft,
+}: Props) {
   const [selectableCards, setSelectableCards] = useState<SelectableCard[]>([]);
 
   useEffect(() => {
@@ -44,18 +77,16 @@ export default function Hand({
 
       <SelectableCardList cards={selectableCards} handleSelect={handleCardSelect} />
 
-      <br />
-
-      <Centered>
-        { isServerRequestingCards
-          && (
-          <FullWidthPrimaryButton type="button" onClick={playSelectedCards}>
-            Play Cards
-            {' '}
-            { turnTimeoutInMillis && <TextTimeout timeoutInMillis={turnTimeoutInMillis} /> }
-          </FullWidthPrimaryButton>
-          )}
-      </Centered>
+      { isServerRequestingCards
+        && (
+          <CenteredFlex>
+            <PlayTurn
+              handlePlayClick={playSelectedCards}
+              turnTimeoutInMillis={turnTimeoutInMillis}
+              turnRetriesLeft={turnRetriesLeft}
+            />
+          </CenteredFlex>
+        )}
     </div>
   );
 }

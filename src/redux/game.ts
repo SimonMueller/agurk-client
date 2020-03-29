@@ -66,6 +66,7 @@ interface EndCycleAction extends Action<typeof END_CYCLE>{
 
 interface RequestCardsAction extends Action<typeof REQUEST_CARDS>{
   readonly turnTimeoutInMillis: number;
+  readonly turnRetriesLeft: number;
 }
 
 interface ResetGameAction extends Action<typeof RESET_GAME>{}
@@ -161,10 +162,11 @@ export function endCycle(outPlayers: OutPlayer[], highestTurnPlayerIds: PlayerId
   };
 }
 
-export function requestCards(turnTimeoutInMillis: number): GameAction {
+export function requestCards(turnTimeoutInMillis: number, turnRetriesLeft: number): GameAction {
   return {
     type: REQUEST_CARDS,
     turnTimeoutInMillis,
+    turnRetriesLeft,
   };
 }
 
@@ -202,6 +204,7 @@ export interface State {
   validatedTurns: ValidatedTurn[];
   cardsInHand: Card[];
   turnTimeoutInMillis: number | undefined;
+  turnRetriesLeft: number,
 }
 
 const INITIAL_STATE: State = {
@@ -211,6 +214,7 @@ const INITIAL_STATE: State = {
   validatedTurns: [],
   cardsInHand: [],
   turnTimeoutInMillis: undefined,
+  turnRetriesLeft: 0,
 };
 
 const INITIAL_PLAYER_STATE = {
@@ -314,6 +318,7 @@ export function reducer(state: State = INITIAL_STATE, action: GameAction): State
       return {
         ...state,
         turnTimeoutInMillis: action.turnTimeoutInMillis,
+        turnRetriesLeft: action.turnRetriesLeft,
       };
     case START_PLAYER_TURN:
       return {

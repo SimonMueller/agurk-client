@@ -46,10 +46,6 @@ const Card = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-
-  &:hover {
-    outline: 2px solid${({ theme }: { theme: Theme }) => (theme.colors.accent)};
-  }
 `;
 
 export function generateCardKey(card: CardData): string {

@@ -13,6 +13,7 @@ interface Props {
 const Flex = styled.div`
   display: flex;
   flex-wrap: wrap;
+  margin-bottom: 1em;
 `;
 
 const Box = styled.div`

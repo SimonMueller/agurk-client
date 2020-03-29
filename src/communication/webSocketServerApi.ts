@@ -68,7 +68,7 @@ export function dispatchWebSocketMessageAsActions(message: Message, dispatch: (a
     case MessageName.AVAILABLE_CARDS_IN_HAND:
       return dispatch(setAvailableCardsInHand(message.data));
     case MessageName.REQUEST_CARDS:
-      return dispatch(requestCards(message.data.timeoutInMillis));
+      return dispatch(requestCards(message.data.timeoutInMillis, message.data.retriesLeft));
     case MessageName.BROADCAST_START_PLAYER_TURN:
       return dispatch(startPlayerTurn(message.data));
   }
