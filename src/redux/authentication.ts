@@ -7,6 +7,7 @@ const API_SERVER_URI = process.env.REACT_APP_API_SERVER_URI as string;
 
 export const AUTHENTICATE_WITH_TOKEN = 'AUTHENTICATE_WITH_TOKEN';
 export const AUTHENTICATION_ERROR = 'AUTHENTICATION_ERROR';
+export const UNAUTHENTICATE_WITH_ERROR = 'UNAUTHENTICATE_WITH_ERROR';
 
 interface AuthenticateWithTokenAction extends Action<typeof AUTHENTICATE_WITH_TOKEN>{
   readonly token: string;
@@ -17,13 +18,24 @@ interface AuthenticationError extends Action<typeof AUTHENTICATION_ERROR>{
   readonly message: string;
 }
 
-export type AuthenticationAction = AuthenticateWithTokenAction | AuthenticationError;
+interface UnauthenticateWithErrorAction extends Action<typeof UNAUTHENTICATE_WITH_ERROR>{
+  readonly message: string;
+}
+
+export type AuthenticationAction = AuthenticateWithTokenAction | AuthenticationError | UnauthenticateWithErrorAction;
 
 export function authenticateWithToken(token: string, subject: string): AuthenticationAction {
   return {
     type: AUTHENTICATE_WITH_TOKEN,
     token,
     subject,
+  };
+}
+
+export function unauthenticateWithError(message: string): AuthenticationAction {
+  return {
+    type: UNAUTHENTICATE_WITH_ERROR,
+    message,
   };
 }
 
@@ -87,6 +99,12 @@ export function reducer(state: State = INITIAL_STATE, action: AuthenticationActi
     case AUTHENTICATION_ERROR:
       return {
         ...state,
+        error: action.message,
+      };
+    case UNAUTHENTICATE_WITH_ERROR:
+      return {
+        ...state,
+        ...INITIAL_STATE,
         error: action.message,
       };
     default:

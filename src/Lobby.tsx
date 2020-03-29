@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Message, MessageName, PlayerId } from 'agurk-shared';
 import { connect } from 'react-redux';
 import { filter } from 'rxjs/operators';
-import { Dispatch } from 'redux';
+import { Action, Dispatch } from 'redux';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
 import { PrimaryButton } from './styled/Button';
 import Game from './Game';
@@ -11,12 +11,12 @@ import {
 } from './communication/webSocketServerApi';
 import { State } from './redux';
 import PlayerIds from './PlayerIds';
-import { GameAction } from './redux/game';
+import { unauthenticateWithError } from './redux/authentication';
 
 const WSS_SERVER_URI = process.env.REACT_APP_WSS_SERVER_URI as string;
 
 interface Props {
-  dispatch: Dispatch<GameAction>;
+  dispatch: Dispatch<Action>;
   authenticationToken: string;
   isGameStarted: boolean;
   players: PlayerId[];
@@ -29,7 +29,8 @@ function Lobby({
   const gameApi = createGameApi(subject);
 
   useEffect(() => {
-    subject.subscribe((message) => dispatchWebSocketMessageAsActions(message, dispatch));
+    subject.subscribe((message) => dispatchWebSocketMessageAsActions(message, dispatch),
+      () => dispatch(unauthenticateWithError('Could not contact the game server. Try again later...')));
     return () => subject.complete();
   }, [subject, dispatch]);
 
