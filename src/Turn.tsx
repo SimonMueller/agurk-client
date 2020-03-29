@@ -33,7 +33,7 @@ export const ErrorBadge = styled(Badge)`
 `;
 
 export const SuccessBadge = styled(Badge)`
-  background-color: rgba(50, 205, 50, 0.9);
+  background-color: rgba(0, 140, 0, 0.9);
   color: white;
   text-transform: uppercase;
 `;

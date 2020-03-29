@@ -4,11 +4,14 @@ export const PrimaryButton = styled.button`
   display: inline-block;
   padding: 0.5rem;
   width: 10rem;
-  background: transparent;
-  border: 2px solid black;
+  background-color: transparent;
+  border: 2px solid #008b8b;
+  font-weight: bold;
+  color: #008b8b;
 
   &:hover {
-    font-weight: bold;
+    background-color: #00a5a5;
+    color: white;
     cursor: pointer;
   }
 `;
