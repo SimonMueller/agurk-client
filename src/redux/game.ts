@@ -64,7 +64,9 @@ interface EndCycleAction extends Action<typeof END_CYCLE>{
   readonly outPlayers: OutPlayer[];
 }
 
-interface RequestCardsAction extends Action<typeof REQUEST_CARDS>{}
+interface RequestCardsAction extends Action<typeof REQUEST_CARDS>{
+  readonly turnTimeoutInMillis: number;
+}
 
 interface ResetGameAction extends Action<typeof RESET_GAME>{}
 
@@ -159,9 +161,10 @@ export function endCycle(outPlayers: OutPlayer[], highestTurnPlayerIds: PlayerId
   };
 }
 
-export function requestCards(): GameAction {
+export function requestCards(turnTimeoutInMillis: number): GameAction {
   return {
     type: REQUEST_CARDS,
+    turnTimeoutInMillis,
   };
 }
 
@@ -198,7 +201,7 @@ export interface State {
   players: PlayerState[];
   validatedTurns: ValidatedTurn[];
   cardsInHand: Card[];
-  error: string | undefined;
+  turnTimeoutInMillis: number | undefined;
 }
 
 const INITIAL_STATE: State = {
@@ -207,7 +210,7 @@ const INITIAL_STATE: State = {
   players: [],
   validatedTurns: [],
   cardsInHand: [],
-  error: undefined,
+  turnTimeoutInMillis: undefined,
 };
 
 const INITIAL_PLAYER_STATE = {
@@ -270,6 +273,10 @@ export function reducer(state: State = INITIAL_STATE, action: GameAction): State
           ...state.validatedTurns,
           action.turn,
         ],
+        players: state.players.map((player) => ({
+          ...player,
+          isServerRequestingCards: action.turn.playerId === player.id ? false : player.isServerRequestingCards,
+        })),
         cardsInHand: (action.turn.playerId === state.playerId && action.turn.valid
           ? filterAvailableCardsAfterTurn(state.cardsInHand, action.turn)
           : state.cardsInHand),
@@ -301,11 +308,13 @@ export function reducer(state: State = INITIAL_STATE, action: GameAction): State
           ...player,
           isCycleHighestTurnPlayer: isPlayerIdOneOfHighestTurnPlayers(action.highestTurnPlayerIds, player.id),
           isOut: isPlayerWithIdOut(action.outPlayers, player.id),
-          isServerRequestingCards: false,
         })),
       };
     case REQUEST_CARDS:
-      return state;
+      return {
+        ...state,
+        turnTimeoutInMillis: action.turnTimeoutInMillis,
+      };
     case START_PLAYER_TURN:
       return {
         ...state,

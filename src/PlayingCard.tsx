@@ -52,6 +52,13 @@ const Card = styled.div`
   }
 `;
 
+export function generateCardKey(card: CardData): string {
+  if (card.kind === JOKER_CARD_KIND) {
+    return card.color + card.rank;
+  }
+  return card.suit + card.rank;
+}
+
 function JokerCard({ card }: JokerCardProps) {
   return (
     <>

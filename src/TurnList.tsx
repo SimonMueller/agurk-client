@@ -1,7 +1,7 @@
 import React from 'react';
 import { ValidatedTurn } from 'agurk-shared';
 import styled from 'styled-components';
-import Turn from './Turn';
+import Turn, { generateTurnKey } from './Turn';
 
 interface Props {
   turns: ValidatedTurn[];
@@ -18,7 +18,7 @@ const Box = styled.div`
 
 export default function TurnList({ turns }: Props) {
   const cardItems = turns.map((turn) => (
-    <Box>
+    <Box key={generateTurnKey(turn)}>
       <Turn turn={turn} />
     </Box>
   ));

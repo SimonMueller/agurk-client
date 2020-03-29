@@ -3,11 +3,13 @@ import { Card, cardEquals } from 'agurk-shared';
 import styled from 'styled-components';
 import SelectableCardList, { SelectableCard } from './SelectableCardList';
 import { FullWidthPrimaryButton } from './styled/Button';
+import TextTimeout from './TextTimeout';
 
 interface HandProps {
   playCards: (cards: Card[]) => void;
   cardsInHand: Card[];
   isServerRequestingCards: boolean;
+  turnTimeoutInMillis: number | undefined;
 }
 
 const Centered = styled.div`
@@ -15,7 +17,9 @@ const Centered = styled.div`
   justify-content: center;
 `;
 
-export default function Hand({ playCards, cardsInHand, isServerRequestingCards }: HandProps) {
+export default function Hand({
+  playCards, cardsInHand, isServerRequestingCards, turnTimeoutInMillis,
+}: HandProps) {
   const [selectableCards, setSelectableCards] = useState<SelectableCard[]>([]);
 
   useEffect(() => {
@@ -44,7 +48,13 @@ export default function Hand({ playCards, cardsInHand, isServerRequestingCards }
 
       <Centered>
         { isServerRequestingCards
-          && <FullWidthPrimaryButton type="button" onClick={playSelectedCards}>Play Cards</FullWidthPrimaryButton>}
+          && (
+          <FullWidthPrimaryButton type="button" onClick={playSelectedCards}>
+            Play Cards
+            {' '}
+            { turnTimeoutInMillis && <TextTimeout timeoutInMillis={turnTimeoutInMillis} /> }
+          </FullWidthPrimaryButton>
+          )}
       </Centered>
     </div>
   );

@@ -14,10 +14,11 @@ interface Props {
   cardsInHand: Card[];
   playCards: (cards: Card[]) => void;
   playerState: PlayerState;
+  turnTimeoutInMillis: number | undefined;
 }
 
 function Game({
-  players, playedTurns, cardsInHand, playCards, playerState,
+  players, playedTurns, cardsInHand, playCards, playerState, turnTimeoutInMillis,
 }: Props) {
   return (
     <div>
@@ -25,6 +26,7 @@ function Game({
       <Stack playedTurns={playedTurns} />
       <Hand
         isServerRequestingCards={playerState.isServerRequestingCards}
+        turnTimeoutInMillis={turnTimeoutInMillis}
         cardsInHand={cardsInHand}
         playCards={playCards}
       />
@@ -38,6 +40,7 @@ const mapStateToProps = (state: State, ownProps: { serverApi: WebSocketGameApi }
   playedTurns: state.game.validatedTurns,
   playerState: state.game.players.find((player) => player.id === state.game.playerId) as PlayerState,
   playCards: (cards: Card[]) => ownProps.serverApi.sendPlayCards(cards),
+  turnTimeoutInMillis: state.game.turnTimeoutInMillis,
 });
 
 export default connect(mapStateToProps)(Game);

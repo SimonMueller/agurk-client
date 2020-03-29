@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card as CardData } from 'agurk-shared';
 import styled from 'styled-components';
-import PlayingCard from './PlayingCard';
+import PlayingCard, { generateCardKey } from './PlayingCard';
 
 export type SelectableCard = CardData & { isSelected: boolean };
 
@@ -26,7 +26,7 @@ const UnstyledButton = styled.button`
 
 export default function CardList({ cards, handleSelect }: Props) {
   const cardItems = cards.map((card) => (
-    <Box>
+    <Box key={generateCardKey(card)}>
       <UnstyledButton onClick={() => handleSelect(card)}>
         <PlayingCard card={card} isSelected={card.isSelected} />
       </UnstyledButton>

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { InvalidTurn, ValidatedTurn, ValidTurn } from 'agurk-shared';
-import PlayingCard from './PlayingCard';
+import PlayingCard, { generateCardKey } from './PlayingCard';
 import Badge from './styled/Badge';
 import { Theme } from './styled/theme';
 
@@ -39,9 +39,13 @@ export const SuccessBadge = styled(Badge)`
   text-transform: uppercase;
 `;
 
+export function generateTurnKey(turn: ValidatedTurn): string {
+  return turn.playerId + turn.valid;
+}
+
 function Valid({ turn }: { turn: ValidTurn }) {
   const cardItems = turn.cards.map((card) => (
-    <Box>
+    <Box key={generateCardKey(card)}>
       <PlayingCard card={card} />
     </Box>
   ));
@@ -61,7 +65,7 @@ function Valid({ turn }: { turn: ValidTurn }) {
 
 function Invalid({ turn }: { turn: InvalidTurn }) {
   const cardItems = turn.cards.map((card) => (
-    <Box>
+    <Box key={generateCardKey(card)}>
       <PlayingCard card={card} />
     </Box>
   ));

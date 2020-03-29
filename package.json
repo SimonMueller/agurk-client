@@ -6,7 +6,7 @@
   "license": "MIT",
   "homepage": "https://simonmueller.github.io/agurk-client",
   "dependencies": {
-    "agurk-shared": "github:SimonMueller/agurk-shared#semver:4.11",
+    "agurk-shared": "github:SimonMueller/agurk-shared#semver:4.12",
     "jwt-decode": "^2.2.0",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
