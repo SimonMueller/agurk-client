@@ -16,7 +16,7 @@ const theme: Theme = {
     muted: '#737373',
     text: '#000',
     error: 'rgba(227, 38, 54, 0.9)',
-    success: ' rgba(0, 140, 0, 0.9)',
+    success: 'rgba(0, 140, 0, 0.9)',
   },
 };
 
