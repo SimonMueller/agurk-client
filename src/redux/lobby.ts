@@ -9,15 +9,15 @@ interface SetLobbyPlayersAction extends Action<typeof SET_LOBBY_PLAYERS> {
 
 export type LobbyAction = SetLobbyPlayersAction;
 
-export interface State {
-  players: PlayerId[];
-}
-
 export function setLobbyPlayers(playerIds: PlayerId[]): LobbyAction {
   return {
     type: SET_LOBBY_PLAYERS,
     playerIds,
   };
+}
+
+export interface State {
+  players: PlayerId[];
 }
 
 const INITIAL_STATE: State = {

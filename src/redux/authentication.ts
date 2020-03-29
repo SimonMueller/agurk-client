@@ -19,13 +19,6 @@ interface AuthenticationError extends Action<typeof AUTHENTICATION_ERROR>{
 
 export type AuthenticationAction = AuthenticateWithTokenAction | AuthenticationError;
 
-export interface State {
-  subject: string;
-  isAuthenticated: boolean,
-  token: string,
-  error: string | undefined,
-}
-
 export function authenticateWithToken(token: string, subject: string): AuthenticationAction {
   return {
     type: AUTHENTICATE_WITH_TOKEN,
@@ -65,6 +58,13 @@ export function authenticate(data: AuthenticationBody) {
         }
       }, () => dispatch(authenticationError('Could not contact server. Try again later...')));
   };
+}
+
+export interface State {
+  subject: string;
+  isAuthenticated: boolean,
+  token: string,
+  error: string | undefined,
 }
 
 const INITIAL_STATE: State = {

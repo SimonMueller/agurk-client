@@ -73,24 +73,6 @@ export type GameAction = StartGameAction | EndGameSuccessAction | EndGameErrorAc
   AddPlayerTurnAction | StartRoundAction | EndRoundAction | StartCycleAction | EndCycleAction | RequestCardsAction |
   StartPlayerTurnAction | ResetGameAction | SetPlayerIdAction;
 
-export interface PlayerState {
-  id: PlayerId;
-  isGameWinner: boolean;
-  isCycleHighestTurnPlayer: boolean;
-  penalties: Penalty[];
-  isRoundWinner: boolean;
-  isOut: boolean;
-  isServerRequestingCards: boolean;
-}
-
-export interface State {
-  isRunning: boolean;
-  playerId: PlayerId | undefined;
-  players: PlayerState[];
-  validatedTurns: ValidatedTurn[];
-  cardsInHand: Card[];
-}
-
 export function setPlayerId(playerId: string): GameAction {
   return {
     type: SET_PLAYER_ID,
@@ -200,12 +182,32 @@ function filterAvailableCardsAfterTurn(cardsInHand: Card[], turn: ValidatedTurn)
     .find((turnCard) => cardEquals(cardInHand, turnCard)) === undefined);
 }
 
+export interface PlayerState {
+  id: PlayerId;
+  isGameWinner: boolean;
+  isCycleHighestTurnPlayer: boolean;
+  penalties: Penalty[];
+  isRoundWinner: boolean;
+  isOut: boolean;
+  isServerRequestingCards: boolean;
+}
+
+export interface State {
+  isRunning: boolean;
+  playerId: PlayerId | undefined;
+  players: PlayerState[];
+  validatedTurns: ValidatedTurn[];
+  cardsInHand: Card[];
+  error: string | undefined;
+}
+
 const INITIAL_STATE: State = {
   isRunning: false,
   playerId: undefined,
   players: [],
   validatedTurns: [],
   cardsInHand: [],
+  error: undefined,
 };
 
 const INITIAL_PLAYER_STATE = {
