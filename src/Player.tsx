@@ -1,22 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
 import { PlayerState } from './redux/game';
+import Badge from './styled/badge';
 
 interface Props {
   player: PlayerState;
 }
 
-const PlayerStatus = styled.span`
-  text-decoration-line: ${(props: { isOut: boolean }) => (props.isOut ? 'line-through' : 'none')};
-`;
-
-const Badge = styled.span`
+export const PenaltyBadge = styled(Badge)`
   background-color: rgba(227, 38, 54, 0.9);
   color: white;
-  border-radius: 0.2em;
-  font-size: 0.75em;
-  padding: 0.1rem;
-  font-weight: bold;
+`;
+
+const PlayerStatus = styled.span`
+  text-decoration-line: ${(props: { isOut: boolean }) => (props.isOut ? 'line-through' : 'none')};
 `;
 
 export default function Player({ player }: Props) {
@@ -29,10 +26,7 @@ export default function Player({ player }: Props) {
         {' '}
         { player.id }
         {' '}
-        <Badge>
-          Penalty:
-          {penaltySum}
-        </Badge>
+        <PenaltyBadge>{penaltySum}</PenaltyBadge>
       </PlayerStatus>
     </>
   );

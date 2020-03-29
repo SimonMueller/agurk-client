@@ -17,7 +17,7 @@ const Flex = styled.div`
 `;
 
 const Box = styled.div`
-   padding: 1em;
+  padding: 1em;
 `;
 
 const UnstyledButton = styled.button`
