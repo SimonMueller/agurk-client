@@ -7,13 +7,11 @@ interface Props {
 }
 
 export default function Stack({ playedTurns }: Props) {
-  const validTurns = playedTurns.filter((turn) => turn.valid);
-
   return (
     <div>
       <h2>Stack</h2>
 
-      <TurnList turns={validTurns} />
+      <TurnList turns={playedTurns} />
     </div>
   );
 }
