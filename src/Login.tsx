@@ -1,11 +1,11 @@
 import React, { FormEvent, useState } from 'react';
 import { connect } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
-import { FullWidthPrimaryButton } from './styled/button';
+import { FullWidthPrimaryButton } from './styled/Button';
 import { GameAction } from './redux/game';
 import { authenticate } from './redux/authentication';
 import { State } from './redux';
-import { ErrorMessage, Input, Label } from './styled/form';
+import { ErrorMessage, Input, Label } from './styled/Form';
 
 interface Props {
   dispatch: ThunkDispatch<State, undefined, GameAction>;

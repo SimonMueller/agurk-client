@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Theme } from './theme';
 
 export const Input = styled.input`
   padding: 0.5rem;
@@ -14,7 +15,7 @@ export const Label = styled.label`
 `;
 
 export const ErrorMessage = styled.div`
-  background-color: rgba(227, 38, 54, 0.9);
+  background-color: ${({ theme }: { theme: Theme }) => (theme.colors.error)};
   padding: 0.5rem;
   width: 100%;
   color: white;

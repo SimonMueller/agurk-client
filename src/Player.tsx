@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { PlayerState } from './redux/game';
-import Badge from './styled/badge';
+import Badge from './styled/Badge';
 
 interface Props {
   player: PlayerState;

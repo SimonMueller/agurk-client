@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Card, cardEquals } from 'agurk-shared';
 import styled from 'styled-components';
 import SelectableCardList, { SelectableCard } from './SelectableCardList';
-import { FullWidthPrimaryButton } from './styled/button';
+import { FullWidthPrimaryButton } from './styled/Button';
 
 interface HandProps {
   playCards: (cards: Card[]) => void;

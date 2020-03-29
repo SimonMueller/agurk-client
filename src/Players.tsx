@@ -1,7 +1,7 @@
 import React from 'react';
 import Player from './Player';
 import { PlayerState } from './redux/game';
-import UnstyledList from './styled/list';
+import UnstyledList from './styled/List';
 
 interface Props {
   players: PlayerState[];

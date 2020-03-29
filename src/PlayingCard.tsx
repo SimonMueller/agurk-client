@@ -3,6 +3,7 @@ import {
   Card as CardData, JOKER_CARD_KIND, JokerCard as JokerCardData, SuitCard as SuitCardData,
 } from 'agurk-shared';
 import styled from 'styled-components';
+import { Theme } from './styled/theme';
 
 interface PlayingCardProps {
   card: CardData;
@@ -31,18 +32,24 @@ const CardAttributeText = styled.p`
   flex-basis: 100%;
   text-align: center;
   display: block;
-  font-size: 1em;
+  font-size: 0.7em;
   margin: 0;
 `;
 
 const Card = styled.div`
-  outline: ${(props: { isSelected: boolean }) => (props.isSelected ? '2px solid #007fff' : '1px solid grey')};
-  width: 7em;
-  height: 11em;
+  outline: ${({ isSelected, theme }: { isSelected: boolean, theme: Theme }) => (
+    isSelected ? `2px solid ${theme.colors.accent}` : `1px solid ${theme.colors.text}`
+  )};
+  width: 4.5em;
+  height: 7em;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+
+  &:hover {
+    outline: 2px solid${({ theme }: { theme: Theme }) => (theme.colors.accent)};
+  }
 `;
 
 function JokerCard({ card }: JokerCardProps) {

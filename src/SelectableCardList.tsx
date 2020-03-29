@@ -13,11 +13,10 @@ interface Props {
 const Flex = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
 `;
 
 const Box = styled.div`
-  padding: 1em;
+  padding: 0.75em;
 `;
 
 const UnstyledButton = styled.button`

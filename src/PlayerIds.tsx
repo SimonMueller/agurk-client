@@ -1,6 +1,6 @@
 import React from 'react';
 import { PlayerId } from 'agurk-shared';
-import UnstyledList from './styled/list';
+import UnstyledList from './styled/List';
 
 interface Props {
   playerIds: PlayerId[];

@@ -13,7 +13,7 @@ const Flex = styled.div`
 `;
 
 const Box = styled.div`
-   padding: 0 1em;
+   padding: 0 0.75em;
 `;
 
 export default function TurnList({ turns }: Props) {

@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { InvalidTurn, ValidatedTurn, ValidTurn } from 'agurk-shared';
 import PlayingCard from './PlayingCard';
-import Badge from './styled/badge';
+import Badge from './styled/Badge';
+import { Theme } from './styled/theme';
 
 interface Props {
   turn: ValidatedTurn;
@@ -15,7 +16,7 @@ const Flex = styled.div`
 `;
 
 const MutedFlex = styled(Flex)`
-  color: grey;
+  color: ${({ theme }: { theme: Theme }) => (theme.colors.muted)};
 `;
 
 const Box = styled.div`
@@ -27,13 +28,13 @@ const CenteredParagraph = styled.p`
 `;
 
 export const ErrorBadge = styled(Badge)`
-  background-color: rgba(227, 38, 54, 0.9);
+  background-color: ${({ theme }: { theme: Theme }) => (theme.colors.error)};
   color: white;
   text-transform: uppercase;
 `;
 
 export const SuccessBadge = styled(Badge)`
-  background-color: rgba(0, 140, 0, 0.9);
+  background-color: ${({ theme }: { theme: Theme }) => (theme.colors.success)};
   color: white;
   text-transform: uppercase;
 `;

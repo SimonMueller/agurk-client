@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { filter } from 'rxjs/operators';
 import { Dispatch } from 'redux';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
-import { PrimaryButton } from './styled/button';
+import { PrimaryButton } from './styled/Button';
 import Game from './Game';
 import {
   createAuthenticationApi, createGameApi, dispatchWebSocketMessageAsActions,
