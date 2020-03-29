@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { InvalidTurn, ValidatedTurn, ValidTurn } from 'agurk-shared';
 import PlayingCard, { generateCardKey } from './PlayingCard';
@@ -63,30 +63,41 @@ function Valid({ turn }: { turn: ValidTurn }) {
   );
 }
 
-function Invalid({ turn }: { turn: InvalidTurn }) {
+function InvalidHiddenAfterTimeout({ turn }: { turn: InvalidTurn }) {
+  const SHOW_INVALID_TURN_TIMEOUT = 2000;
+  const [isVisible, setIsVisible] = useState<boolean>(true);
   const cardItems = turn.cards.map((card) => (
     <Box key={generateCardKey(card)}>
       <PlayingCard card={card} />
     </Box>
   ));
 
-  return (
-    <>
-      <MutedFlex>
-        { cardItems }
-      </MutedFlex>
-      <CenteredParagraph>{turn.playerId}</CenteredParagraph>
-      <CenteredParagraph>
-        <ErrorBadge>{turn.invalidReason}</ErrorBadge>
-      </CenteredParagraph>
-    </>
-  );
+  useEffect(() => {
+    const timeout: number = setTimeout(() => {
+      setIsVisible(false);
+    }, SHOW_INVALID_TURN_TIMEOUT);
+    return () => clearTimeout(timeout);
+  });
+
+  return isVisible
+    ? (
+      <>
+        <MutedFlex>
+          { cardItems }
+        </MutedFlex>
+        <CenteredParagraph>{turn.playerId}</CenteredParagraph>
+        <CenteredParagraph>
+          <ErrorBadge>{turn.invalidReason}</ErrorBadge>
+        </CenteredParagraph>
+      </>
+    )
+    : null;
 }
 
 export default function Turn({ turn }: Props) {
   return (
     <>
-      { turn.valid ? <Valid turn={turn} /> : <Invalid turn={turn} />}
+      { turn.valid ? <Valid turn={turn} /> : <InvalidHiddenAfterTimeout turn={turn} />}
     </>
   );
 }

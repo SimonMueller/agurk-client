@@ -17,7 +17,7 @@ const Box = styled.div`
 `;
 
 export default function TurnList({ turns }: Props) {
-  const cardItems = turns.map((turn) => (
+  const turnItems = turns.map((turn) => (
     <Box key={generateTurnKey(turn)}>
       <Turn turn={turn} />
     </Box>
@@ -25,7 +25,7 @@ export default function TurnList({ turns }: Props) {
 
   return (
     <Flex>
-      { cardItems }
+      { turnItems }
     </Flex>
   );
 }
