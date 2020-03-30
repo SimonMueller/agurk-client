@@ -4,7 +4,7 @@ interface Props {
   timeoutInMillis: number;
 }
 
-export default function TextTimeout({ timeoutInMillis }: Props) {
+export default function TextTimer({ timeoutInMillis }: Props) {
   const [timeLeftInMillis, setTimeLeftInMillis] = useState<number>(timeoutInMillis);
   const timeLeftInSeconds = Math.floor(timeLeftInMillis / 1000);
 
@@ -18,11 +18,5 @@ export default function TextTimeout({ timeoutInMillis }: Props) {
     return () => clearInterval(interval);
   });
 
-  return (
-    <span>
-      (
-      {timeLeftInSeconds}
-      )
-    </span>
-  );
+  return (<>{ timeLeftInSeconds }</>);
 }
