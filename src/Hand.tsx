@@ -3,7 +3,7 @@ import { Card, cardEquals } from 'agurk-shared';
 import styled from 'styled-components';
 import SelectableCardList, { SelectableCard } from './SelectableCardList';
 import { FullWidthPrimaryButton } from './styled/Button';
-import TextTimer from './TextTimer';
+import TextSecondTimer from './TextSecondTimer';
 import { Theme } from './styled/theme';
 
 interface Props {
@@ -39,7 +39,7 @@ function PlayTurn({ handlePlayClick, turnTimeoutInMillis, turnRetriesLeft }: Pla
         { turnTimeoutInMillis && (
         <span>
           (
-          <TextTimer timeoutInMillis={turnTimeoutInMillis} />
+          <TextSecondTimer timeoutInSeconds={turnTimeoutInMillis / 1000} />
           )
         </span>
         ) }
