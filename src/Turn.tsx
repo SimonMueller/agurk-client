@@ -95,9 +95,7 @@ function InvalidHiddenAfterTimeout({ turn }: { turn: InvalidTurn }) {
 }
 
 export default function Turn({ turn }: Props) {
-  return (
-    <>
-      { turn.valid ? <Valid turn={turn} /> : <InvalidHiddenAfterTimeout turn={turn} />}
-    </>
-  );
+  return turn.valid
+    ? <Valid turn={turn} />
+    : <InvalidHiddenAfterTimeout turn={turn} />;
 }
