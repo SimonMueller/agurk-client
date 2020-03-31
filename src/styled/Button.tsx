@@ -1,10 +1,12 @@
 import styled from 'styled-components';
 import { Theme } from './theme';
 
-export const PrimaryButton = styled.button`
+export default styled.button`
   display: inline-block;
-  padding: 0.5rem;
-  width: 10rem;
+  font-size: 1em;
+  height: 3em;
+  padding: 0.75em;
+  width: 100%;
   background-color: transparent;
   border: 2px solid ${({ theme }: { theme: Theme }) => (theme.colors.primary)};
   font-weight: bold;
@@ -15,8 +17,4 @@ export const PrimaryButton = styled.button`
     color: white;
     cursor: pointer;
   }
-`;
-
-export const FullWidthPrimaryButton = styled(PrimaryButton)`
-  width: 100%;
 `;

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Card, cardEquals } from 'agurk-shared';
 import styled from 'styled-components';
 import SelectableCardList, { SelectableCard } from './SelectableCardList';
-import { FullWidthPrimaryButton } from './styled/Button';
+import PrimaryButton from './styled/Button';
 import TextSecondTimer from './TextSecondTimer';
 import { Theme } from './styled/theme';
 
@@ -33,7 +33,7 @@ const MutedParagraph = styled.p`
 function PlayTurn({ handlePlayClick, turnTimeoutInMillis, turnRetriesLeft }: PlayTurnProps) {
   return (
     <>
-      <FullWidthPrimaryButton type="button" onClick={handlePlayClick}>
+      <PrimaryButton type="button" onClick={handlePlayClick}>
       Play Cards
         { ' ' }
         { turnTimeoutInMillis && (
@@ -43,7 +43,7 @@ function PlayTurn({ handlePlayClick, turnTimeoutInMillis, turnRetriesLeft }: Pla
           )
         </span>
         ) }
-      </FullWidthPrimaryButton>
+      </PrimaryButton>
 
       <MutedParagraph>
         { turnRetriesLeft }
