@@ -20,14 +20,9 @@ interface PlayTurnProps {
   turnRetriesLeft: number;
 }
 
-const CenteredFlex = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-`;
-
 const MutedParagraph = styled.p`
   color: ${({ theme }: { theme: Theme }) => (theme.colors.muted)};
+  text-align: center;
 `;
 
 function PlayTurn({ handlePlayClick, turnTimeoutInMillis, turnRetriesLeft }: PlayTurnProps) {
@@ -85,13 +80,11 @@ export default function Hand({
 
       { isServerRequestingCards
         && (
-          <CenteredFlex>
-            <PlayTurn
-              handlePlayClick={playSelectedCards}
-              turnTimeoutInMillis={turnTimeoutInMillis}
-              turnRetriesLeft={turnRetriesLeft}
-            />
-          </CenteredFlex>
+          <PlayTurn
+            handlePlayClick={playSelectedCards}
+            turnTimeoutInMillis={turnTimeoutInMillis}
+            turnRetriesLeft={turnRetriesLeft}
+          />
         )}
     </div>
   );
