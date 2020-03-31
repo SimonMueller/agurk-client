@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/agurk-client/static/css/main.039a6f61.chunk.css",
-    "main.js": "/agurk-client/static/js/main.58f1fb77.chunk.js",
-    "main.js.map": "/agurk-client/static/js/main.58f1fb77.chunk.js.map",
+    "main.css": "/agurk-client/static/css/main.e30832dc.chunk.css",
+    "main.js": "/agurk-client/static/js/main.b21b2f39.chunk.js",
+    "main.js.map": "/agurk-client/static/js/main.b21b2f39.chunk.js.map",
     "runtime-main.js": "/agurk-client/static/js/runtime-main.1037f6ee.js",
     "runtime-main.js.map": "/agurk-client/static/js/runtime-main.1037f6ee.js.map",
-    "static/js/2.09fca9ef.chunk.js": "/agurk-client/static/js/2.09fca9ef.chunk.js",
-    "static/js/2.09fca9ef.chunk.js.map": "/agurk-client/static/js/2.09fca9ef.chunk.js.map",
+    "static/js/2.937c9111.chunk.js": "/agurk-client/static/js/2.937c9111.chunk.js",
+    "static/js/2.937c9111.chunk.js.map": "/agurk-client/static/js/2.937c9111.chunk.js.map",
     "index.html": "/agurk-client/index.html",
-    "precache-manifest.750bcca8d974ff92699a313d77c89f98.js": "/agurk-client/precache-manifest.750bcca8d974ff92699a313d77c89f98.js",
+    "precache-manifest.6d8fba826d93304b646f3f2b87880119.js": "/agurk-client/precache-manifest.6d8fba826d93304b646f3f2b87880119.js",
     "service-worker.js": "/agurk-client/service-worker.js",
-    "static/css/main.039a6f61.chunk.css.map": "/agurk-client/static/css/main.039a6f61.chunk.css.map",
-    "static/js/2.09fca9ef.chunk.js.LICENSE.txt": "/agurk-client/static/js/2.09fca9ef.chunk.js.LICENSE.txt"
+    "static/css/main.e30832dc.chunk.css.map": "/agurk-client/static/css/main.e30832dc.chunk.css.map",
+    "static/js/2.937c9111.chunk.js.LICENSE.txt": "/agurk-client/static/js/2.937c9111.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.1037f6ee.js",
-    "static/js/2.09fca9ef.chunk.js",
-    "static/css/main.039a6f61.chunk.css",
-    "static/js/main.58f1fb77.chunk.js"
+    "static/js/2.937c9111.chunk.js",
+    "static/css/main.e30832dc.chunk.css",
+    "static/js/main.b21b2f39.chunk.js"
   ]
 }
