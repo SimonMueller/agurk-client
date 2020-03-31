@@ -15,7 +15,7 @@ export const PenaltyBadge = styled(Badge)`
 
 const opacityPulse = keyframes`
   0% {
-    opacity: 0.7;
+    opacity: 0.6;
   }
 
   50% {
@@ -23,7 +23,7 @@ const opacityPulse = keyframes`
   }
 
   100% {
-    opacity: 0.7;
+    opacity: 0.6;
   }
 `;
 
