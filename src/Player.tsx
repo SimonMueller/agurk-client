@@ -1,19 +1,43 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { PlayerState } from './redux/game';
 import Badge from './styled/Badge';
+import { Theme } from './styled/theme';
 
 interface Props {
   player: PlayerState;
 }
 
 export const PenaltyBadge = styled(Badge)`
-  background-color: rgba(227, 38, 54, 0.9);
+  background-color: ${({ theme }: { theme: Theme }) => (theme.colors.warn)};
   color: white;
 `;
 
-const PlayerStatus = styled.span`
+const opacityPulse = keyframes`
+  0% {
+    opacity: 0.7;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.7;
+  }
+`;
+
+const PlayerName = styled.span`
   text-decoration-line: ${(props: { isOut: boolean }) => (props.isOut ? 'line-through' : 'none')};
+`;
+
+const ActivePlayerName = styled(PlayerName)`
+  animation: ${opacityPulse} 2s infinite;
+  font-weight: bold;
+`;
+
+const InactivePlayerName = styled(PlayerName)`
+  font-weight: normal;
 `;
 
 export default function Player({ player }: Props) {
@@ -21,13 +45,14 @@ export default function Player({ player }: Props) {
 
   return (
     <>
-      <PlayerStatus isOut={player.isOut}>
-        { player.isServerRequestingCards && <span>--&gt;</span> }
+      { player.isServerRequestingCards
+        ? <ActivePlayerName isOut={player.isOut}>{ player.id }</ActivePlayerName>
+        : <InactivePlayerName isOut={player.isOut}>{ player.id }</InactivePlayerName>}
+      <PenaltyBadge>
+        Penalty
         {' '}
-        { player.id }
-        {' '}
-        <PenaltyBadge>{penaltySum}</PenaltyBadge>
-      </PlayerStatus>
+        {penaltySum}
+      </PenaltyBadge>
     </>
   );
 }

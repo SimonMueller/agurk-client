@@ -10,7 +10,7 @@ import {
   createAuthenticationApi, createGameApi, dispatchWebSocketMessageAsActions,
 } from './communication/webSocketServerApi';
 import { State } from './redux';
-import PlayerIds from './PlayerIds';
+import PlayerIdList from './PlayerIdList';
 import { unauthenticateWithError } from './redux/authentication';
 
 const WSS_SERVER_URI = process.env.REACT_APP_WSS_SERVER_URI as string;
@@ -50,7 +50,7 @@ function Lobby({
         ? <Game serverApi={gameApi} />
         : (
           <>
-            <PlayerIds playerIds={players} />
+            <PlayerIdList playerIds={players} />
             <PrimaryButton type="button" onClick={gameApi.sendStartGame}>Start Game</PrimaryButton>
           </>
         ) }

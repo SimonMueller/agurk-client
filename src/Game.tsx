@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Card, ValidatedTurn } from 'agurk-shared';
 import Hand from './Hand';
-import Players from './Players';
+import PlayerStateList from './PlayerStateList';
 import Stack from './Stack';
 import { State } from './redux';
 import { WebSocketGameApi } from './communication/webSocketServerApi';
@@ -23,7 +23,7 @@ function Game({
 }: Props) {
   return (
     <div>
-      <Players players={players} />
+      <PlayerStateList players={players} />
       <Stack playedTurns={playedTurns} />
       <Hand
         isServerRequestingCards={playerState.isServerRequestingCards}
