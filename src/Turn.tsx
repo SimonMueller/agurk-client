@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { InvalidTurn, ValidatedTurn, ValidTurn } from 'agurk-shared';
-import PlayingCard, { generateCardKey } from './PlayingCard';
+import PlayingCard, { generateCardKey, PlayingCardPlaceholder } from './PlayingCard';
 import Badge from './styled/Badge';
 import { Theme } from './styled/theme';
 
@@ -28,6 +28,11 @@ const Centered = styled.div`
   text-align: center;
 `;
 
+const TurnBox = styled.div`
+  margin-right: 1em;
+  margin-bottom: 1em;
+`;
+
 export const ErrorBadge = styled(Badge)`
   background-color: ${({ theme }: { theme: Theme }) => (theme.colors.error)};
   color: white;
@@ -45,14 +50,12 @@ function Valid({ turn }: { turn: ValidTurn }) {
   ));
 
   return (
-    <>
+    <TurnBox>
       <Flex>
         { cardItems }
       </Flex>
-      <Centered>
-        <span>{turn.playerId}</span>
-      </Centered>
-    </>
+      <Centered><span>{turn.playerId}</span></Centered>
+    </TurnBox>
   );
 }
 
@@ -74,15 +77,17 @@ function InvalidHiddenAfterTimeout({ turn }: { turn: InvalidTurn }) {
 
   return isVisible
     ? (
-      <>
+      <TurnBox>
         <MutedFlex>
-          { cardItems }
+          { cardItems.length === 0
+            ? <PlayingCardPlaceholder />
+            : cardItems }
         </MutedFlex>
-        <Centered>{turn.playerId}</Centered>
+        <Centered><span>{turn.playerId}</span></Centered>
         <Centered>
           <ErrorBadge>{turn.invalidReason}</ErrorBadge>
         </Centered>
-      </>
+      </TurnBox>
     )
     : null;
 }

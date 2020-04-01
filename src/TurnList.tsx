@@ -12,17 +12,8 @@ const Flex = styled.div`
   flex-wrap: wrap;
 `;
 
-const Box = styled.div`
-  margin-right: 1em;
-  margin-bottom: 1em;
-`;
-
 export default function TurnList({ turns }: Props) {
-  const turnItems = turns.map((turn) => (
-    <Box key={generateTurnKey(turn)}>
-      <Turn turn={turn} />
-    </Box>
-  ));
+  const turnItems = turns.map((turn) => (<Turn key={generateTurnKey(turn)} turn={turn} />));
 
   return (
     <Flex>
