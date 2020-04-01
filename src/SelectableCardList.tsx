@@ -14,10 +14,12 @@ const Flex = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin-bottom: 1em;
+  justify-content: center;
 `;
 
 const Box = styled.div`
-  padding: 0.75em;
+  margin-right: 0.5em;
+  margin-bottom: 0.5em;
 `;
 
 const UnstyledButton = styled.button`

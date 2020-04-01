@@ -19,24 +19,18 @@ const MutedFlex = styled(Flex)`
   color: ${({ theme }: { theme: Theme }) => (theme.colors.muted)};
 `;
 
-const Box = styled.div`
-  padding: 1em;
+const CardBox = styled.div`
+  margin-right: 0.5em;
+  margin-bottom: 0.5em;
 `;
 
-const CenteredParagraph = styled.p`
+const Centered = styled.div`
   text-align: center;
 `;
 
 export const ErrorBadge = styled(Badge)`
   background-color: ${({ theme }: { theme: Theme }) => (theme.colors.error)};
   color: white;
-  text-transform: uppercase;
-`;
-
-export const SuccessBadge = styled(Badge)`
-  background-color: ${({ theme }: { theme: Theme }) => (theme.colors.success)};
-  color: white;
-  text-transform: uppercase;
 `;
 
 export function generateTurnKey(turn: ValidatedTurn): string {
@@ -45,9 +39,9 @@ export function generateTurnKey(turn: ValidatedTurn): string {
 
 function Valid({ turn }: { turn: ValidTurn }) {
   const cardItems = turn.cards.map((card) => (
-    <Box key={generateCardKey(card)}>
+    <CardBox key={generateCardKey(card)}>
       <PlayingCard card={card} />
-    </Box>
+    </CardBox>
   ));
 
   return (
@@ -55,10 +49,9 @@ function Valid({ turn }: { turn: ValidTurn }) {
       <Flex>
         { cardItems }
       </Flex>
-      <CenteredParagraph>{turn.playerId}</CenteredParagraph>
-      <CenteredParagraph>
-        <SuccessBadge>Valid turn</SuccessBadge>
-      </CenteredParagraph>
+      <Centered>
+        <span>{turn.playerId}</span>
+      </Centered>
     </>
   );
 }
@@ -67,9 +60,9 @@ function InvalidHiddenAfterTimeout({ turn }: { turn: InvalidTurn }) {
   const SHOW_INVALID_TURN_TIMEOUT = 2000;
   const [isVisible, setIsVisible] = useState<boolean>(true);
   const cardItems = turn.cards.map((card) => (
-    <Box key={generateCardKey(card)}>
-      <PlayingCard card={card} />
-    </Box>
+    <CardBox key={generateCardKey(card)}>
+      <PlayingCard key={generateCardKey(card)} card={card} />
+    </CardBox>
   ));
 
   useEffect(() => {
@@ -85,10 +78,10 @@ function InvalidHiddenAfterTimeout({ turn }: { turn: InvalidTurn }) {
         <MutedFlex>
           { cardItems }
         </MutedFlex>
-        <CenteredParagraph>{turn.playerId}</CenteredParagraph>
-        <CenteredParagraph>
+        <Centered>{turn.playerId}</Centered>
+        <Centered>
           <ErrorBadge>{turn.invalidReason}</ErrorBadge>
-        </CenteredParagraph>
+        </Centered>
       </>
     )
     : null;

@@ -10,11 +10,11 @@ interface Props {
 const Flex = styled.div`
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: 1em;
 `;
 
 const Box = styled.div`
-  padding: 0 0.5em;
+  margin-right: 1em;
+  margin-bottom: 1em;
 `;
 
 export default function TurnList({ turns }: Props) {

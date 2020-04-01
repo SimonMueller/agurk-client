@@ -37,15 +37,21 @@ const CardAttributeText = styled.p`
 `;
 
 const Card = styled.div`
-  outline: ${({ isSelected, theme }: { isSelected: boolean, theme: Theme }) => (
-    isSelected ? `2px solid ${theme.colors.accent}` : `1px solid ${theme.colors.text}`
+  border: ${({ isSelected, theme }: { isSelected: boolean, theme: Theme }) => (
+    isSelected ? `1px solid ${theme.colors.accent}` : `1px solid ${theme.colors.text}`
   )};
+  border-radius: 4px;
   width: 4.5em;
   height: 7em;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  margin: auto;
+`;
+
+const CardPlaceholder = styled(Card)`
+  border: ${({ theme }: { theme: Theme }) => (`1px dotted ${theme.colors.text}`)};
 `;
 
 export function generateCardKey(card: CardData): string {
@@ -88,5 +94,11 @@ export default function PlayingCard({ card, isSelected = false }: PlayingCardPro
         ? <JokerCard card={card} />
         : <SuitCard card={card} /> }
     </Card>
+  );
+}
+
+export function PlayingCardPlaceholder() {
+  return (
+    <CardPlaceholder isSelected={false} />
   );
 }
