@@ -37,8 +37,8 @@ const CardAttributeText = styled.p`
 `;
 
 const Card = styled.div`
-  border: ${({ isSelected, theme }: { isSelected: boolean, theme: Theme }) => (
-    isSelected ? `1px solid ${theme.colors.accent}` : `1px solid ${theme.colors.text}`
+  border: 2px solid ${({ isSelected, theme }: { isSelected: boolean, theme: Theme }) => (
+    isSelected ? `${theme.colors.accent}` : ` ${theme.colors.text}`
   )};
   border-radius: 4px;
   width: 4.5em;
