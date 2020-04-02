@@ -197,6 +197,10 @@ export interface PlayerState {
   isServerRequestingCards: boolean;
 }
 
+export interface ProtocolEntry {
+  message: string;
+}
+
 export interface State {
   isRunning: boolean;
   playerId: PlayerId | undefined;
@@ -205,6 +209,7 @@ export interface State {
   cardsInHand: Card[];
   turnTimeoutInMillis: number | undefined;
   turnRetriesLeft: number,
+  protocol: ProtocolEntry[],
 }
 
 const INITIAL_STATE: State = {
@@ -215,6 +220,7 @@ const INITIAL_STATE: State = {
   cardsInHand: [],
   turnTimeoutInMillis: undefined,
   turnRetriesLeft: 0,
+  protocol: [],
 };
 
 const INITIAL_PLAYER_STATE = {
@@ -252,6 +258,12 @@ export function reducer(state: State = INITIAL_STATE, action: GameAction): State
         })),
         validatedTurns: [],
         cardsInHand: [],
+        protocol: [
+          ...state.protocol,
+          {
+            message: `${action.winner} wins the game`,
+          },
+        ],
       };
     case RESET_GAME:
       return {
@@ -264,7 +276,15 @@ export function reducer(state: State = INITIAL_STATE, action: GameAction): State
         playerId: state.playerId,
       };
     case END_GAME_ERROR:
-      return state;
+      return {
+        ...state,
+        protocol: [
+          ...state.protocol,
+          {
+            message: `${action.error.message}`,
+          },
+        ],
+      };
     case SET_CARDS_IN_HAND:
       return {
         ...state,
@@ -284,6 +304,19 @@ export function reducer(state: State = INITIAL_STATE, action: GameAction): State
         cardsInHand: (action.turn.playerId === state.playerId && action.turn.valid
           ? filterAvailableCardsAfterTurn(state.cardsInHand, action.turn)
           : state.cardsInHand),
+        protocol: action.turn.valid
+          ? [
+            ...state.protocol,
+            {
+              message: `
+                ${action.turn.playerId} plays
+                ${action.turn.cards.length > 1 ? 'cards' : 'card'}
+                with
+                ${action.turn.cards.length > 1 ? 'ranks' : 'rank'}
+                ${action.turn.cards.map((card) => card.rank).join('and')}`,
+            },
+          ]
+          : state.protocol,
       };
     case START_ROUND:
       return state;
@@ -299,6 +332,15 @@ export function reducer(state: State = INITIAL_STATE, action: GameAction): State
           isOut: isPlayerWithIdOut(action.outPlayers, player.id),
           isRoundWinner: player.id === action.winner,
         })),
+        protocol: [
+          ...state.protocol,
+          {
+            message: `${action.winner} wins the current round`,
+          },
+          ...action.penalties.map((penalty) => ({
+            message: `${penalty.playerId} gets a penalty of ${penalty.card.rank}`,
+          })),
+        ],
       };
     case START_CYCLE:
       return {
@@ -313,6 +355,12 @@ export function reducer(state: State = INITIAL_STATE, action: GameAction): State
           isCycleHighestTurnPlayer: isPlayerIdOneOfHighestTurnPlayers(action.highestTurnPlayerIds, player.id),
           isOut: isPlayerWithIdOut(action.outPlayers, player.id),
         })),
+        protocol: [
+          ...state.protocol,
+          ...action.highestTurnPlayerIds.map((playerId) => ({
+            message: `${playerId} played the highest card in cycle`,
+          })),
+        ],
       };
     case REQUEST_CARDS:
       return {
