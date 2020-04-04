@@ -6,22 +6,20 @@ interface Props {
   entries: ProtocolEntry[];
 }
 
-const Flex = styled.div`
-  display: flex;
-  flex-wrap: wrap;
+const Container = styled.div`
   max-height: 25vh;
 `;
 
 export default function Protocol({ entries }: Props) {
-  const entryItems = entries.map((entry) => <div><span>{entry.message}</span></div>);
+  const entryItems = entries.map((entry) => <li>{entry.message}</li>);
 
   return (
-    <div>
+    <Container>
       <h2>Protocol</h2>
 
-      <Flex>
+      <ul>
         { entryItems }
-      </Flex>
-    </div>
+      </ul>
+    </Container>
   );
 }
