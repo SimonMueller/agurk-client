@@ -1,7 +1,6 @@
 export interface Theme {
   colors: {
     primary: string;
-    accent: string;
     muted: string;
     text: string;
     error: string;
@@ -12,11 +11,10 @@ export interface Theme {
 
 const theme: Theme = {
   colors: {
-    primary: '#007fff',
-    accent: '#ff007f',
+    primary: '#2a52be',
     muted: '#737373',
     text: '#000',
-    error: 'rgba(227, 38, 54, 0.9)',
+    error: '#ff033e',
     warn: '#ff4f00',
     success: 'rgba(0, 140, 0, 0.9)',
   },

@@ -9,10 +9,10 @@ interface Props {
 const Flex = styled.div`
   display: flex;
   flex-wrap: wrap;
-  flex-direction: column-reverse;
+  max-height: 25vh;
 `;
 
-export default function GameProtocol({ entries }: Props) {
+export default function Protocol({ entries }: Props) {
   const entryItems = entries.map((entry) => <div><span>{entry.message}</span></div>);
 
   return (

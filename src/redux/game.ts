@@ -259,10 +259,10 @@ export function reducer(state: State = INITIAL_STATE, action: GameAction): State
         validatedTurns: [],
         cardsInHand: [],
         protocol: [
-          ...state.protocol,
           {
             message: `${action.winner} wins the game`,
           },
+          ...state.protocol,
         ],
       };
     case RESET_GAME:
@@ -279,10 +279,10 @@ export function reducer(state: State = INITIAL_STATE, action: GameAction): State
       return {
         ...state,
         protocol: [
-          ...state.protocol,
           {
             message: `${action.error.message}`,
           },
+          ...state.protocol,
         ],
       };
     case SET_CARDS_IN_HAND:
@@ -306,15 +306,15 @@ export function reducer(state: State = INITIAL_STATE, action: GameAction): State
           : state.cardsInHand),
         protocol: action.turn.valid
           ? [
-            ...state.protocol,
             {
               message: `
                 ${action.turn.playerId} plays
                 ${action.turn.cards.length > 1 ? 'cards' : 'card'}
                 with
                 ${action.turn.cards.length > 1 ? 'ranks' : 'rank'}
-                ${action.turn.cards.map((card) => card.rank).join('and')}`,
+                ${action.turn.cards.map((card) => card.rank).join(', ')}`,
             },
+            ...state.protocol,
           ]
           : state.protocol,
       };
@@ -333,13 +333,14 @@ export function reducer(state: State = INITIAL_STATE, action: GameAction): State
           isRoundWinner: player.id === action.winner,
         })),
         protocol: [
-          ...state.protocol,
           {
             message: `${action.winner} wins the current round`,
           },
           ...action.penalties.map((penalty) => ({
+            id: new Date().toString() + Math.random(),
             message: `${penalty.playerId} gets a penalty of ${penalty.card.rank}`,
           })),
+          ...state.protocol,
         ],
       };
     case START_CYCLE:
@@ -356,10 +357,10 @@ export function reducer(state: State = INITIAL_STATE, action: GameAction): State
           isOut: isPlayerWithIdOut(action.outPlayers, player.id),
         })),
         protocol: [
-          ...state.protocol,
           ...action.highestTurnPlayerIds.map((playerId) => ({
             message: `${playerId} played the highest card in cycle`,
           })),
+          ...state.protocol,
         ],
       };
     case REQUEST_CARDS:
