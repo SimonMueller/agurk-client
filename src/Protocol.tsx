@@ -6,7 +6,8 @@ interface Props {
   entries: ProtocolEntry[];
 }
 
-const Container = styled.div`
+const ScrolledUl = styled.ul`
+  overflow-y: auto;
   max-height: 25vh;
 `;
 
@@ -14,12 +15,12 @@ export default function Protocol({ entries }: Props) {
   const entryItems = entries.map((entry) => <li>{entry.message}</li>);
 
   return (
-    <Container>
+    <div>
       <h2>Protocol</h2>
 
-      <ul>
+      <ScrolledUl>
         { entryItems }
-      </ul>
-    </Container>
+      </ScrolledUl>
+    </div>
   );
 }

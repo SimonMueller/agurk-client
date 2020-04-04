@@ -32,7 +32,6 @@ const Flex = styled.div`
 `;
 
 const Box = styled.div`
-  overflow-y: auto;
   flex-grow: 1;
   flex-shrink: 0;
   flex-basis: 300px;
