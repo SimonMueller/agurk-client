@@ -17,8 +17,8 @@ import {
   startCycle,
   startGame, startPlayerTurn,
   startRound,
-} from '../redux/game';
-import { setLobbyPlayers } from '../redux/lobby';
+} from '../redux/game.action';
+import { setLobbyPlayers } from '../redux/lobby.action';
 
 export interface WebSocketGameApi {
   sendStartGame: () => void;

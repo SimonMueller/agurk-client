@@ -8,7 +8,8 @@ import PlayerStateList from './PlayerStateList';
 import Stack from './Stack';
 import { State } from './redux';
 import { WebSocketGameApi } from './communication/webSocketServerApi';
-import { PlayerState, ProtocolEntry, resetGame } from './redux/game';
+import { resetGame } from './redux/game.action';
+import { PlayerState, ProtocolEntry } from './redux/game.reducer';
 import Protocol from './Protocol';
 
 interface Props {

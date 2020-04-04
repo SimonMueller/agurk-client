@@ -1,7 +1,7 @@
 import { Action, Dispatch } from 'redux';
 import jwtDecode from 'jwt-decode';
 import { AuthenticationBody, JwtPayload } from 'agurk-shared';
-import { setPlayerId } from './game';
+import { setPlayerId } from './game.action';
 
 const API_SERVER_URI = process.env.REACT_APP_API_SERVER_URI as string;
 
@@ -70,44 +70,4 @@ export function authenticate(data: AuthenticationBody) {
         }
       }, () => dispatch(authenticationError('Could not contact server. Try again later...')));
   };
-}
-
-export interface State {
-  subject: string;
-  isAuthenticated: boolean,
-  token: string,
-  error: string | undefined,
-}
-
-const INITIAL_STATE: State = {
-  subject: '',
-  isAuthenticated: false,
-  token: '',
-  error: undefined,
-};
-
-export function reducer(state: State = INITIAL_STATE, action: AuthenticationAction): State {
-  switch (action.type) {
-    case AUTHENTICATE_WITH_TOKEN:
-      return {
-        ...state,
-        subject: action.subject,
-        isAuthenticated: true,
-        token: action.token,
-        error: undefined,
-      };
-    case AUTHENTICATION_ERROR:
-      return {
-        ...state,
-        error: action.message,
-      };
-    case UNAUTHENTICATE_WITH_ERROR:
-      return {
-        ...state,
-        ...INITIAL_STATE,
-        error: action.message,
-      };
-    default:
-      return state;
-  }
 }

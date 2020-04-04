@@ -15,23 +15,3 @@ export function setLobbyPlayers(playerIds: PlayerId[]): LobbyAction {
     playerIds,
   };
 }
-
-export interface State {
-  players: PlayerId[];
-}
-
-const INITIAL_STATE: State = {
-  players: [],
-};
-
-export function reducer(state: State = INITIAL_STATE, action: LobbyAction): State {
-  switch (action.type) {
-    case SET_LOBBY_PLAYERS:
-      return {
-        ...state,
-        players: action.playerIds,
-      };
-    default:
-      return state;
-  }
-}

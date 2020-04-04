@@ -11,7 +11,7 @@ import {
 } from './communication/webSocketServerApi';
 import { State } from './redux';
 import PlayerIdList from './PlayerIdList';
-import { unauthenticateWithError } from './redux/authentication';
+import { unauthenticateWithError } from './redux/authentication.action';
 
 const WSS_SERVER_URI = process.env.REACT_APP_WSS_SERVER_URI as string;
 
