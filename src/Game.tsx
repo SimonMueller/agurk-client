@@ -39,9 +39,10 @@ function Game({
     ).subscribe(() => {
       const webSocketAuthenticationApi = createAuthenticationApi(subject);
       webSocketAuthenticationApi.sendAuthenticate(authenticationToken);
-    });
+    },
+    () => dispatch(unauthenticateWithError('Could not authenticate with the game server. Try to login again...')));
     return () => subject.complete();
-  }, [subject, authenticationToken]);
+  }, [subject, dispatch, authenticationToken]);
 
   return (
     <>
