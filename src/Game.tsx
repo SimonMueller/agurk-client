@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { filter } from 'rxjs/operators';
 import { Action, Dispatch } from 'redux';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
+import { GameMessage } from 'agurk-shared/dist/types/message';
 import {
   createAuthenticationApi, createGameApi, dispatchWebSocketMessageAsActions,
 } from './communication/webSocketServerApi';
@@ -20,24 +21,35 @@ interface Props {
   isGameRunning: boolean;
 }
 
+function respondToAuthenticationRequestFromServer(
+  subject: WebSocketSubject<GameMessage>,
+  authenticationToken: string,
+  dispatch: Dispatch<Action>,
+) {
+  subject.pipe(filter((message) => message.name === MessageName.REQUEST_AUTHENTICATION))
+    .subscribe(() => {
+      const webSocketAuthenticationApi = createAuthenticationApi(subject);
+      webSocketAuthenticationApi.sendAuthenticate(authenticationToken);
+    },
+    () => dispatch(unauthenticateWithError('Could not authenticate with the game server. Try to login again...')));
+}
+
+function handleMessagesFromServer(subject: WebSocketSubject<GameMessage>, dispatch: Dispatch<Action>) {
+  subject.subscribe((message) => dispatchWebSocketMessageAsActions(message, dispatch),
+    () => dispatch(unauthenticateWithError('Could not contact the game server. Try again later...')));
+}
+
 function Game({ dispatch, authenticationToken, isGameRunning }: Props) {
   const [subject] = useState<WebSocketSubject<Message>>(webSocket(WSS_SERVER_URI));
   const gameApi = createGameApi(subject);
 
   useEffect(() => {
-    subject.subscribe((message) => dispatchWebSocketMessageAsActions(message, dispatch),
-      () => dispatch(unauthenticateWithError('Could not contact the game server. Try again later...')));
+    handleMessagesFromServer(subject, dispatch);
     return () => subject.complete();
   }, [subject, dispatch]);
 
   useEffect(() => {
-    subject.pipe(
-      filter((message) => message.name === MessageName.REQUEST_AUTHENTICATION),
-    ).subscribe(() => {
-      const webSocketAuthenticationApi = createAuthenticationApi(subject);
-      webSocketAuthenticationApi.sendAuthenticate(authenticationToken);
-    },
-    () => dispatch(unauthenticateWithError('Could not authenticate with the game server. Try to login again...')));
+    respondToAuthenticationRequestFromServer(subject, authenticationToken, dispatch);
     return () => subject.complete();
   }, [subject, dispatch, authenticationToken]);
 
