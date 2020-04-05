@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import Lobby from './Lobby';
 import { State } from './redux';
 import Login from './Login';
 import { Theme } from './styled/theme';
+import Game from './Game';
 
 interface Props {
   isAuthenticated: boolean;
@@ -43,7 +43,7 @@ function App({ isAuthenticated }: Props) {
         </h1>
       </header>
       <Main>
-        { isAuthenticated ? <Lobby /> : <Login /> }
+        { isAuthenticated ? <Game /> : <Login /> }
       </Main>
       <Footer>
         <MutedLink href="https://github.com/SimonMueller/agurk-server#rules">Read the rules</MutedLink>

@@ -1,84 +1,61 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Message, MessageName, PlayerId } from 'agurk-shared';
 import { connect } from 'react-redux';
-import { Card, ValidatedTurn } from 'agurk-shared';
-import styled from 'styled-components';
+import { filter } from 'rxjs/operators';
 import { Action, Dispatch } from 'redux';
-import Hand from './Hand';
-import PlayerStateList from './PlayerStateList';
-import Stack from './Stack';
+import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
+import {
+  createAuthenticationApi, createGameApi, dispatchWebSocketMessageAsActions,
+} from './communication/webSocketServerApi';
 import { State } from './redux';
-import { WebSocketGameApi } from './communication/webSocketServerApi';
-import { resetGame } from './redux/game.action';
-import { PlayerState, ProtocolEntry } from './redux/game.reducer';
-import Protocol from './Protocol';
+import { unauthenticateWithError } from './redux/authentication.action';
+import Lobby from './Lobby';
+import Board from './Board';
+
+const WSS_SERVER_URI = process.env.REACT_APP_WSS_SERVER_URI as string;
 
 interface Props {
-  state: {
-    players: PlayerState[]
-    playedTurns: ValidatedTurn[];
-    cardsInHand: Card[];
-    playerState: PlayerState;
-    turnTimeoutInMillis: number | undefined;
-    turnRetriesLeft: number;
-    protocolEntries: ProtocolEntry[];
-  };
-  playCards: (cards: Card[]) => void;
-  reset: () => void;
+  dispatch: Dispatch<Action>;
+  authenticationToken: string;
+  isGameStarted: boolean;
+  playerIds: PlayerId[];
 }
 
-const Flex = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-`;
+function Game({
+  dispatch, authenticationToken, isGameStarted, playerIds,
+}: Props) {
+  const [subject] = useState<WebSocketSubject<Message>>(webSocket(WSS_SERVER_URI));
+  const gameApi = createGameApi(subject);
 
-const Box = styled.div`
-  flex-grow: 1;
-  flex-shrink: 0;
-  flex-basis: 300px;
-`;
+  useEffect(() => {
+    subject.subscribe((message) => dispatchWebSocketMessageAsActions(message, dispatch),
+      () => dispatch(unauthenticateWithError('Could not contact the game server. Try again later...')));
+    return () => subject.complete();
+  }, [subject, dispatch]);
 
-function Game({ state, playCards, reset }: Props) {
-  useEffect(() => reset, [reset]);
+  useEffect(() => {
+    subject.pipe(
+      filter((message) => message.name === MessageName.REQUEST_AUTHENTICATION),
+    ).subscribe(() => {
+      const webSocketAuthenticationApi = createAuthenticationApi(subject);
+      webSocketAuthenticationApi.sendAuthenticate(authenticationToken);
+    });
+    return () => subject.complete();
+  }, [subject, authenticationToken]);
 
   return (
-    <div>
-      <Stack playedTurns={state.playedTurns} />
-      <Hand
-        isServerRequestingCards={state.playerState.isServerRequestingCards}
-        turnTimeoutInMillis={state.turnTimeoutInMillis}
-        turnRetriesLeft={state.turnRetriesLeft}
-        cardsInHand={state.cardsInHand}
-        playCards={playCards}
-      />
-      <Flex>
-        <Box>
-          <PlayerStateList players={state.players} />
-        </Box>
-        <Box>
-          <Protocol entries={state.protocolEntries} />
-        </Box>
-      </Flex>
-    </div>
+    <>
+      { isGameStarted
+        ? <Board serverApi={gameApi} />
+        : <Lobby startGame={gameApi.sendStartGame} players={playerIds} /> }
+    </>
   );
 }
 
-const mapStateToProps = (state: State, ownProps: { serverApi: WebSocketGameApi }) => ({
-  state: {
-    cardsInHand: state.game.cardsInHand,
-    players: state.game.players,
-    playedTurns: state.game.validatedTurns,
-    playerState: state.game.players.find((player) => player.id === state.game.playerId) as PlayerState,
-    playCards: (cards: Card[]) => ownProps.serverApi.sendPlayCards(cards),
-    turnTimeoutInMillis: state.game.turnTimeoutInMillis,
-    turnRetriesLeft: state.game.turnRetriesLeft,
-    protocolEntries: state.game.protocol,
-  },
-  playCards: (cards: Card[]) => ownProps.serverApi.sendPlayCards(cards),
+const mapStateToProps = (state: State) => ({
+  isGameStarted: state.game.isRunning,
+  playerIds: state.lobby.players,
+  authenticationToken: state.authentication.token,
 });
 
-
-const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
-  reset: () => dispatch(resetGame()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Game);
+export default connect(mapStateToProps)(Game);
