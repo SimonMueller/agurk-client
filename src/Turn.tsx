@@ -30,6 +30,7 @@ const Centered = styled.div`
 
 const TurnBox = styled.div`
   margin-right: 1em;
+  margin-bottom: 1em;
 `;
 
 export const ErrorBadge = styled(Badge)`

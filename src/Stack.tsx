@@ -46,14 +46,14 @@ function LastPlayedMaxCard({ playedTurns }: Props) {
     : <PlayingCardPlaceholder />;
 
   return (
-    <>
+    <Box>
       <CardBox>
         { highestPlayedCard }
       </CardBox>
       <Centered>
-        <SuccessBadge>Highest played card</SuccessBadge>
+        <SuccessBadge>Highest card</SuccessBadge>
       </Centered>
-    </>
+    </Box>
   );
 }
 
