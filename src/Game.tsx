@@ -17,10 +17,10 @@ const WSS_SERVER_URI = process.env.REACT_APP_WSS_SERVER_URI as string;
 interface Props {
   dispatch: Dispatch<Action>;
   authenticationToken: string;
-  isGameStarted: boolean;
+  isGameRunning: boolean;
 }
 
-function Game({ dispatch, authenticationToken, isGameStarted }: Props) {
+function Game({ dispatch, authenticationToken, isGameRunning }: Props) {
   const [subject] = useState<WebSocketSubject<Message>>(webSocket(WSS_SERVER_URI));
   const gameApi = createGameApi(subject);
 
@@ -43,7 +43,7 @@ function Game({ dispatch, authenticationToken, isGameStarted }: Props) {
 
   return (
     <>
-      { isGameStarted
+      { isGameRunning
         ? <Board serverApi={gameApi} />
         : <Lobby startGame={gameApi.sendStartGame} /> }
     </>
@@ -51,7 +51,7 @@ function Game({ dispatch, authenticationToken, isGameStarted }: Props) {
 }
 
 const mapStateToProps = (state: State) => ({
-  isGameStarted: state.game.isRunning,
+  isGameRunning: state.game.isRunning,
   authenticationToken: state.authentication.token,
 });
 
