@@ -183,6 +183,8 @@ export default function (state: State = INITIAL_STATE, action: GameAction): Stat
           createProtocolMessage(`${action.winner} wins the current round`),
           ...action.penalties
             .map((penalty) => createProtocolMessage(`${penalty.playerId} gets a penalty of ${penalty.card.rank}`)),
+          ...action.outPlayers
+            .map((outPlayer) => createProtocolMessage(`${outPlayer.id} is out because ${outPlayer.reason}`)),
           ...state.protocol,
         ],
       };
@@ -202,6 +204,8 @@ export default function (state: State = INITIAL_STATE, action: GameAction): Stat
         protocol: [
           ...action.highestTurnPlayerIds
             .map((playerId) => (createProtocolMessage(`${playerId} played the highest card in cycle`))),
+          ...action.outPlayers
+            .map((outPlayer) => createProtocolMessage(`${outPlayer.id} is out because ${outPlayer.reason}`)),
           ...state.protocol,
         ],
       };
