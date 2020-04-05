@@ -1,18 +1,26 @@
 import React from 'react';
 import { PlayerId } from 'agurk-shared';
+import { connect } from 'react-redux';
 import PrimaryButton from './styled/Button';
 import PlayerIdList from './PlayerIdList';
+import { State } from './redux';
 
 interface Props {
-  players: PlayerId[];
+  playerIds: PlayerId[];
   startGame: () => void;
 }
 
-export default function Lobby({ players, startGame }: Props) {
+function Lobby({ playerIds, startGame }: Props) {
   return (
     <div>
-      <PlayerIdList playerIds={players} />
+      <PlayerIdList playerIds={playerIds} />
       <PrimaryButton type="button" onClick={startGame}>Start Game</PrimaryButton>
     </div>
   );
 }
+
+const mapStateToProps = (state: State) => ({
+  playerIds: state.lobby.players,
+});
+
+export default connect(mapStateToProps)(Lobby);

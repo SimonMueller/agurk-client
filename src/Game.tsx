@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Message, MessageName, PlayerId } from 'agurk-shared';
+import { Message, MessageName } from 'agurk-shared';
 import { connect } from 'react-redux';
 import { filter } from 'rxjs/operators';
 import { Action, Dispatch } from 'redux';
@@ -18,12 +18,9 @@ interface Props {
   dispatch: Dispatch<Action>;
   authenticationToken: string;
   isGameStarted: boolean;
-  playerIds: PlayerId[];
 }
 
-function Game({
-  dispatch, authenticationToken, isGameStarted, playerIds,
-}: Props) {
+function Game({ dispatch, authenticationToken, isGameStarted }: Props) {
   const [subject] = useState<WebSocketSubject<Message>>(webSocket(WSS_SERVER_URI));
   const gameApi = createGameApi(subject);
 
@@ -48,14 +45,13 @@ function Game({
     <>
       { isGameStarted
         ? <Board serverApi={gameApi} />
-        : <Lobby startGame={gameApi.sendStartGame} players={playerIds} /> }
+        : <Lobby startGame={gameApi.sendStartGame} /> }
     </>
   );
 }
 
 const mapStateToProps = (state: State) => ({
   isGameStarted: state.game.isRunning,
-  playerIds: state.lobby.players,
   authenticationToken: state.authentication.token,
 });
 
