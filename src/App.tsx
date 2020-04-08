@@ -46,7 +46,7 @@ function App({ isAuthenticated }: Props) {
         { isAuthenticated ? <Game /> : <Login /> }
       </Main>
       <Footer>
-        <MutedLink href="https://github.com/SimonMueller/agurk-server/blob/master/README.md#rules">
+        <MutedLink target="_blank" href="https://github.com/SimonMueller/agurk-server/blob/master/README.md#rules">
           Read the rules
         </MutedLink>
       </Footer>
