@@ -13,6 +13,11 @@ interface Props {
   error: string | undefined;
 }
 
+const Container = styled.div`
+  max-width: 500px;
+  margin: auto;
+`;
+
 const Input = styled.input`
   padding: 0.5em;
   width: 100%;
@@ -52,7 +57,7 @@ function Login({ dispatch, error }: Props) {
   }
 
   return (
-    <>
+    <Container>
       <h2>Login</h2>
 
       <SpacedForm onSubmit={handleSubmit}>
@@ -80,7 +85,7 @@ function Login({ dispatch, error }: Props) {
       </SpacedForm>
 
       { error && <ErrorMessage>{error}</ErrorMessage>}
-    </>
+    </Container>
   );
 }
 
