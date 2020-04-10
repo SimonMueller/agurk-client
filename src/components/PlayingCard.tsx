@@ -23,7 +23,7 @@ const CardRankText = styled.p`
   flex-basis: 100%;
   text-align: center;
   display: block;
-  font-size: 3em;
+  font-size: max(2.5em, 2.5vmax);
   margin: 0;
 `;
 
@@ -32,18 +32,21 @@ const CardAttributeText = styled.p`
   flex-basis: 100%;
   text-align: center;
   display: block;
-  font-size: 0.7em;
+  font-size: max(0.6em, 0.6vmax);
   margin: 0;
 `;
 
+/*
+  width / height ratio = 1 / 1.5
+*/
 const Card = styled.div`
   color: ${({ isSelected, theme }: { isSelected: boolean, theme: Theme }) => (
     isSelected ? `${theme.colors.primary}` : ` ${theme.colors.text}`
   )};
   border: 1px solid;
   border-radius: 4px;
-  width: 4.5em;
-  height: 7em;
+  width: max(4em, 4vmax);
+  height: max(6em, 6vmax);
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

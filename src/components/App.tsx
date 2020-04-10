@@ -10,6 +10,19 @@ interface Props {
   isAuthenticated: boolean;
 }
 
+const Header = styled.header`
+  background-color: ${({ theme }: { theme: Theme }) => (theme.colors.primary)};
+`;
+
+const Title = styled.h1`
+  color: white;
+  margin: 0;
+  text-align: center;
+  padding: 0.5em;
+  font-size: 1.5em;
+  font-weight: bold;
+`;
+
 const Container = styled.div`
   max-width: 800px;
   margin: auto;
@@ -30,27 +43,30 @@ const MutedLink = styled.a`
   text-decoration: none;
 
   &:hover {
+    color: ${({ theme }: { theme: Theme }) => (theme.colors.text)};
     text-decoration: underline;
   }
 `;
 
 function App({ isAuthenticated }: Props) {
   return (
-    <Container className="App">
-      <header className="App-header">
-        <h1>
+    <>
+      <Header>
+        <Title>
           Agurk
-        </h1>
-      </header>
-      <Main>
-        { isAuthenticated ? <Game /> : <Login /> }
-      </Main>
-      <Footer>
-        <MutedLink target="_blank" href="https://github.com/SimonMueller/agurk-server/blob/master/README.md#rules">
-          Read the rules
-        </MutedLink>
-      </Footer>
-    </Container>
+        </Title>
+      </Header>
+      <Container>
+        <Main>
+          { isAuthenticated ? <Game /> : <Login /> }
+        </Main>
+        <Footer>
+          <MutedLink target="_blank" href="https://github.com/SimonMueller/agurk-server/blob/master/README.md#rules">
+            Read the rules
+          </MutedLink>
+        </Footer>
+      </Container>
+    </>
   );
 }
 
