@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { InvalidTurn, ValidatedTurn, ValidTurn } from 'agurk-shared';
 import PlayingCard, { generateCardKey, PlayingCardPlaceholder } from './PlayingCard';
-import Badge from './styled/Badge';
-import { Theme } from './styled/theme';
+import { ErrorBadge } from '../styled/Badge';
+import { Theme } from '../styled/theme';
 
 interface Props {
   turn: ValidatedTurn;
@@ -31,11 +31,6 @@ const Centered = styled.div`
 const TurnBox = styled.div`
   margin-right: 1em;
   margin-bottom: 1em;
-`;
-
-export const ErrorBadge = styled(Badge)`
-  background-color: ${({ theme }: { theme: Theme }) => (theme.colors.error)};
-  color: white;
 `;
 
 export function generateTurnKey(turn: ValidatedTurn): string {

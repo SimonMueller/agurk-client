@@ -4,8 +4,8 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
 import App from './App';
-import reducer from './redux/index';
-import theme from './styled/theme';
+import reducer from '../redux';
+import theme from '../styled/theme';
 
 const store = createStore(reducer);
 

@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Card, cardEquals } from 'agurk-shared';
 import styled from 'styled-components';
 import SelectableCardList, { SelectableCard } from './SelectableCardList';
-import PrimaryButton from './styled/Button';
+import PrimaryButton from '../styled/Button';
 import TextSecondTimer from './TextSecondTimer';
-import { Theme } from './styled/theme';
+import { Theme } from '../styled/theme';
 
 interface Props {
   playCards: (cards: Card[]) => void;

@@ -1,9 +1,9 @@
 import React from 'react';
 import { PlayerId } from 'agurk-shared';
 import { connect } from 'react-redux';
-import PrimaryButton from './styled/Button';
+import PrimaryButton from '../styled/Button';
 import PlayerIdList from './PlayerIdList';
-import { State } from './redux';
+import { State } from '../redux';
 
 interface Props {
   playerIds: PlayerId[];

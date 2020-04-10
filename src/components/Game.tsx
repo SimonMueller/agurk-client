@@ -4,12 +4,11 @@ import { connect } from 'react-redux';
 import { filter } from 'rxjs/operators';
 import { Action, Dispatch } from 'redux';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
-import { GameMessage } from 'agurk-shared/dist/types/message';
 import {
   createAuthenticationApi, createGameApi, dispatchWebSocketMessageAsActions,
-} from './communication/webSocketServerApi';
-import { State } from './redux';
-import { unauthenticateWithError } from './redux/authentication.action';
+} from '../communication/webSocketServerApi';
+import { State } from '../redux';
+import { unauthenticateWithError } from '../redux/authentication.action';
 import Lobby from './Lobby';
 import Board from './Board';
 
@@ -22,7 +21,7 @@ interface Props {
 }
 
 function respondToAuthenticationRequestFromServer(
-  subject: WebSocketSubject<GameMessage>,
+  subject: WebSocketSubject<Message>,
   authenticationToken: string,
   dispatch: Dispatch<Action>,
 ) {
@@ -34,7 +33,7 @@ function respondToAuthenticationRequestFromServer(
     () => dispatch(unauthenticateWithError('Could not authenticate with the game server. Try to login again...')));
 }
 
-function handleMessagesFromServer(subject: WebSocketSubject<GameMessage>, dispatch: Dispatch<Action>) {
+function handleMessagesFromServer(subject: WebSocketSubject<Message>, dispatch: Dispatch<Action>) {
   subject.subscribe((message) => dispatchWebSocketMessageAsActions(message, dispatch),
     () => dispatch(unauthenticateWithError('Could not contact the game server. Try again later...')));
 }

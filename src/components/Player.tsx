@@ -1,17 +1,11 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
-import { PlayerState } from './redux/game.reducer';
-import Badge from './styled/Badge';
-import { Theme } from './styled/theme';
+import { PlayerState } from '../redux/game.reducer';
+import { AccentBadge } from '../styled/Badge';
 
 interface Props {
   player: PlayerState;
 }
-
-export const PenaltyBadge = styled(Badge)`
-  background-color: ${({ theme }: { theme: Theme }) => (theme.colors.warn)};
-  color: white;
-`;
 
 const opacityPulse = keyframes`
   0% {
@@ -48,11 +42,11 @@ export default function Player({ player }: Props) {
       { player.isServerRequestingCards
         ? <ActivePlayerName isOut={player.isOut}>{ player.id }</ActivePlayerName>
         : <InactivePlayerName isOut={player.isOut}>{ player.id }</InactivePlayerName>}
-      <PenaltyBadge>
+      <AccentBadge>
         Penalty
         {' '}
         {penaltySum}
-      </PenaltyBadge>
+      </AccentBadge>
     </>
   );
 }

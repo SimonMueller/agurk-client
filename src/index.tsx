@@ -5,9 +5,9 @@ import { applyMiddleware, createStore } from 'redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { ThemeProvider } from 'styled-components';
-import App from './App';
+import App from './components/App';
 import * as serviceWorker from './serviceWorker';
-import reducer from './redux/index';
+import reducer from './redux';
 import './index.css';
 import theme from './styled/theme';
 

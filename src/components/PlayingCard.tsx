@@ -3,7 +3,7 @@ import {
   Card as CardData, JOKER_CARD_KIND, JokerCard as JokerCardData, SuitCard as SuitCardData,
 } from 'agurk-shared';
 import styled from 'styled-components';
-import { Theme } from './styled/theme';
+import { Theme } from '../styled/theme';
 
 interface PlayingCardProps {
   card: CardData;

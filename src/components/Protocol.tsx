@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ProtocolEntry } from './redux/game.reducer';
+import { ProtocolEntry } from '../redux/game.reducer';
 
 interface Props {
   entries: ProtocolEntry[];

@@ -6,10 +6,10 @@ import { Action, Dispatch } from 'redux';
 import Hand from './Hand';
 import PlayerStateList from './PlayerStateList';
 import Stack from './Stack';
-import { State } from './redux';
-import { WebSocketGameApi } from './communication/webSocketServerApi';
-import { resetGame } from './redux/game.action';
-import { PlayerState, ProtocolEntry } from './redux/game.reducer';
+import { State } from '../redux';
+import { WebSocketGameApi } from '../communication/webSocketServerApi';
+import { resetGame } from '../redux/game.action';
+import { PlayerState, ProtocolEntry } from '../redux/game.reducer';
 import Protocol from './Protocol';
 
 interface Props {

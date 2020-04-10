@@ -2,9 +2,8 @@ import React from 'react';
 import { compareRanks, ValidatedTurn, ValidTurn } from 'agurk-shared';
 import styled from 'styled-components';
 import PlayingCard, { PlayingCardPlaceholder } from './PlayingCard';
-import { Theme } from './styled/theme';
-import Badge from './styled/Badge';
 import TurnList from './TurnList';
+import { PrimaryBadge } from '../styled/Badge';
 
 interface Props {
   playedTurns: ValidatedTurn[];
@@ -18,11 +17,6 @@ const Flex = styled.div`
 const Box = styled.div`
   margin-right: 1em;
   margin-bottom: 1em;
-`;
-
-export const SuccessBadge = styled(Badge)`
-  background-color: ${({ theme }: { theme: Theme }) => (theme.colors.success)};
-  color: white;
 `;
 
 const Centered = styled.div`
@@ -51,7 +45,7 @@ function LastPlayedMaxCard({ playedTurns }: Props) {
         { highestPlayedCard }
       </CardBox>
       <Centered>
-        <SuccessBadge>Highest card</SuccessBadge>
+        <PrimaryBadge>Highest card</PrimaryBadge>
       </Centered>
     </Box>
   );
