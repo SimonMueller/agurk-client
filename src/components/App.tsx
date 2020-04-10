@@ -26,7 +26,7 @@ const Title = styled.h1`
 const Container = styled.div`
   max-width: 800px;
   margin: auto;
-  padding: 0 2em;
+  padding: 2em;
 `;
 
 const NavBar = styled.a`

@@ -74,7 +74,7 @@ export default function Hand({
 
   return (
     <div>
-      <h2>Hand</h2>
+      <h2>Your hand</h2>
 
       <SelectableCardList cards={selectableCards} handleSelect={handleCardSelect} />
 
