@@ -29,6 +29,16 @@ const Container = styled.div`
   padding: 0 2em;
 `;
 
+const NavBar = styled.a`
+  display: flex;
+  justify-content: center;
+`;
+
+const NavLink = styled.a`
+  display: inline-block;
+  text-decoration: none;
+`;
+
 const Footer = styled.footer`
   text-align: center;
   margin-bottom: 2em;
@@ -52,9 +62,13 @@ function App({ isAuthenticated }: Props) {
   return (
     <>
       <Header>
-        <Title>
-          Agurk
-        </Title>
+        <NavBar>
+          <NavLink href="/">
+            <Title>
+              Agurk
+            </Title>
+          </NavLink>
+        </NavBar>
       </Header>
       <Container>
         <Main>
