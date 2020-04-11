@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { State } from '../redux';
 import Login from './Login';
-import { Theme } from '../styled/theme';
+import { Theme } from './styled/theme';
 import Game from './Game';
 
 interface Props {

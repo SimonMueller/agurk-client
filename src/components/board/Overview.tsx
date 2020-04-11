@@ -7,7 +7,7 @@ interface Props {
   isServerRequestingCards: boolean;
   players: PlayerState[];
   turnRetriesLeft: number;
-  turnTimeoutInSeconds: number;
+  turnTimeoutInSeconds: number | undefined;
   gameStage: GameStage;
 }
 
@@ -38,17 +38,19 @@ function YourTurn({ turnTimeoutInSeconds, turnRetriesLeft }: Pick<Props, 'turnTi
         Your turn
         { ' ' }
       </OverviewHeading>
-      <OverviewParagraph>
-        <TextSecondTimer timeoutInSeconds={turnTimeoutInSeconds} />
-        { ' ' }
-        seconds and
-        { ' ' }
-        { turnRetriesLeft }
-        { ' ' }
-        { turnRetriesLeft === 1
-          ? 'retry left'
-          : 'retries left' }
-      </OverviewParagraph>
+      { turnTimeoutInSeconds && (
+        <OverviewParagraph>
+          <TextSecondTimer timeoutInSeconds={turnTimeoutInSeconds} />
+          { ' ' }
+          seconds and
+          { ' ' }
+          { turnRetriesLeft }
+          { ' ' }
+          { turnRetriesLeft === 1
+            ? 'retry left'
+            : 'retries left' }
+        </OverviewParagraph>
+      ) }
     </Flex>
   );
 }

@@ -9,7 +9,7 @@ import App from './components/App';
 import * as serviceWorker from './serviceWorker';
 import reducer from './redux';
 import './index.css';
-import theme from './styled/theme';
+import theme from './components/styled/theme';
 
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
 

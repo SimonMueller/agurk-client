@@ -12,13 +12,12 @@ import {
   endGameSuccess,
   endRound,
   requestCards,
-  resetGame,
   setAvailableCardsInHand,
   startCycle,
   startGame, startPlayerTurn,
   startRound,
 } from '../redux/game.action';
-import { setLobbyPlayers } from '../redux/lobby.action';
+import { setIsInGame, setLobbyPlayers } from '../redux/lobby.action';
 
 export interface WebSocketGameApi {
   sendStartGame: () => void;
@@ -47,14 +46,15 @@ export function dispatchWebSocketMessageAsActions(message: Message, dispatch: (a
     case MessageName.BROADCAST_LOBBY_PLAYERS:
       return dispatch(setLobbyPlayers(message.data));
     case MessageName.BROADCAST_START_GAME:
-      return dispatch(startGame(message.data.players));
+      dispatch(startGame(message.data.players));
+      return dispatch(setIsInGame(true));
     case MessageName.BROADCAST_END_GAME:
       if (message.data.isValid) {
         dispatch(endGameSuccess(message.data.winner));
       } else {
         dispatch(endGameError(message.data.error));
       }
-      return dispatch(resetGame());
+      return dispatch(setIsInGame(false));
     case MessageName.BROADCAST_START_ROUND:
       return dispatch(startRound(message.data.players));
     case MessageName.BROADCAST_END_ROUND:

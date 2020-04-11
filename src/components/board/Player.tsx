@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import { PlayerState } from '../../redux/game.reducer';
-import { AccentBadge } from '../../styled/Badge';
+import { AccentBadge } from '../styled/Badge';
 
 interface Props {
   player: PlayerState;

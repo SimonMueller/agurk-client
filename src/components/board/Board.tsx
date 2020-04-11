@@ -12,20 +12,22 @@ import { resetGame } from '../../redux/game.action';
 import { PlayerState, ProtocolEntry, GameStage } from '../../redux/game.reducer';
 import Protocol from './Protocol';
 import Overview from './Overview';
+import { setIsInGame } from '../../redux/lobby.action';
 
 interface Props {
   state: {
     players: PlayerState[]
     playedTurns: ValidatedTurn[];
     cardsInHand: Card[];
-    playerState: PlayerState;
+    playerState: PlayerState | undefined;
     stage: GameStage;
-    turnTimeoutInSeconds: number;
+    turnTimeoutInSeconds: number | undefined;
     turnRetriesLeft: number;
     protocolEntries: ProtocolEntry[];
   };
   playCards: (cards: Card[]) => void;
   reset: () => void;
+  cancelGame: () => void;
 }
 
 const Flex = styled.div`
@@ -41,6 +43,10 @@ const Box = styled.div`
 
 function Board({ state, playCards, reset }: Props) {
   useEffect(() => reset, [reset]);
+
+  if (!state.playerState) {
+    return <p>Loading game...</p>;
+  }
 
   return (
     <div>
@@ -75,9 +81,9 @@ const mapStateToProps = (state: State, ownProps: { serverApi: WebSocketGameApi }
     players: state.game.players,
     stage: state.game.stage,
     playedTurns: state.game.validatedTurns,
-    playerState: state.game.players.find((player) => player.id === state.game.playerId) as PlayerState,
+    playerState: state.game.players.find((player) => player.id === state.game.playerId),
     playCards: (cards: Card[]) => ownProps.serverApi.sendPlayCards(cards),
-    turnTimeoutInSeconds: state.game.turnTimeoutInMillis as number / 1000,
+    turnTimeoutInSeconds: state.game.turnTimeoutInMillis ? state.game.turnTimeoutInMillis / 1000 : undefined,
     turnRetriesLeft: state.game.turnRetriesLeft,
     protocolEntries: state.game.protocol,
   },
@@ -87,6 +93,7 @@ const mapStateToProps = (state: State, ownProps: { serverApi: WebSocketGameApi }
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
   reset: () => dispatch(resetGame()),
+  cancelGame: () => dispatch(setIsInGame(false)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Board);

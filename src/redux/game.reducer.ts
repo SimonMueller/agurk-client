@@ -67,7 +67,6 @@ export enum GameStage {
 }
 
 export interface State {
-  isRunning: boolean;
   stage: GameStage;
   playerId: PlayerId | undefined;
   players: PlayerState[];
@@ -79,7 +78,6 @@ export interface State {
 }
 
 const INITIAL_STATE: State = {
-  isRunning: false,
   stage: GameStage.START,
   playerId: undefined,
   players: [],
@@ -110,7 +108,6 @@ export default function (state: State = INITIAL_STATE, action: GameAction): Stat
       return {
         ...state,
         stage: GameStage.START,
-        isRunning: true,
         players: action.playerIds.map((playerId) => ({
           ...INITIAL_PLAYER_STATE,
           id: playerId,

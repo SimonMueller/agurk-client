@@ -3,7 +3,7 @@ import { compareRanks, ValidatedTurn, ValidTurn } from 'agurk-shared';
 import styled from 'styled-components';
 import PlayingCard, { PlayingCardPlaceholder } from './PlayingCard';
 import TurnList from './TurnList';
-import { PrimaryBadge } from '../../styled/Badge';
+import { PrimaryBadge } from '../styled/Badge';
 
 interface Props {
   playedTurns: ValidatedTurn[];
