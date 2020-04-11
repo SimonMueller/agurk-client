@@ -1,7 +1,7 @@
 import React from 'react';
 import { PlayerId } from 'agurk-shared';
 import { connect } from 'react-redux';
-import PrimaryButton from './styled/Button';
+import { PrimaryButton } from './styled/Button';
 import PlayerIdList from './board/PlayerIdList';
 import { State } from '../redux';
 

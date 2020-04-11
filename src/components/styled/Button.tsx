@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Theme } from './theme';
 
-export default styled.button`
+export const PrimaryButton = styled.button`
   display: inline-block;
   font-size: 1em;
   height: 3em;
@@ -17,4 +17,9 @@ export default styled.button`
     color: white;
     cursor: pointer;
   }
+`;
+
+export const UnstyledButton = styled.button`
+  all: unset;
+  cursor: pointer;
 `;

@@ -2,7 +2,7 @@ import React, { FormEvent, useState } from 'react';
 import { connect } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
 import styled from 'styled-components';
-import PrimaryButton from './styled/Button';
+import { PrimaryButton } from './styled/Button';
 import { GameAction } from '../redux/game.action';
 import { authenticate } from '../redux/authentication.action';
 import { State } from '../redux';

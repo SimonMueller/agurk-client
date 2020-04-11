@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Card, cardEquals } from 'agurk-shared';
 import SelectableCardList, { SelectableCard } from './SelectableCardList';
-import PrimaryButton from '../styled/Button';
+import { PrimaryButton } from '../styled/Button';
 
 interface Props {
   playCards: (cards: Card[]) => void;
