@@ -63,7 +63,7 @@ function App({ isAuthenticated }: Props) {
     <>
       <Header>
         <NavBar>
-          <NavLink href="/">
+          <NavLink href="/agurk-client">
             <Title>
               Agurk
             </Title>

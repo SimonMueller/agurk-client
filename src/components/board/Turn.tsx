@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { InvalidTurn, ValidatedTurn, ValidTurn } from 'agurk-shared';
 import PlayingCard, { generateCardKey, PlayingCardPlaceholder } from './PlayingCard';
-import { ErrorBadge } from '../styled/Badge';
-import { Theme } from '../styled/theme';
+import { ErrorBadge } from '../../styled/Badge';
+import { Theme } from '../../styled/theme';
 
 interface Props {
   turn: ValidatedTurn;

@@ -57,8 +57,18 @@ export interface ProtocolEntry {
   message: string;
 }
 
+export enum GameStage {
+  START,
+  END,
+  BETWEEN_ROUNDS,
+  BETWEEN_CYCLES,
+  BEFORE_CYCLE,
+  IN_CYCLE,
+}
+
 export interface State {
   isRunning: boolean;
+  stage: GameStage;
   playerId: PlayerId | undefined;
   players: PlayerState[];
   validatedTurns: ValidatedTurn[];
@@ -70,6 +80,7 @@ export interface State {
 
 const INITIAL_STATE: State = {
   isRunning: false,
+  stage: GameStage.START,
   playerId: undefined,
   players: [],
   validatedTurns: [],
@@ -98,6 +109,7 @@ export default function (state: State = INITIAL_STATE, action: GameAction): Stat
     case START_GAME:
       return {
         ...state,
+        stage: GameStage.START,
         isRunning: true,
         players: action.playerIds.map((playerId) => ({
           ...INITIAL_PLAYER_STATE,
@@ -107,6 +119,7 @@ export default function (state: State = INITIAL_STATE, action: GameAction): Stat
     case END_GAME_SUCCESS:
       return {
         ...state,
+        stage: GameStage.END,
         players: state.players.map((player) => ({
           ...player,
           isGameWinner: player.id === action.winner,
@@ -129,6 +142,7 @@ export default function (state: State = INITIAL_STATE, action: GameAction): Stat
     case END_GAME_ERROR:
       return {
         ...state,
+        stage: GameStage.END,
         protocol: [
           createProtocolMessage(`${action.error.message}`),
           ...state.protocol,
@@ -166,10 +180,14 @@ export default function (state: State = INITIAL_STATE, action: GameAction): Stat
           : state.protocol,
       };
     case START_ROUND:
-      return state;
+      return {
+        ...state,
+        stage: GameStage.BEFORE_CYCLE,
+      };
     case END_ROUND:
       return {
         ...state,
+        stage: GameStage.BETWEEN_ROUNDS,
         players: state.players.map((player) => ({
           ...player,
           penalties: [
@@ -191,11 +209,13 @@ export default function (state: State = INITIAL_STATE, action: GameAction): Stat
     case START_CYCLE:
       return {
         ...state,
+        stage: GameStage.IN_CYCLE,
         validatedTurns: [],
       };
     case END_CYCLE:
       return {
         ...state,
+        stage: GameStage.BETWEEN_CYCLES,
         players: state.players.map((player) => ({
           ...player,
           isCycleHighestTurnPlayer: isPlayerIdOneOfHighestTurnPlayers(action.highestTurnPlayerIds, player.id),

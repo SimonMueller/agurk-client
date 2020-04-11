@@ -10,7 +10,7 @@ import {
 import { State } from '../redux';
 import { unauthenticateWithError } from '../redux/authentication.action';
 import Lobby from './Lobby';
-import Board from './Board';
+import Board from './board/Board';
 
 const WSS_SERVER_URI = process.env.REACT_APP_WSS_SERVER_URI as string;
 
