@@ -80,7 +80,9 @@ function HighestCyclePlayers({ players }: Pick<Props, 'players'>) {
     <OverviewHeading>
       { highestCyclePlayerIds.join(', ') }
       { ' ' }
-      played the highest cards in cycle
+      { highestCyclePlayerIds.length === 1
+        ? 'wins the cycle'
+        : 'win the cycle' }
     </OverviewHeading>
   );
 }
@@ -90,7 +92,7 @@ function RoundWinner({ players }: Pick<Props, 'players'>) {
   return (
     <OverviewHeading>
       { roundWinner
-        ? `${roundWinner.id} wins the game`
+        ? `${roundWinner.id} wins the round`
         : 'No round winner' }
     </OverviewHeading>
   );
