@@ -11,32 +11,44 @@ interface Props {
   gameStage: GameStage;
 }
 
+const Container = styled.div`
+  margin: 2em 0;
+`;
+
 const Flex = styled.div`
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: baseline;
+`;
+
+const OverviewHeading = styled.h2`
+  margin: 0;
+`;
+
+const OverviewParagraph = styled.p`
+  margin: 0;
+  font-weight: bold;
 `;
 
 function YourTurn({ turnTimeoutInSeconds, turnRetriesLeft }: Pick<Props, 'turnTimeoutInSeconds' | 'turnRetriesLeft'>) {
   return (
     <Flex>
-      <h2>
+      <OverviewHeading>
         Your turn
         { ' ' }
-      </h2>
-      <p>
-        <b>
-          <TextSecondTimer timeoutInSeconds={turnTimeoutInSeconds} />
-          { ' ' }
-          seconds and
-          { ' ' }
-          { turnRetriesLeft }
-          { ' ' }
-          { turnRetriesLeft === 1
-            ? 'retry left'
-            : 'retries left' }
-        </b>
-      </p>
+      </OverviewHeading>
+      <OverviewParagraph>
+        <TextSecondTimer timeoutInSeconds={turnTimeoutInSeconds} />
+        { ' ' }
+        seconds and
+        { ' ' }
+        { turnRetriesLeft }
+        { ' ' }
+        { turnRetriesLeft === 1
+          ? 'retry left'
+          : 'retries left' }
+      </OverviewParagraph>
     </Flex>
   );
 }
@@ -44,10 +56,10 @@ function YourTurn({ turnTimeoutInSeconds, turnRetriesLeft }: Pick<Props, 'turnTi
 function TheirTurn({ players }: Pick<Props, 'players'>) {
   const currentTurnPlayer = players.find((player) => player.isServerRequestingCards);
   return (
-    <h2>
+    <OverviewHeading>
       { currentTurnPlayer?.id }
       { '\'s turn' }
-    </h2>
+    </OverviewHeading>
   );
 }
 
@@ -65,33 +77,33 @@ function HighestCyclePlayers({ players }: Pick<Props, 'players'>) {
     .filter((player) => player.isCycleHighestTurnPlayer)
     .map((player) => player.id);
   return (
-    <h2>
+    <OverviewHeading>
       { highestCyclePlayerIds.join(', ') }
       { ' ' }
       played the highest cards in cycle
-    </h2>
+    </OverviewHeading>
   );
 }
 
 function RoundWinner({ players }: Pick<Props, 'players'>) {
   const roundWinner = players.find((player) => player.isRoundWinner);
   return (
-    <h2>
+    <OverviewHeading>
       { roundWinner
         ? `${roundWinner.id} wins the game`
         : 'No round winner' }
-    </h2>
+    </OverviewHeading>
   );
 }
 
 function GameWinner({ players }: Pick<Props, 'players'>) {
   const gameWinner = players.find((player) => player.isGameWinner);
   return (
-    <h2>
+    <OverviewHeading>
       { gameWinner
         ? `${gameWinner.id} wins the game`
         : 'No game winner' }
-    </h2>
+    </OverviewHeading>
   );
 }
 
@@ -101,24 +113,32 @@ export default function Overview({
   switch (gameStage) {
     case GameStage.IN_CYCLE:
       return (
-        <TurnIndicator
-          isServerRequestingCards={isServerRequestingCards}
-          players={players}
-          turnRetriesLeft={turnRetriesLeft}
-          turnTimeoutInSeconds={turnTimeoutInSeconds}
-        />
+        <Container>
+          <TurnIndicator
+            isServerRequestingCards={isServerRequestingCards}
+            players={players}
+            turnRetriesLeft={turnRetriesLeft}
+            turnTimeoutInSeconds={turnTimeoutInSeconds}
+          />
+        </Container>
       );
     case GameStage.BETWEEN_CYCLES:
       return (
-        <HighestCyclePlayers players={players} />
+        <Container>
+          <HighestCyclePlayers players={players} />
+        </Container>
       );
     case GameStage.BETWEEN_ROUNDS:
       return (
-        <RoundWinner players={players} />
+        <Container>
+          <RoundWinner players={players} />
+        </Container>
       );
     case GameStage.END:
       return (
-        <GameWinner players={players} />
+        <Container>
+          <GameWinner players={players} />
+        </Container>
       );
     default:
       return null;
