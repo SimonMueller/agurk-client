@@ -29,7 +29,7 @@ const Container = styled.div`
   padding: 0 2em;
 `;
 
-const NavBar = styled.a`
+const NavBar = styled.nav`
   display: flex;
   justify-content: center;
 `;
