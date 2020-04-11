@@ -78,6 +78,11 @@ function HighestCyclePlayers({ players }: Pick<Props, 'players'>) {
   const highestCyclePlayerIds = players
     .filter((player) => player.isCycleHighestTurnPlayer)
     .map((player) => player.id);
+
+  if (highestCyclePlayerIds.length === 0) {
+    return <OverviewHeading>No cycle winner</OverviewHeading>;
+  }
+
   return (
     <OverviewHeading>
       { highestCyclePlayerIds.join(', ') }
