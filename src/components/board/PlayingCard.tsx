@@ -23,7 +23,7 @@ const CardRankText = styled.p`
   flex-basis: 100%;
   text-align: center;
   display: block;
-  font-size: max(2.5em, 2.5vmax);
+  font-size: 2.5em;
   margin: 0;
 `;
 
@@ -32,7 +32,7 @@ const CardAttributeText = styled.p`
   flex-basis: 100%;
   text-align: center;
   display: block;
-  font-size: max(0.6em, 0.6vmax);
+  font-size: 0.6em;
   margin: 0;
 `;
 
@@ -45,8 +45,8 @@ const Card = styled.div`
   )};
   border: 1px solid;
   border-radius: 4px;
-  width: max(4em, 4vmax);
-  height: max(6em, 6vmax);
+  width: 4em;
+  height: 6em;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
