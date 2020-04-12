@@ -9,7 +9,7 @@ interface Props {
 
 const ScrolledUl = styled.ul`
   overflow-y: auto;
-  max-height: 25vh;
+  max-height: 35vh;
 `;
 
 export default function Protocol({ entries }: Props) {

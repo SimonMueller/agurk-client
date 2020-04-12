@@ -23,13 +23,17 @@ const OverviewParagraph = styled.p`
   font-weight: bold;
 `;
 
+const OverviewTitle = styled.h2`
+  margin-bottom: 0;
+`;
+
 function YourTurn({ turnTimeoutInSeconds, turnRetriesLeft }: Pick<Props, 'turnTimeoutInSeconds' | 'turnRetriesLeft'>) {
   return (
     <Flex>
-      <h2>
+      <OverviewTitle>
         Your turn
         { ' ' }
-      </h2>
+      </OverviewTitle>
       { turnTimeoutInSeconds && (
         <OverviewParagraph>
           <TextSecondTimer timeoutInSeconds={turnTimeoutInSeconds} />
@@ -50,10 +54,10 @@ function YourTurn({ turnTimeoutInSeconds, turnRetriesLeft }: Pick<Props, 'turnTi
 function TheirTurn({ players }: Pick<Props, 'players'>) {
   const currentTurnPlayer = players.find((player) => player.isServerRequestingCards);
   return (
-    <h2>
+    <OverviewTitle>
       { currentTurnPlayer?.id }
       { '\'s turn' }
-    </h2>
+    </OverviewTitle>
   );
 }
 
@@ -76,35 +80,35 @@ function HighestCyclePlayers({ players }: Pick<Props, 'players'>) {
   }
 
   return (
-    <h2>
+    <OverviewTitle>
       { highestCyclePlayerIds.join(', ') }
       { ' ' }
       { highestCyclePlayerIds.length === 1
         ? 'wins the cycle'
         : 'win the cycle' }
-    </h2>
+    </OverviewTitle>
   );
 }
 
 function RoundWinner({ players }: Pick<Props, 'players'>) {
   const roundWinner = players.find((player) => player.isRoundWinner);
   return (
-    <h2>
+    <OverviewTitle>
       { roundWinner
         ? `${roundWinner.id} wins the round`
         : 'No round winner' }
-    </h2>
+    </OverviewTitle>
   );
 }
 
 function GameWinner({ players }: Pick<Props, 'players'>) {
   const gameWinner = players.find((player) => player.isGameWinner);
   return (
-    <h2>
+    <OverviewTitle>
       { gameWinner
         ? `${gameWinner.id} wins the game`
         : 'No game winner' }
-    </h2>
+    </OverviewTitle>
   );
 }
 
