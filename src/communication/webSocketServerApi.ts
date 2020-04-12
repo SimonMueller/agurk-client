@@ -50,11 +50,9 @@ export function dispatchWebSocketMessageAsActions(message: Message, dispatch: (a
       return dispatch(setIsInGame(true));
     case MessageName.BROADCAST_END_GAME:
       if (message.data.isValid) {
-        dispatch(endGameSuccess(message.data.winner));
-      } else {
-        dispatch(endGameError(message.data.error));
+        return dispatch(endGameSuccess(message.data.winner));
       }
-      return dispatch(setIsInGame(false));
+      return dispatch(endGameError(message.data.error));
     case MessageName.BROADCAST_START_ROUND:
       return dispatch(startRound(message.data.players));
     case MessageName.BROADCAST_END_ROUND:

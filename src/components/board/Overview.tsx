@@ -106,7 +106,7 @@ function GameWinner({ players }: Pick<Props, 'players'>) {
   return (
     <OverviewTitle>
       { gameWinner
-        ? `${gameWinner.id} wins the game`
+        ? `${gameWinner.id} wins the game 🎉🎉`
         : 'No game winner' }
     </OverviewTitle>
   );

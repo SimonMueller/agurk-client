@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Card, ValidatedTurn } from 'agurk-shared';
 import styled from 'styled-components';
@@ -9,10 +9,11 @@ import Stack from './Stack';
 import { State } from '../../redux';
 import { WebSocketGameApi } from '../../communication/webSocketServerApi';
 import { resetGame } from '../../redux/game.action';
-import { PlayerState, ProtocolEntry, GameStage } from '../../redux/game.reducer';
+import { GameStage, PlayerState, ProtocolEntry } from '../../redux/game.reducer';
 import Protocol from './Protocol';
 import Overview from './Overview';
 import { setIsInGame } from '../../redux/lobby.action';
+import { PrimaryButton } from '../styled/Button';
 
 interface Props {
   state: {
@@ -26,8 +27,7 @@ interface Props {
     protocolEntries: ProtocolEntry[];
   };
   playCards: (cards: Card[]) => void;
-  reset: () => void;
-  cancelGame: () => void;
+  closeGame: () => void;
 }
 
 const minWidthBreakpoint = '800px';
@@ -38,7 +38,7 @@ const Grid = styled.div`
 
   @media(min-width: ${minWidthBreakpoint}) {
     grid-template-columns: 30% 65%;
-    grid-template-rows: auto auto auto;
+    grid-template-rows: auto auto auto auto;
     column-gap: 5%;
     row-gap: 2em;
   }
@@ -114,9 +114,21 @@ const ProtocolBox = styled.div`
   }
 `;
 
-function Board({ state, playCards, reset }: Props) {
-  useEffect(() => reset, [reset]);
+const NavigationBox = styled.div`
+  grid-column-start: 1;
+  grid-column-end: span 1;
+  grid-row-start: 6;
+  grid-row-end: span 1;
 
+  @media(min-width: ${minWidthBreakpoint}) {
+    grid-column-start: 1;
+    grid-column-end: span 1;
+    grid-row-start: 4;
+    grid-row-end: span 1;
+  }
+`;
+
+function Board({ state, playCards, closeGame }: Props) {
   if (!state.playerState) {
     return <p>Loading game...</p>;
   }
@@ -148,6 +160,14 @@ function Board({ state, playCards, reset }: Props) {
       <ProtocolBox>
         <Protocol entries={state.protocolEntries} />
       </ProtocolBox>
+      { state.stage === GameStage.END
+        && (
+        <NavigationBox>
+          <PrimaryButton onClick={closeGame}>
+            Return to lobby
+          </PrimaryButton>
+        </NavigationBox>
+        )}
     </Grid>
   );
 }
@@ -169,8 +189,10 @@ const mapStateToProps = (state: State, ownProps: { serverApi: WebSocketGameApi }
 
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
-  reset: () => dispatch(resetGame()),
-  cancelGame: () => dispatch(setIsInGame(false)),
+  closeGame: () => {
+    resetGame();
+    dispatch(setIsInGame(false));
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Board);
