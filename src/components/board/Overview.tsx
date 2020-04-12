@@ -81,7 +81,7 @@ function HighestCyclePlayers({ players }: Pick<Props, 'players'>) {
 
   return (
     <OverviewTitle>
-      { highestCyclePlayerIds.join(', ') }
+      { highestCyclePlayerIds.join(' and ') }
       { ' ' }
       { highestCyclePlayerIds.length === 1
         ? 'wins the cycle'
