@@ -9,8 +9,7 @@ import Stack from './Stack';
 import { State } from '../../redux';
 import { WebSocketGameApi } from '../../communication/webSocketServerApi';
 import { resetGame } from '../../redux/game.action';
-import { GameStage, PlayerState, ProtocolEntry } from '../../redux/game.reducer';
-import Protocol from './Protocol';
+import { GameStage, PlayerState } from '../../redux/game.reducer';
 import Overview from './Overview';
 import { setIsInGame } from '../../redux/lobby.action';
 import { PrimaryButton } from '../styled/Button';
@@ -24,7 +23,6 @@ interface Props {
     stage: GameStage;
     turnTimeoutInSeconds: number | undefined;
     turnRetriesLeft: number;
-    protocolEntries: ProtocolEntry[];
   };
   playCards: (cards: Card[]) => void;
   closeGame: () => void;
@@ -100,20 +98,6 @@ const PlayersBox = styled.div`
   }
 `;
 
-const ProtocolBox = styled.div`
-  grid-column-start: 1;
-  grid-column-end: span 1;
-  grid-row-start: 5;
-  grid-row-end: span 1;
-
-  @media(min-width: ${minWidthBreakpoint}) {
-    grid-column-start: 1;
-    grid-column-end: span 1;
-    grid-row-start: 3;
-    grid-row-end: span 1;
-  }
-`;
-
 const NavigationBox = styled.div`
   grid-column-start: 1;
   grid-column-end: span 1;
@@ -123,7 +107,7 @@ const NavigationBox = styled.div`
   @media(min-width: ${minWidthBreakpoint}) {
     grid-column-start: 1;
     grid-column-end: span 1;
-    grid-row-start: 4;
+    grid-row-start: 3;
     grid-row-end: span 1;
   }
 `;
@@ -157,9 +141,6 @@ function Board({ state, playCards, closeGame }: Props) {
       <PlayersBox>
         <PlayerStateList players={state.players} />
       </PlayersBox>
-      <ProtocolBox>
-        <Protocol entries={state.protocolEntries} />
-      </ProtocolBox>
       { state.stage === GameStage.END
         && (
         <NavigationBox>
@@ -182,7 +163,6 @@ const mapStateToProps = (state: State, ownProps: { serverApi: WebSocketGameApi }
     playCards: (cards: Card[]) => ownProps.serverApi.sendPlayCards(cards),
     turnTimeoutInSeconds: state.game.turnTimeoutInMillis ? state.game.turnTimeoutInMillis / 1000 : undefined,
     turnRetriesLeft: state.game.turnRetriesLeft,
-    protocolEntries: state.game.protocol,
   },
   playCards: (cards: Card[]) => ownProps.serverApi.sendPlayCards(cards),
 });

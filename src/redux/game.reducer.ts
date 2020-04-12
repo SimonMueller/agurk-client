@@ -33,12 +33,6 @@ function filterAvailableCardsAfterTurn(cardsInHand: Card[], turn: ValidatedTurn)
     .find((turnCard) => cardEquals(cardInHand, turnCard)) === undefined);
 }
 
-function createProtocolMessage(message: string) {
-  return {
-    message,
-  };
-}
-
 function isTurnValidAndFromPlayer(playedTurn: ValidatedTurn, playerId: PlayerId | undefined) {
   return playedTurn.playerId === playerId && playedTurn.valid;
 }
@@ -79,7 +73,6 @@ export interface State {
   cardsInHand: Card[];
   turnTimeoutInMillis: number | undefined;
   turnRetriesLeft: number,
-  protocol: ProtocolEntry[],
 }
 
 const INITIAL_STATE: State = {
@@ -90,7 +83,6 @@ const INITIAL_STATE: State = {
   cardsInHand: [],
   turnTimeoutInMillis: undefined,
   turnRetriesLeft: 0,
-  protocol: [],
 };
 
 const INITIAL_PLAYER_STATE = {
@@ -126,10 +118,6 @@ export default function (state: State = INITIAL_STATE, action: GameAction): Stat
           ...player,
           isGameWinner: player.id === action.winner,
         })),
-        protocol: [
-          createProtocolMessage(`${action.winner} wins the game`),
-          ...state.protocol,
-        ],
       };
     case RESET_GAME:
       return {
@@ -145,10 +133,6 @@ export default function (state: State = INITIAL_STATE, action: GameAction): Stat
       return {
         ...state,
         stage: GameStage.END,
-        protocol: [
-          createProtocolMessage(`${action.error.message}`),
-          ...state.protocol,
-        ],
       };
     case SET_CARDS_IN_HAND:
       return {
@@ -169,17 +153,6 @@ export default function (state: State = INITIAL_STATE, action: GameAction): Stat
         cardsInHand: isTurnValidAndFromPlayer(action.turn, state.playerId)
           ? filterAvailableCardsAfterTurn(state.cardsInHand, action.turn)
           : state.cardsInHand,
-        protocol: action.turn.valid
-          ? [
-            createProtocolMessage(`
-                ${action.turn.playerId} plays
-                ${action.turn.cards.length > 1 ? 'cards' : 'card'}
-                with
-                ${action.turn.cards.length > 1 ? 'ranks' : 'rank'}
-                ${action.turn.cards.map((card) => card.rank).join(', ')}`),
-            ...state.protocol,
-          ]
-          : state.protocol,
       };
     case START_ROUND:
       return {
@@ -199,14 +172,6 @@ export default function (state: State = INITIAL_STATE, action: GameAction): Stat
           isOut: isPlayerWithIdOut(action.outPlayers, player.id),
           isRoundWinner: player.id === action.winner,
         })),
-        protocol: [
-          createProtocolMessage(`${action.winner} wins the current round`),
-          ...action.penalties
-            .map((penalty) => createProtocolMessage(`${penalty.playerId} gets a penalty of ${penalty.card.rank}`)),
-          ...action.outPlayers
-            .map((outPlayer) => createProtocolMessage(`${outPlayer.id} is out because ${outPlayer.reason}`)),
-          ...state.protocol,
-        ],
       };
     case START_CYCLE:
       return {
@@ -224,13 +189,6 @@ export default function (state: State = INITIAL_STATE, action: GameAction): Stat
           isOut: isPlayerWithIdOut(action.outPlayers, player.id),
           outReason: findPlayerOutReason(action.outPlayers, player.id),
         })),
-        protocol: [
-          ...action.highestTurnPlayerIds
-            .map((playerId) => (createProtocolMessage(`${playerId} played the highest card in cycle`))),
-          ...action.outPlayers
-            .map((outPlayer) => createProtocolMessage(`${outPlayer.id} is out because ${outPlayer.reason}`)),
-          ...state.protocol,
-        ],
       };
     case REQUEST_CARDS:
       return {
