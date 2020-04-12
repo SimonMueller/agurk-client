@@ -53,15 +53,13 @@ function LastPlayedMaxCard({ playedTurns }: Props) {
 
 export default function Stack({ playedTurns }: Props) {
   return (
-    <div>
-      <Flex>
-        <Box>
-          <LastPlayedMaxCard playedTurns={playedTurns} />
-        </Box>
-        <Box>
-          <TurnList turns={playedTurns} />
-        </Box>
-      </Flex>
-    </div>
+    <Flex>
+      <Box>
+        <LastPlayedMaxCard playedTurns={playedTurns} />
+      </Box>
+      <Box>
+        <TurnList turns={playedTurns} />
+      </Box>
+    </Flex>
   );
 }
