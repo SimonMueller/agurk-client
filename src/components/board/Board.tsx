@@ -39,6 +39,7 @@ const Box = styled.div`
   flex-grow: 1;
   flex-shrink: 0;
   flex-basis: 300px;
+  margin-right: 2em;
 `;
 
 function Board({ state, playCards, reset }: Props) {

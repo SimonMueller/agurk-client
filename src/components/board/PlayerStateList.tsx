@@ -16,22 +16,7 @@ export default function PlayerStateList({ players }: Props) {
   const playerItems = players.map((player) => <Li key={player.id}><Player player={player} /></Li>);
 
   return (
-    <Collapsible
-      title={(
-        <h2>
-          <span role="img" aria-label="close collapsible">➖</span>
-          { ' ' }
-          Players
-        </h2>
-      )}
-      collapsedTitle={(
-        <h2>
-          <span role="img" aria-label="open collapsible">➕</span>
-          { ' ' }
-          Players
-        </h2>
-      )}
-    >
+    <Collapsible title="Players" collapsedTitle="Players">
       <ul>
         { playerItems }
       </ul>

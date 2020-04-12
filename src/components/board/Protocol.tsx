@@ -16,22 +16,7 @@ export default function Protocol({ entries }: Props) {
   const entryItems = entries.map((entry) => <li>{entry.message}</li>);
 
   return (
-    <Collapsible
-      title={(
-        <h2>
-          <span role="img" aria-label="close collapsible">➖</span>
-          { ' ' }
-          Protocol
-        </h2>
-      )}
-      collapsedTitle={(
-        <h2>
-          <span role="img" aria-label="open collapsible">➕</span>
-          { ' ' }
-          Protocol
-        </h2>
-      )}
-    >
+    <Collapsible title="Protocol" collapsedTitle="Protocol">
       <ScrolledUl>
         { entryItems }
       </ScrolledUl>

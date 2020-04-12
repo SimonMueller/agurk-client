@@ -1,23 +1,42 @@
 import React, { ReactElement, useState } from 'react';
+import styled from 'styled-components';
 import { UnstyledButton } from './styled/Button';
+import { MonoSpan } from './styled/Text';
 
 interface Props {
   children: ReactElement | ReactElement[];
-  title: ReactElement;
-  collapsedTitle: ReactElement;
+  title: string;
+  collapsedTitle: string;
   isDefaultCollapsed?: boolean;
 }
 
+const FullWidthUnstyledButton = styled(UnstyledButton)`
+  width: 100%;
+`;
+
+const Flex = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+`;
+
 export default function Collapsible({
-  children, collapsedTitle, title, isDefaultCollapsed = true,
+  children, collapsedTitle, title, isDefaultCollapsed = false,
 }: Props) {
   const [isCollapsed, setIsCollapsed] = useState<boolean>(isDefaultCollapsed);
 
   return (
     <div>
-      <UnstyledButton onClick={() => setIsCollapsed(!isCollapsed)}>
-        { isCollapsed ? collapsedTitle : title }
-      </UnstyledButton>
+      <FullWidthUnstyledButton onClick={() => setIsCollapsed(!isCollapsed)}>
+        <Flex>
+          <h3>
+            { isCollapsed ? collapsedTitle : title }
+          </h3>
+          <h3>
+            <MonoSpan>{ isCollapsed ? '+' : '-' }</MonoSpan>
+          </h3>
+        </Flex>
+      </FullWidthUnstyledButton>
 
       { !isCollapsed && children }
     </div>
