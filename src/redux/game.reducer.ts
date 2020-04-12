@@ -43,6 +43,10 @@ function isTurnValidAndFromPlayer(playedTurn: ValidatedTurn, playerId: PlayerId 
   return playedTurn.playerId === playerId && playedTurn.valid;
 }
 
+function findPlayerOutReason(outPlayers: OutPlayer[], playerId: PlayerId) {
+  return outPlayers.find((outPlayer) => outPlayer.id === playerId)?.reason;
+}
+
 export interface PlayerState {
   id: PlayerId;
   isGameWinner: boolean;
@@ -50,6 +54,7 @@ export interface PlayerState {
   penalties: Penalty[];
   isRoundWinner: boolean;
   isOut: boolean;
+  outReason?: string;
   isServerRequestingCards: boolean;
 }
 
@@ -217,6 +222,7 @@ export default function (state: State = INITIAL_STATE, action: GameAction): Stat
           ...player,
           isCycleHighestTurnPlayer: isPlayerIdOneOfHighestTurnPlayers(action.highestTurnPlayerIds, player.id),
           isOut: isPlayerWithIdOut(action.outPlayers, player.id),
+          outReason: findPlayerOutReason(action.outPlayers, player.id),
         })),
         protocol: [
           ...action.highestTurnPlayerIds
