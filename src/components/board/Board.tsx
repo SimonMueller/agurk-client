@@ -36,7 +36,7 @@ const Grid = styled.div`
 
   @media(min-width: ${minWidthBreakpoint}) {
     grid-template-columns: 30% 65%;
-    grid-template-rows: auto auto auto auto;
+    grid-template-rows: auto auto auto;
     column-gap: 5%;
     row-gap: 2em;
   }
