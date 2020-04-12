@@ -39,7 +39,13 @@ function handleMessagesFromServer(subject: WebSocketSubject<Message>, dispatch: 
 }
 
 function Game({ dispatch, authenticationToken, isInGame }: Props) {
-  const [subject] = useState<WebSocketSubject<Message>>(webSocket(WSS_SERVER_URI));
+  const webSocketSubject: WebSocketSubject<Message> = webSocket({
+    url: WSS_SERVER_URI,
+    closeObserver: {
+      next: (closeEvent: CloseEvent) => dispatch(unauthenticateWithError(closeEvent.reason)),
+    },
+  });
+  const [subject] = useState(webSocketSubject);
   const gameApi = createGameApi(subject);
 
   useEffect(() => {
