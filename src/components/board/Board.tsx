@@ -30,16 +30,88 @@ interface Props {
   cancelGame: () => void;
 }
 
-const Flex = styled.div`
-  display: flex;
-  flex-wrap: wrap;
+const minWidthBreakpoint = '800px';
+
+const Grid = styled.div`
+  display: grid;
+  row-gap: 1em;
+
+  @media(min-width: ${minWidthBreakpoint}) {
+    grid-template-columns: 30% 65%;
+    grid-template-rows: auto auto auto;
+    column-gap: 5%;
+    row-gap: 2em;
+  }
 `;
 
-const Box = styled.div`
-  flex-grow: 1;
-  flex-shrink: 0;
-  flex-basis: 300px;
-  margin-right: 2em;
+const OverviewBox = styled.div`
+  grid-column-start: 1;
+  grid-column-end: span 1;
+  grid-row-start: 1;
+  grid-row-end: span 1;
+
+  @media(min-width:  ${minWidthBreakpoint}) {
+    grid-column-start: 2;
+    grid-column-end: span 1;
+    grid-row-start: 1;
+    grid-row-end: span 1;
+  }
+`;
+
+const StackBox = styled.div`
+  grid-column-start: 1;
+  grid-column-end: span 1;
+  grid-row-start: 2;
+  grid-row-end: span 1;
+
+  @media(min-width: ${minWidthBreakpoint}) {
+    grid-column-start: 2;
+    grid-column-end: span 1;
+    grid-row-start: 2;
+    grid-row-end: span 1;
+  }
+`;
+
+const HandBox = styled.div`
+  grid-column-start: 1;
+  grid-column-end: span 1;
+  grid-row-start: 3;
+  grid-row-end: span 1;
+
+  @media(min-width: ${minWidthBreakpoint}) {
+    grid-column-start: 2;
+    grid-column-end: span 1;
+    grid-row-start: 3;
+    grid-row-end: span 1;
+  }
+`;
+
+const PlayersBox = styled.div`
+  grid-column-start: 1;
+  grid-column-end: span 1;
+  grid-row-start: 4;
+  grid-row-end: span 1;
+
+  @media(min-width: ${minWidthBreakpoint}) {
+    grid-column-start: 1;
+    grid-column-end: span 1;
+    grid-row-start: 1;
+    grid-row-end: span 2;
+  }
+`;
+
+const ProtocolBox = styled.div`
+  grid-column-start: 1;
+  grid-column-end: span 1;
+  grid-row-start: 5;
+  grid-row-end: span 1;
+
+  @media(min-width: ${minWidthBreakpoint}) {
+    grid-column-start: 1;
+    grid-column-end: span 1;
+    grid-row-start: 3;
+    grid-row-end: span 1;
+  }
 `;
 
 function Board({ state, playCards, reset }: Props) {
@@ -50,29 +122,33 @@ function Board({ state, playCards, reset }: Props) {
   }
 
   return (
-    <div>
-      <Overview
-        gameStage={state.stage}
-        isServerRequestingCards={state.playerState.isServerRequestingCards}
-        players={state.players}
-        turnTimeoutInSeconds={state.turnTimeoutInSeconds}
-        turnRetriesLeft={state.turnRetriesLeft}
-      />
-      <Stack playedTurns={state.playedTurns} />
-      <Hand
-        isServerRequestingCards={state.playerState.isServerRequestingCards}
-        cardsInHand={state.cardsInHand}
-        playCards={playCards}
-      />
-      <Flex>
-        <Box>
-          <PlayerStateList players={state.players} />
-        </Box>
-        <Box>
-          <Protocol entries={state.protocolEntries} />
-        </Box>
-      </Flex>
-    </div>
+    <Grid>
+      <OverviewBox>
+        <Overview
+          gameStage={state.stage}
+          isServerRequestingCards={state.playerState.isServerRequestingCards}
+          players={state.players}
+          turnTimeoutInSeconds={state.turnTimeoutInSeconds}
+          turnRetriesLeft={state.turnRetriesLeft}
+        />
+      </OverviewBox>
+      <StackBox>
+        <Stack playedTurns={state.playedTurns} />
+      </StackBox>
+      <HandBox>
+        <Hand
+          isServerRequestingCards={state.playerState.isServerRequestingCards}
+          cardsInHand={state.cardsInHand}
+          playCards={playCards}
+        />
+      </HandBox>
+      <PlayersBox>
+        <PlayerStateList players={state.players} />
+      </PlayersBox>
+      <ProtocolBox>
+        <Protocol entries={state.protocolEntries} />
+      </ProtocolBox>
+    </Grid>
   );
 }
 

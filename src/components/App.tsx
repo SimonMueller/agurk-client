@@ -14,48 +14,40 @@ const Header = styled.header`
   background-color: ${({ theme }: { theme: Theme }) => (theme.colors.primary)};
 `;
 
-const Title = styled.h1`
-  color: white;
-  margin: 0;
-  text-align: center;
-  padding: 0.5em;
-  font-size: 1.5em;
-  font-weight: bold;
-`;
-
 const Container = styled.div`
-  max-width: 800px;
+  max-width: 1200px;
   margin: auto;
   padding: 0 2em;
 `;
 
 const NavBar = styled.nav`
   display: flex;
-  justify-content: center;
+  justify-content: start;
+  align-items: center;
 `;
 
 const NavLink = styled.a`
-  display: inline-block;
   text-decoration: none;
+  color: white;
+  text-align: center;
+  padding: 0.5em;
+
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
-const Footer = styled.footer`
-  text-align: center;
-  margin-bottom: 2em;
+const NavTitle = styled(NavLink)`
+  font-size: 1.5em;
+  font-weight: bold;
+
+  &:hover {
+    text-decoration: none;
+  }
 `;
 
 const Main = styled.main`
   margin-bottom: 2em;
-`;
-
-const MutedLink = styled.a`
-  color: ${({ theme }: { theme: Theme }) => (theme.colors.muted)};
-  text-decoration: none;
-
-  &:hover {
-    color: ${({ theme }: { theme: Theme }) => (theme.colors.text)};
-    text-decoration: underline;
-  }
 `;
 
 function App({ isAuthenticated }: Props) {
@@ -63,10 +55,11 @@ function App({ isAuthenticated }: Props) {
     <>
       <Header>
         <NavBar>
-          <NavLink href="/agurk-client">
-            <Title>
-              Agurk
-            </Title>
+          <NavTitle href="/agurk-client">
+            Agurk
+          </NavTitle>
+          <NavLink target="_blank" href="https://github.com/SimonMueller/agurk-server/blob/master/README.md#rules">
+            Read the rules
           </NavLink>
         </NavBar>
       </Header>
@@ -74,11 +67,6 @@ function App({ isAuthenticated }: Props) {
         <Main>
           { isAuthenticated ? <Game /> : <Login /> }
         </Main>
-        <Footer>
-          <MutedLink target="_blank" href="https://github.com/SimonMueller/agurk-server/blob/master/README.md#rules">
-            Read the rules
-          </MutedLink>
-        </Footer>
       </Container>
     </>
   );

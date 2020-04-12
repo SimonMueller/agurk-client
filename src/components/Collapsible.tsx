@@ -21,7 +21,7 @@ const Flex = styled.div`
 `;
 
 export default function Collapsible({
-  children, collapsedTitle, title, isDefaultCollapsed = false,
+  children, collapsedTitle, title, isDefaultCollapsed = true,
 }: Props) {
   const [isCollapsed, setIsCollapsed] = useState<boolean>(isDefaultCollapsed);
 
@@ -29,12 +29,12 @@ export default function Collapsible({
     <div>
       <FullWidthUnstyledButton onClick={() => setIsCollapsed(!isCollapsed)}>
         <Flex>
-          <h3>
+          <h2>
             { isCollapsed ? collapsedTitle : title }
-          </h3>
-          <h3>
+          </h2>
+          <h2>
             <MonoSpan>{ isCollapsed ? '+' : '-' }</MonoSpan>
-          </h3>
+          </h2>
         </Flex>
       </FullWidthUnstyledButton>
 
