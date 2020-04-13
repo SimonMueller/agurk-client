@@ -43,7 +43,7 @@ const Card = styled.div`
   color: ${({ isSelected, theme }: { isSelected: boolean, theme: Theme }) => (
     isSelected ? `${theme.colors.primary}` : ` ${theme.colors.text}`
   )};
-  border: 1px solid;
+  border: 2px solid;
   border-radius: 4px;
   width: 4em;
   height: 6em;
