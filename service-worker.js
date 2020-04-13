@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/agurk-client/precache-manifest.3722c274bbf3c0e9cb79862b01abb2ba.js"
+  "/agurk-client/precache-manifest.b5b4c3065ddbd0e1cb2899dac86390eb.js"
 );
 
 self.addEventListener('message', (event) => {
