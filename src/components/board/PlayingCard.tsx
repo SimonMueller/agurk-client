@@ -18,44 +18,19 @@ interface SuitCardProps {
   card: SuitCardData;
 }
 
-const CardRankText = styled.p`
-  font-weight: bold;
-  flex-basis: 100%;
-  text-align: center;
-  display: block;
-  font-size: 2.5em;
-  margin: 0;
-`;
-
-const CardAttributeText = styled.p`
-  font-weight: bold;
-  flex-basis: 100%;
-  text-align: center;
-  display: block;
-  font-size: 0.6em;
-  margin: 0;
-`;
-
-/*
-  width / height ratio = 1 / 1.5
-*/
 const Card = styled.div`
-  color: ${({ isSelected, theme }: { isSelected: boolean, theme: Theme }) => (
-    isSelected ? `${theme.colors.primary}` : ` ${theme.colors.text}`
+  border-color: ${({ isSelected, theme }: { isSelected: boolean, theme: Theme }) => (
+    isSelected ? `${theme.colors.primary}` : 'white'
   )};
-  border: 2px solid;
-  border-radius: 4px;
-  width: 4em;
-  height: 6em;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 6%;
+  width: 4.75em;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   margin: auto;
-`;
-
-const CardPlaceholder = styled(Card)`
-  border: ${({ theme }: { theme: Theme }) => (`1px dotted ${theme.colors.text}`)};
 `;
 
 export function generateCardKey(card: CardData): string {
@@ -66,28 +41,23 @@ export function generateCardKey(card: CardData): string {
 }
 
 function JokerCard({ card }: JokerCardProps) {
-  return (
-    <>
-      <CardRankText>
-        J
-      </CardRankText>
-      <CardAttributeText>
-        { card.color }
-      </CardAttributeText>
-    </>
-  );
+  const lowercaseColor = card.color.toLowerCase();
+  const cardSrcFile = 'agurk-client/images/joker.svg';
+  return <img src={cardSrcFile} alt={`joker card of color ${lowercaseColor}`} />;
 }
 
 function SuitCard({ card }: SuitCardProps) {
+  const lowercaseSuit = card.suit.toLowerCase();
+  const cardSrcFile = `agurk-client/images/${card.rank}-${lowercaseSuit}.svg`;
+  return <img src={cardSrcFile} alt={`card of rank ${card.rank} and suit ${lowercaseSuit}`} />;
+}
+
+export function PlayingCardPlaceholder() {
+  const cardSrcFile = 'agurk-client/images/placeholder.svg';
   return (
-    <>
-      <CardRankText>
-        { card.rank }
-      </CardRankText>
-      <CardAttributeText>
-        { card.suit }
-      </CardAttributeText>
-    </>
+    <Card isSelected={false}>
+      <img src={cardSrcFile} alt="card placeholder" />
+    </Card>
   );
 }
 
@@ -98,11 +68,5 @@ export default function PlayingCard({ card, isSelected = false }: PlayingCardPro
         ? <JokerCard card={card} />
         : <SuitCard card={card} /> }
     </Card>
-  );
-}
-
-export function PlayingCardPlaceholder() {
-  return (
-    <CardPlaceholder isSelected={false} />
   );
 }
