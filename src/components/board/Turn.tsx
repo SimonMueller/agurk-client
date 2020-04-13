@@ -9,13 +9,13 @@ interface Props {
   turn: ValidatedTurn;
 }
 
-const Flex = styled.div`
+const CardFlex = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 `;
 
-const MutedFlex = styled(Flex)`
+const MutedCardFlex = styled(CardFlex)`
   color: ${({ theme }: { theme: Theme }) => (theme.colors.muted)};
 `;
 
@@ -46,9 +46,9 @@ function Valid({ turn }: { turn: ValidTurn }) {
 
   return (
     <TurnBox>
-      <Flex>
+      <CardFlex>
         { cardItems }
-      </Flex>
+      </CardFlex>
       <Centered><span>{turn.playerId}</span></Centered>
     </TurnBox>
   );
@@ -73,11 +73,11 @@ function InvalidHiddenAfterTimeout({ turn }: { turn: InvalidTurn }) {
   return isVisible
     ? (
       <TurnBox>
-        <MutedFlex>
+        <MutedCardFlex>
           { cardItems.length === 0
             ? <PlayingCardPlaceholder />
             : cardItems }
-        </MutedFlex>
+        </MutedCardFlex>
         <Centered><span>{turn.playerId}</span></Centered>
         <Centered>
           <ErrorBadge>{turn.invalidReason}</ErrorBadge>
