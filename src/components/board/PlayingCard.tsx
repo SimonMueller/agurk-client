@@ -42,18 +42,18 @@ export function generateCardKey(card: CardData): string {
 
 function JokerCard({ card }: JokerCardProps) {
   const lowercaseColor = card.color.toLowerCase();
-  const cardSrcFile = 'agurk-client/images/joker.svg';
+  const cardSrcFile = '/agurk-client/images/joker.svg';
   return <img src={cardSrcFile} alt={`joker card of color ${lowercaseColor}`} />;
 }
 
 function SuitCard({ card }: SuitCardProps) {
   const lowercaseSuit = card.suit.toLowerCase();
-  const cardSrcFile = `agurk-client/images/${card.rank}-${lowercaseSuit}.svg`;
+  const cardSrcFile = `/agurk-client/images/${card.rank}-${lowercaseSuit}.svg`;
   return <img src={cardSrcFile} alt={`card of rank ${card.rank} and suit ${lowercaseSuit}`} />;
 }
 
 export function PlayingCardPlaceholder() {
-  const cardSrcFile = 'agurk-client/images/placeholder.svg';
+  const cardSrcFile = '/agurk-client/images/placeholder.svg';
   return (
     <Card isSelected={false}>
       <img src={cardSrcFile} alt="card placeholder" />
