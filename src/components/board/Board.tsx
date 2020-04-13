@@ -13,6 +13,7 @@ import { GameStage, PlayerState } from '../../redux/game.reducer';
 import Overview from './Overview';
 import { setIsInGame } from '../../redux/lobby.action';
 import { PrimaryButton } from '../styled/Button';
+import { Theme } from '../styled/theme';
 
 interface Props {
   state: {
@@ -28,13 +29,11 @@ interface Props {
   closeGame: () => void;
 }
 
-const minWidthBreakpoint = '800px';
-
 const Grid = styled.div`
   display: grid;
   row-gap: 1em;
 
-  @media(min-width: ${minWidthBreakpoint}) {
+  @media(min-width: ${({ theme }: { theme: Theme }) => (theme.breakpoints.minWidth)}) {
     grid-template-columns: 30% 65%;
     grid-template-rows: auto auto auto;
     column-gap: 5%;
@@ -48,7 +47,7 @@ const OverviewBox = styled.div`
   grid-row-start: 1;
   grid-row-end: span 1;
 
-  @media(min-width:  ${minWidthBreakpoint}) {
+  @media(min-width: ${({ theme }: { theme: Theme }) => (theme.breakpoints.minWidth)}) {
     grid-column-start: 2;
     grid-column-end: span 1;
     grid-row-start: 1;
@@ -62,7 +61,7 @@ const StackBox = styled.div`
   grid-row-start: 2;
   grid-row-end: span 1;
 
-  @media(min-width: ${minWidthBreakpoint}) {
+  @media(min-width: ${({ theme }: { theme: Theme }) => (theme.breakpoints.minWidth)}) {
     grid-column-start: 2;
     grid-column-end: span 1;
     grid-row-start: 2;
@@ -76,7 +75,7 @@ const HandBox = styled.div`
   grid-row-start: 3;
   grid-row-end: span 1;
 
-  @media(min-width: ${minWidthBreakpoint}) {
+  @media(min-width: ${({ theme }: { theme: Theme }) => (theme.breakpoints.minWidth)}) {
     grid-column-start: 2;
     grid-column-end: span 1;
     grid-row-start: 3;
@@ -90,7 +89,7 @@ const PlayersBox = styled.div`
   grid-row-start: 4;
   grid-row-end: span 1;
 
-  @media(min-width: ${minWidthBreakpoint}) {
+  @media(min-width: ${({ theme }: { theme: Theme }) => (theme.breakpoints.minWidth)}) {
     grid-column-start: 1;
     grid-column-end: span 1;
     grid-row-start: 1;
@@ -104,7 +103,7 @@ const NavigationBox = styled.div`
   grid-row-start: 6;
   grid-row-end: span 1;
 
-  @media(min-width: ${minWidthBreakpoint}) {
+  @media(min-width: ${({ theme }: { theme: Theme }) => (theme.breakpoints.minWidth)}) {
     grid-column-start: 1;
     grid-column-end: span 1;
     grid-row-start: 3;

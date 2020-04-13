@@ -6,6 +6,9 @@ export interface Theme {
     error: string;
     accent: string;
   };
+  breakpoints: {
+    minWidth: string;
+  };
 }
 
 const theme: Theme = {
@@ -15,6 +18,9 @@ const theme: Theme = {
     text: '#000',
     error: '#ff033e',
     accent: '#ff2400',
+  },
+  breakpoints: {
+    minWidth: '800px',
   },
 };
 
