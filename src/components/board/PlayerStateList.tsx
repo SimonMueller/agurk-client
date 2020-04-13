@@ -11,16 +11,21 @@ const Li = styled.li`
   margin-bottom: 0.5em;
 `;
 
+function byOrderAsc(first: PlayerState, second: PlayerState) {
+  return Math.sign(first.order - second.order);
+}
+
 export default function PlayerStateList({ players }: Props) {
-  const playerItems = players.map((player) => <Li key={player.id}><Player player={player} /></Li>);
+  const orderedPlayers = players.sort(byOrderAsc);
+  const playerItems = orderedPlayers.map((player) => <Li key={player.id}><Player player={player} /></Li>);
 
   return (
     <div>
       <h2>Players</h2>
 
-      <ul>
+      <ol>
         { playerItems }
-      </ul>
+      </ol>
     </div>
   );
 }

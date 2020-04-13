@@ -41,6 +41,10 @@ function findPlayerOutReason(outPlayers: OutPlayer[], playerId: PlayerId) {
   return outPlayers.find((outPlayer) => outPlayer.id === playerId)?.reason;
 }
 
+function findPlayerOrder(orderedPlayerIds: PlayerId[], player: PlayerState) {
+  return orderedPlayerIds.findIndex((playerId) => playerId === player.id);
+}
+
 export interface PlayerState {
   id: PlayerId;
   isGameWinner: boolean;
@@ -50,10 +54,7 @@ export interface PlayerState {
   isOut: boolean;
   outReason?: string;
   isServerRequestingCards: boolean;
-}
-
-export interface ProtocolEntry {
-  message: string;
+  order: number;
 }
 
 export enum GameStage {
@@ -72,7 +73,7 @@ export interface State {
   validatedTurns: ValidatedTurn[];
   cardsInHand: Card[];
   turnTimeoutInMillis: number | undefined;
-  turnRetriesLeft: number,
+  turnRetriesLeft: number;
 }
 
 const INITIAL_STATE: State = {
@@ -92,6 +93,7 @@ const INITIAL_PLAYER_STATE = {
   penalties: [],
   isOut: false,
   isServerRequestingCards: false,
+  order: -1,
 };
 
 export default function (state: State = INITIAL_STATE, action: GameAction): State {
@@ -176,6 +178,8 @@ export default function (state: State = INITIAL_STATE, action: GameAction): Stat
     case START_CYCLE:
       return {
         ...state,
+        players: state.players
+          .map((player) => ({ ...player, order: findPlayerOrder(action.orderedPlayerIds, player) })),
         stage: GameStage.IN_CYCLE,
         validatedTurns: [],
       };
