@@ -16,16 +16,25 @@ function byOrderAsc(first: PlayerState, second: PlayerState) {
 }
 
 export default function PlayerStateList({ players }: Props) {
-  const orderedPlayers = players.sort(byOrderAsc);
-  const playerItems = orderedPlayers.map((player) => <Li key={player.id}><Player player={player} /></Li>);
+  const orderedActivePlayers = players.filter((player) => !player.isOut).sort(byOrderAsc);
+  const outPlayers = players.filter((player) => player.isOut);
+  const activePlayerItems = orderedActivePlayers.map((player) => <Li key={player.id}><Player player={player} /></Li>);
+  const outPlayerItems = outPlayers.map((player) => <Li key={player.id}><Player player={player} /></Li>);
 
   return (
     <div>
       <h2>Players</h2>
 
       <ol>
-        { playerItems }
+        { activePlayerItems }
       </ol>
+
+      { outPlayerItems.length > 0
+        && (
+        <ul>
+          { outPlayerItems }
+        </ul>
+        )}
     </div>
   );
 }
