@@ -12,7 +12,7 @@ interface Props {
   handleSelect: (card: CardData) => void;
 }
 
-const cardBoxOverlap = '3em';
+const cardBoxOverlap = '2.75em';
 
 const Flex = styled.div`
   display: flex;
