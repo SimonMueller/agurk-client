@@ -20,9 +20,13 @@ function ActiveOrderedPlayers({ players }: Props) {
   const activePlayerItems = orderedActivePlayers.map((player) => <Li key={player.id}><Player player={player} /></Li>);
 
   return (
-    <ol>
-      { activePlayerItems }
-    </ol>
+    <>
+      <h2>Players</h2>
+
+      <ol>
+        { activePlayerItems }
+      </ol>
+    </>
   );
 }
 
@@ -35,17 +39,19 @@ function OutPlayers({ players }: Props) {
   }
 
   return (
-    <ul>
-      { outPlayerItems }
-    </ul>
+    <>
+      <h2>Out players</h2>
+
+      <ul>
+        { outPlayerItems }
+      </ul>
+    </>
   );
 }
 
 export default function PlayerStateList({ players }: Props) {
   return (
     <div>
-      <h2>Players</h2>
-
       <ActiveOrderedPlayers players={players} />
       <OutPlayers players={players} />
     </div>
