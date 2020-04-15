@@ -13,7 +13,13 @@ const Flex = styled.div`
 `;
 
 export default function TurnList({ turns }: Props) {
-  const turnItems = turns.map((turn) => (<Turn key={generateTurnKey(turn)} turn={turn} />));
+  const mostRecentPlayerTurns = turns.reduceRight<ValidatedTurn[]>((acc, current) => {
+    const isMostRecentPlayerTurn = acc.find((turn) => turn.playerId === current.playerId) === undefined;
+    return isMostRecentPlayerTurn
+      ? [current, ...acc]
+      : acc;
+  }, []);
+  const turnItems = mostRecentPlayerTurns.map((turn) => (<Turn key={generateTurnKey(turn)} turn={turn} />));
 
   return (
     <Flex>

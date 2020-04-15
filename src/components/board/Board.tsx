@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import { Action, Dispatch } from 'redux';
 import Hand from './Hand';
 import PlayerStateList from './PlayerStateList';
-import Stack from './Stack';
 import { State } from '../../redux';
 import { WebSocketGameApi } from '../../communication/webSocketServerApi';
 import { resetGame } from '../../redux/game.action';
@@ -14,6 +13,7 @@ import Overview from './Overview';
 import { setIsInGame } from '../../redux/lobby.action';
 import { PrimaryButton } from '../styled/Button';
 import { Theme } from '../styled/theme';
+import PlayedTurns from './PlayedTurns';
 
 interface Props {
   state: {
@@ -22,6 +22,7 @@ interface Props {
     cardsInHand: Card[];
     playerState: PlayerState | undefined;
     stage: GameStage;
+    isLastCycleOfRound: boolean;
     turnTimeoutInSeconds: number | undefined;
     turnRetriesLeft: number;
   };
@@ -55,7 +56,7 @@ const OverviewBox = styled.div`
   }
 `;
 
-const StackBox = styled.div`
+const PlayedTurnsBox = styled.div`
   grid-column-start: 1;
   grid-column-end: span 1;
   grid-row-start: 2;
@@ -127,9 +128,9 @@ function Board({ state, playCards, closeGame }: Props) {
           turnRetriesLeft={state.turnRetriesLeft}
         />
       </OverviewBox>
-      <StackBox>
-        <Stack playedTurns={state.playedTurns} />
-      </StackBox>
+      <PlayedTurnsBox>
+        <PlayedTurns playedTurns={state.playedTurns} isLastCycleOfRound={state.isLastCycleOfRound} />
+      </PlayedTurnsBox>
       <HandBox>
         <Hand
           isServerRequestingCards={state.playerState.isServerRequestingCards}
@@ -160,6 +161,7 @@ const mapStateToProps = (state: State, ownProps: { serverApi: WebSocketGameApi }
     playedTurns: state.game.validatedTurns,
     playerState: state.game.players.find((player) => player.id === state.game.playerId),
     playCards: (cards: Card[]) => ownProps.serverApi.sendPlayCards(cards),
+    isLastCycleOfRound: state.game.isLastCycleOfRound,
     turnTimeoutInSeconds: state.game.turnTimeoutInMillis ? state.game.turnTimeoutInMillis / 1000 : undefined,
     turnRetriesLeft: state.game.turnRetriesLeft,
   },

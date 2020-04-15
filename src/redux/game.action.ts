@@ -57,6 +57,7 @@ interface EndRoundAction extends Action<typeof END_ROUND>{
 
 interface StartCycleAction extends Action<typeof START_CYCLE>{
   readonly orderedPlayerIds: PlayerId[];
+  readonly isLastOfRound: boolean;
 }
 
 interface EndCycleAction extends Action<typeof END_CYCLE>{
@@ -147,10 +148,11 @@ export function endRound(winner: PlayerId | undefined, penalties: Penalty[], out
   };
 }
 
-export function startCycle(orderedPlayerIds: PlayerId[]): GameAction {
+export function startCycle(orderedPlayerIds: PlayerId[], isLastOfRound: boolean): GameAction {
   return {
     type: START_CYCLE,
     orderedPlayerIds,
+    isLastOfRound,
   };
 }
 

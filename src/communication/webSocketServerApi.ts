@@ -58,7 +58,7 @@ export function dispatchWebSocketMessageAsActions(message: Message, dispatch: (a
     case MessageName.BROADCAST_END_ROUND:
       return dispatch(endRound(message.data.winner, message.data.penalties, message.data.outPlayers));
     case MessageName.BROADCAST_START_CYCLE:
-      return dispatch(startCycle(message.data.orderedPlayers));
+      return dispatch(startCycle(message.data.orderedPlayers, message.data.isLastOfRound));
     case MessageName.BROADCAST_END_CYCLE:
       return dispatch(endCycle(message.data.outPlayers, message.data.highestTurnPlayers));
     case MessageName.BROADCAST_PLAYER_TURN:

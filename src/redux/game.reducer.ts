@@ -72,6 +72,7 @@ export interface State {
   players: PlayerState[];
   validatedTurns: ValidatedTurn[];
   cardsInHand: Card[];
+  isLastCycleOfRound: boolean;
   turnTimeoutInMillis: number | undefined;
   turnRetriesLeft: number;
 }
@@ -82,6 +83,7 @@ const INITIAL_STATE: State = {
   players: [],
   validatedTurns: [],
   cardsInHand: [],
+  isLastCycleOfRound: false,
   turnTimeoutInMillis: undefined,
   turnRetriesLeft: 0,
 };
@@ -182,6 +184,7 @@ export default function (state: State = INITIAL_STATE, action: GameAction): Stat
           .map((player) => ({ ...player, order: findPlayerOrder(action.orderedPlayerIds, player) })),
         stage: GameStage.IN_CYCLE,
         validatedTurns: [],
+        isLastCycleOfRound: action.isLastOfRound,
       };
     case END_CYCLE:
       return {

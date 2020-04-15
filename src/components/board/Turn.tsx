@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { InvalidTurn, ValidatedTurn, ValidTurn } from 'agurk-shared';
 import PlayingCard, { generateCardKey, PlayingCardPlaceholder } from './PlayingCard';
@@ -37,12 +37,16 @@ export function generateTurnKey(turn: ValidatedTurn): string {
   return turn.playerId + turn.valid;
 }
 
-function Valid({ turn }: { turn: ValidTurn }) {
-  const cardItems = turn.cards.map((card) => (
+function createCardItems(turn: ValidatedTurn) {
+  return turn.cards.map((card) => (
     <CardBox key={generateCardKey(card)}>
       <PlayingCard card={card} />
     </CardBox>
   ));
+}
+
+function Valid({ turn }: { turn: ValidTurn }) {
+  const cardItems = createCardItems(turn);
 
   return (
     <TurnBox>
@@ -54,41 +58,26 @@ function Valid({ turn }: { turn: ValidTurn }) {
   );
 }
 
-function InvalidHiddenAfterTimeout({ turn }: { turn: InvalidTurn }) {
-  const SHOW_INVALID_TURN_TIMEOUT = 2000;
-  const [isVisible, setIsVisible] = useState<boolean>(true);
-  const cardItems = turn.cards.map((card) => (
-    <CardBox key={generateCardKey(card)}>
-      <PlayingCard key={generateCardKey(card)} card={card} />
-    </CardBox>
-  ));
+function Invalid({ turn }: { turn: InvalidTurn }) {
+  const cardItems = createCardItems(turn);
 
-  useEffect(() => {
-    const timeout: number = setTimeout(() => {
-      setIsVisible(false);
-    }, SHOW_INVALID_TURN_TIMEOUT);
-    return () => clearTimeout(timeout);
-  });
-
-  return isVisible
-    ? (
-      <TurnBox>
-        <MutedCardFlex>
-          { cardItems.length === 0
-            ? <PlayingCardPlaceholder />
-            : cardItems }
-        </MutedCardFlex>
-        <Centered><span>{turn.playerId}</span></Centered>
-        <Centered>
-          <ErrorBadge>{turn.invalidReason}</ErrorBadge>
-        </Centered>
-      </TurnBox>
-    )
-    : null;
+  return (
+    <TurnBox>
+      <MutedCardFlex>
+        { cardItems.length === 0
+          ? <PlayingCardPlaceholder />
+          : cardItems }
+      </MutedCardFlex>
+      <Centered><span>{turn.playerId}</span></Centered>
+      <Centered>
+        <ErrorBadge>{turn.invalidReason}</ErrorBadge>
+      </Centered>
+    </TurnBox>
+  );
 }
 
 export default function Turn({ turn }: Props) {
   return turn.valid
     ? <Valid turn={turn} />
-    : <InvalidHiddenAfterTimeout turn={turn} />;
+    : <Invalid turn={turn} />;
 }
