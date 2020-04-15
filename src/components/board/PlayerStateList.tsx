@@ -19,6 +19,10 @@ function ActiveOrderedPlayers({ players }: Props) {
   const orderedActivePlayers = players.filter((player) => !player.isOut).sort(byOrderAsc);
   const activePlayerItems = orderedActivePlayers.map((player) => <Li key={player.id}><Player player={player} /></Li>);
 
+  if (activePlayerItems.length === 0) {
+    return null;
+  }
+
   return (
     <>
       <h2>Players</h2>
