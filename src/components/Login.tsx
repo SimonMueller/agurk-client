@@ -50,6 +50,7 @@ function Login({ dispatch, error }: Props) {
               margin="dense"
               size="medium"
               required
+              autoFocus
             />
 
             <TextField
