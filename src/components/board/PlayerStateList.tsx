@@ -44,8 +44,6 @@ function OutPlayers({ players }: Props) {
 
   return (
     <>
-      <h2>Out players</h2>
-
       <ul>
         { outPlayerItems }
       </ul>
