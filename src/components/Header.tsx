@@ -8,7 +8,7 @@ export default function Header() {
     <header>
       <AppBar position="static">
         <Toolbar>
-          <Button color="inherit" href="./agurk-client">
+          <Button color="inherit" href="./">
             <Typography variant="h5">
               Agurk
             </Typography>
