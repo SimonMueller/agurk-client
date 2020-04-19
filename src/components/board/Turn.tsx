@@ -19,7 +19,7 @@ export function generateTurnKey(turn: ValidatedTurn): string {
 
 function createCardItems(turn: ValidatedTurn) {
   return turn.cards.map((card) => (
-    <Box marginRight={1} marginBottom={1} key={generateCardKey(card)}>
+    <Box marginRight={1} key={generateCardKey(card)}>
       <PlayingCard size="small" card={card} />
     </Box>
   ));
