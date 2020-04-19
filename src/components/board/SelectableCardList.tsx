@@ -13,8 +13,8 @@ interface Props {
 
 const maxCardCountPerRow = 7;
 const overlapWidthInPercent = 50;
-const cardOverlapInPercent = 100 / maxCardCountPerRow;
-const cardWidthInPercent = (100 / maxCardCountPerRow) * (100 / overlapWidthInPercent);
+const cardOverlapInPercent = Math.floor(100 / maxCardCountPerRow);
+const cardWidthInPercent = Math.floor((100 / maxCardCountPerRow) * (100 / overlapWidthInPercent));
 const containerWidthInPercent = 100 - cardOverlapInPercent;
 
 const Flex = styled(Box)`
@@ -23,18 +23,18 @@ const Flex = styled(Box)`
   width: ${containerWidthInPercent}%;
 `;
 
-const Overlapping = styled.div`
+const OverlappingBox = styled(Box)`
   margin-right: -${cardOverlapInPercent}%;
   width: ${cardWidthInPercent}%;
 `;
 
 export default function CardList({ cards, handleSelect }: Props) {
   const cardItems = cards.map((card) => (
-    <Overlapping key={generateCardKey(card)}>
+    <OverlappingBox key={generateCardKey(card)} marginBottom={1}>
       <ButtonBase onClick={() => handleSelect(card)}>
         <PlayingCard card={card} isSelected={card.isSelected} />
       </ButtonBase>
-    </Overlapping>
+    </OverlappingBox>
   ));
 
   return (

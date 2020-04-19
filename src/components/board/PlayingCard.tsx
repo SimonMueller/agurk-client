@@ -9,7 +9,7 @@ import { Theme } from '../../theme';
 interface PlayingCardProps {
   card: CardData;
   isSelected?: boolean;
-  sizeAccordingTo?: 'width' | 'height';
+  size?: 'small' | 'normal';
 }
 
 interface JokerCardProps {
@@ -22,8 +22,7 @@ interface SuitCardProps {
 
 interface StyledCardProps {
   selected?: boolean;
-  width: string;
-  height: string;
+  size: 'small' | 'normal';
   theme: Theme;
 }
 
@@ -34,13 +33,12 @@ const Card = styled(Paper)`
   border-width: 2px;
   border-style: solid;
   border-radius: 6%;
-  height: ${({ height }: StyledCardProps) => (height)};
-  width: ${({ width }: StyledCardProps) => (width)};
   margin: auto;
+  max-width: ${({ size }: StyledCardProps) => (size === 'small' ? '4rem' : '6rem')};
+  min-width: 4rem;
 `;
 
 const Image = styled.img`
-  height: 100%;
   width: 100%;
 `;
 
@@ -63,24 +61,18 @@ function SuitCard({ card }: SuitCardProps) {
   return <Image src={cardSrcFile} alt={`card of rank ${card.rank} and suit ${lowercaseSuit}`} />;
 }
 
-function getSizesAccordingTo(value: 'width' | 'height') {
-  return value === 'width' ? ['100%', 'max-content'] : ['max-content', '100%'];
-}
-
-export function PlayingCardPlaceholder({ sizeAccordingTo = 'width' }: Pick<PlayingCardProps, 'sizeAccordingTo'>) {
+export function PlayingCardPlaceholder({ size = 'normal' }: Pick<PlayingCardProps, 'size'>) {
   const cardSrcFile = '/agurk-client/images/placeholder.svg';
-  const [width, height] = getSizesAccordingTo(sizeAccordingTo);
   return (
-    <Card elevation={6} width={width} height={height}>
+    <Card elevation={6} size={size}>
       <Image src={cardSrcFile} alt="card placeholder" />
     </Card>
   );
 }
 
-export default function PlayingCard({ card, isSelected = false, sizeAccordingTo = 'width' }: PlayingCardProps) {
-  const [width, height] = getSizesAccordingTo(sizeAccordingTo);
+export default function PlayingCard({ card, isSelected = false, size = 'normal' }: PlayingCardProps) {
   return (
-    <Card elevation={6} selected={isSelected} width={width} height={height}>
+    <Card elevation={6} selected={isSelected} size={size}>
       { card.kind === JOKER_CARD_KIND
         ? <JokerCard card={card} />
         : <SuitCard card={card} /> }

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { ValidatedTurn } from 'agurk-shared';
-import styled from 'styled-components';
 import { Box, Grid } from '@material-ui/core';
 import Turn from './Turn';
 import LastPlayedMaxCard from './LastPlayedMaxCard';
@@ -8,12 +7,6 @@ import LastPlayedMaxCard from './LastPlayedMaxCard';
 interface Props {
   playedTurns: ValidatedTurn[];
 }
-
-const HeightBox = styled(Box)`
-  min-height: 7rem;
-  max-height: 12rem;
-  height: 10vw;
-`;
 
 function findLastTurn(playedTurns: ValidatedTurn[]): ValidatedTurn | undefined {
   return playedTurns[playedTurns.length - 1];
@@ -46,12 +39,12 @@ function MostRecentTurn({ playedTurns }: Props) {
 export default function TurnStack({ playedTurns }: Props) {
   return (
     <Grid container>
-      <HeightBox marginBottom={1} marginRight={2}>
+      <Box marginBottom={1} marginRight={2}>
         <LastPlayedMaxCard playedTurns={playedTurns} />
-      </HeightBox>
-      <HeightBox marginBottom={1}>
+      </Box>
+      <Box marginBottom={1}>
         <MostRecentTurn playedTurns={playedTurns} />
-      </HeightBox>
+      </Box>
     </Grid>
   );
 }

@@ -23,12 +23,12 @@ export default function LastPlayedMaxCard({ playedTurns }: Props) {
   const validTurns = playedTurns.filter((turn) => turn.valid) as ValidTurn[];
   const playedCards = validTurns.flatMap((turn) => turn.cards);
   const highestPlayedCard = playedCards.length > 0
-    ? <PlayingCard sizeAccordingTo="height" card={playedCards.reduce(toMaxRankedCard)} />
-    : <PlayingCardPlaceholder sizeAccordingTo="height" />;
+    ? <PlayingCard size="small" card={playedCards.reduce(toMaxRankedCard)} />
+    : <PlayingCardPlaceholder size="small" />;
 
   return (
-    <Box height="100%">
-      <Box height="75%" marginBottom={1}>
+    <Box>
+      <Box marginBottom={1}>
         { highestPlayedCard }
       </Box>
       <Centered>

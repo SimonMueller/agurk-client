@@ -9,10 +9,6 @@ interface Props {
   turn: ValidatedTurn;
 }
 
-const FullHeightFlex = styled(Grid)`
-  height: 100%;
-`;
-
 const Centered = styled.div`
   text-align: center;
 `;
@@ -23,8 +19,8 @@ export function generateTurnKey(turn: ValidatedTurn): string {
 
 function createCardItems(turn: ValidatedTurn) {
   return turn.cards.map((card) => (
-    <Box height="100%" marginRight={1} marginBottom={1} key={generateCardKey(card)}>
-      <PlayingCard sizeAccordingTo="height" card={card} />
+    <Box marginRight={1} marginBottom={1} key={generateCardKey(card)}>
+      <PlayingCard size="small" card={card} />
     </Box>
   ));
 }
@@ -34,10 +30,10 @@ function Valid({ turn }: { turn: ValidTurn }) {
 
   return (
     <>
-      <Box height="75%" marginBottom={1}>
-        <FullHeightFlex container justify="center">
+      <Box marginBottom={1}>
+        <Grid container justify="center">
           { cardItems }
-        </FullHeightFlex>
+        </Grid>
       </Box>
       <Centered><span>{turn.playerId}</span></Centered>
     </>
@@ -49,12 +45,12 @@ function Invalid({ turn }: { turn: InvalidTurn }) {
 
   return (
     <>
-      <Box height="75%" marginBottom={1}>
-        <FullHeightFlex container justify="center">
+      <Box marginBottom={1}>
+        <Grid container justify="center">
           { cardItems.length === 0
-            ? <PlayingCardPlaceholder sizeAccordingTo="height" />
+            ? <PlayingCardPlaceholder size="small" />
             : cardItems }
-        </FullHeightFlex>
+        </Grid>
       </Box>
       <Centered><span>{turn.playerId}</span></Centered>
       <Centered>
@@ -66,7 +62,7 @@ function Invalid({ turn }: { turn: InvalidTurn }) {
 
 export default function Turn({ turn }: Props) {
   return (
-    <Box height="100%">
+    <Box>
       {turn.valid
         ? <Valid turn={turn} />
         : <Invalid turn={turn} />}
