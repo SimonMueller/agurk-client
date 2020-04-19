@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/agurk-client/static/css/main.06f60822.chunk.css",
-    "main.js": "/agurk-client/static/js/main.b72e08e7.chunk.js",
-    "main.js.map": "/agurk-client/static/js/main.b72e08e7.chunk.js.map",
+    "main.css": "/agurk-client/static/css/main.039a6f61.chunk.css",
+    "main.js": "/agurk-client/static/js/main.feed2cff.chunk.js",
+    "main.js.map": "/agurk-client/static/js/main.feed2cff.chunk.js.map",
     "runtime-main.js": "/agurk-client/static/js/runtime-main.1037f6ee.js",
     "runtime-main.js.map": "/agurk-client/static/js/runtime-main.1037f6ee.js.map",
-    "static/js/2.a19c4a6e.chunk.js": "/agurk-client/static/js/2.a19c4a6e.chunk.js",
-    "static/js/2.a19c4a6e.chunk.js.map": "/agurk-client/static/js/2.a19c4a6e.chunk.js.map",
+    "static/js/2.8116040d.chunk.js": "/agurk-client/static/js/2.8116040d.chunk.js",
+    "static/js/2.8116040d.chunk.js.map": "/agurk-client/static/js/2.8116040d.chunk.js.map",
     "index.html": "/agurk-client/index.html",
-    "precache-manifest.8016920bbcf8b2f379370b5a15024796.js": "/agurk-client/precache-manifest.8016920bbcf8b2f379370b5a15024796.js",
+    "precache-manifest.d3a6d04a363d6833dfeeb6910d513420.js": "/agurk-client/precache-manifest.d3a6d04a363d6833dfeeb6910d513420.js",
     "service-worker.js": "/agurk-client/service-worker.js",
-    "static/css/main.06f60822.chunk.css.map": "/agurk-client/static/css/main.06f60822.chunk.css.map",
-    "static/js/2.a19c4a6e.chunk.js.LICENSE.txt": "/agurk-client/static/js/2.a19c4a6e.chunk.js.LICENSE.txt"
+    "static/css/main.039a6f61.chunk.css.map": "/agurk-client/static/css/main.039a6f61.chunk.css.map",
+    "static/js/2.8116040d.chunk.js.LICENSE.txt": "/agurk-client/static/js/2.8116040d.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.1037f6ee.js",
-    "static/js/2.a19c4a6e.chunk.js",
-    "static/css/main.06f60822.chunk.css",
-    "static/js/main.b72e08e7.chunk.js"
+    "static/js/2.8116040d.chunk.js",
+    "static/css/main.039a6f61.chunk.css",
+    "static/js/main.feed2cff.chunk.js"
   ]
 }
