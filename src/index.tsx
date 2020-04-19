@@ -4,20 +4,26 @@ import { Provider } from 'react-redux';
 import { applyMiddleware, createStore } from 'redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { ThemeProvider } from 'styled-components';
+import { StylesProvider } from '@material-ui/core/styles';
+import { ThemeProvider as StyledComponentsThemeProvider } from 'styled-components';
+import { ThemeProvider as MuiThemeProvider } from '@material-ui/core';
 import App from './components/App';
 import * as serviceWorker from './serviceWorker';
 import reducer from './redux';
 import './index.css';
-import theme from './components/styled/theme';
+import theme from './theme';
 
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
 
 ReactDOM.render(
   <Provider store={store}>
-    <ThemeProvider theme={theme}>
-      <App />
-    </ThemeProvider>
+    <MuiThemeProvider theme={theme}>
+      <StyledComponentsThemeProvider theme={theme}>
+        <StylesProvider injectFirst>
+          <App />
+        </StylesProvider>
+      </StyledComponentsThemeProvider>
+    </MuiThemeProvider>
   </Provider>,
   document.getElementById('root'),
 );

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Card, ValidatedTurn } from 'agurk-shared';
 import styled from 'styled-components';
 import { Action, Dispatch } from 'redux';
+import { Button } from '@material-ui/core';
 import Hand from './Hand';
 import PlayerStateList from './PlayerStateList';
 import { State } from '../../redux';
@@ -11,9 +12,8 @@ import { resetGame } from '../../redux/game.action';
 import { GameStage, PlayerState } from '../../redux/game.reducer';
 import Overview from './Overview';
 import { setIsInGame } from '../../redux/lobby.action';
-import { PrimaryButton } from '../styled/Button';
-import { Theme } from '../styled/theme';
 import PlayedTurns from './PlayedTurns';
+import { Theme } from '../../theme';
 
 interface Props {
   state: {
@@ -32,9 +32,9 @@ interface Props {
 
 const Grid = styled.div`
   display: grid;
-  row-gap: 1em;
+  row-gap: ${({ theme }: { theme: Theme }) => (theme.spacing(2))}px;
 
-  @media(min-width: ${({ theme }: { theme: Theme }) => (theme.breakpoints.minWidth)}) {
+  @media(min-width: ${({ theme }: { theme: Theme }) => (theme.breakpoints.values.sm)}px) {
     grid-template-columns: 30% 65%;
     grid-template-rows: auto auto auto;
     column-gap: 5%;
@@ -48,7 +48,7 @@ const OverviewBox = styled.div`
   grid-row-start: 1;
   grid-row-end: span 1;
 
-  @media(min-width: ${({ theme }: { theme: Theme }) => (theme.breakpoints.minWidth)}) {
+  @media(min-width: ${({ theme }: { theme: Theme }) => (theme.breakpoints.values.sm)}px) {
     grid-column-start: 2;
     grid-column-end: span 1;
     grid-row-start: 1;
@@ -62,7 +62,7 @@ const PlayedTurnsBox = styled.div`
   grid-row-start: 2;
   grid-row-end: span 1;
 
-  @media(min-width: ${({ theme }: { theme: Theme }) => (theme.breakpoints.minWidth)}) {
+  @media(min-width: ${({ theme }: { theme: Theme }) => (theme.breakpoints.values.sm)}px) {
     grid-column-start: 2;
     grid-column-end: span 1;
     grid-row-start: 2;
@@ -76,7 +76,7 @@ const HandBox = styled.div`
   grid-row-start: 3;
   grid-row-end: span 1;
 
-  @media(min-width: ${({ theme }: { theme: Theme }) => (theme.breakpoints.minWidth)}) {
+  @media(min-width: ${({ theme }: { theme: Theme }) => (theme.breakpoints.values.sm)}px) {
     grid-column-start: 2;
     grid-column-end: span 1;
     grid-row-start: 3;
@@ -90,7 +90,7 @@ const PlayersBox = styled.div`
   grid-row-start: 4;
   grid-row-end: span 1;
 
-  @media(min-width: ${({ theme }: { theme: Theme }) => (theme.breakpoints.minWidth)}) {
+  @media(min-width: ${({ theme }: { theme: Theme }) => (theme.breakpoints.values.sm)}px) {
     grid-column-start: 1;
     grid-column-end: span 1;
     grid-row-start: 1;
@@ -104,7 +104,7 @@ const NavigationBox = styled.div`
   grid-row-start: 6;
   grid-row-end: span 1;
 
-  @media(min-width: ${({ theme }: { theme: Theme }) => (theme.breakpoints.minWidth)}) {
+  @media(min-width: ${({ theme }: { theme: Theme }) => (theme.breakpoints.values.sm)}px) {
     grid-column-start: 1;
     grid-column-end: span 1;
     grid-row-start: 3;
@@ -144,9 +144,9 @@ function Board({ state, playCards, closeGame }: Props) {
       { state.stage === GameStage.END
         && (
         <NavigationBox>
-          <PrimaryButton onClick={closeGame}>
+          <Button fullWidth variant="contained" color="primary" onClick={closeGame}>
             Return to lobby
-          </PrimaryButton>
+          </Button>
         </NavigationBox>
         )}
     </Grid>

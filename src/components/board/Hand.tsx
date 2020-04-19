@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Card, cardEquals } from 'agurk-shared';
+import { Box, Button, Typography } from '@material-ui/core';
 import SelectableCardList, { SelectableCard } from './SelectableCardList';
-import { PrimaryButton } from '../styled/Button';
 
 interface Props {
   playCards: (cards: Card[]) => void;
@@ -15,11 +15,9 @@ interface PlayTurnProps {
 
 function PlayTurn({ handlePlayClick }: PlayTurnProps) {
   return (
-    <>
-      <PrimaryButton type="button" onClick={handlePlayClick}>
-        Play Cards
-      </PrimaryButton>
-    </>
+    <Button size="large" fullWidth variant="contained" color="primary" onClick={handlePlayClick}>
+      Play Cards
+    </Button>
   );
 }
 
@@ -44,9 +42,11 @@ export default function Hand({ playCards, cardsInHand, isServerRequestingCards }
 
   return (
     <div>
-      <h2>Your hand</h2>
+      <Typography variant="h2" gutterBottom>Your hand</Typography>
 
-      <SelectableCardList cards={selectableCards} handleSelect={handleCardSelect} />
+      <Box marginBottom={2}>
+        <SelectableCardList cards={selectableCards} handleSelect={handleCardSelect} />
+      </Box>
 
       { isServerRequestingCards && <PlayTurn handlePlayClick={playSelectedCards} /> }
     </div>

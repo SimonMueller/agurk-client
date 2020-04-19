@@ -1,25 +1,27 @@
 import React from 'react';
 import { PlayerId } from 'agurk-shared';
-import styled from 'styled-components';
+import {
+  List, ListItem, ListItemText, Typography,
+} from '@material-ui/core';
 
 interface Props {
   playerIds: PlayerId[];
 }
 
-const Element = styled.li`
-  margin-bottom: 0.5em;
-`;
-
 export default function PlayerIdList({ playerIds }: Props) {
-  const playerItems = playerIds.map((playerId) => <Element key={playerId}>{playerId}</Element>);
+  const playerItems = playerIds.map((playerId) => (
+    <ListItem key={playerId}>
+      <ListItemText>{playerId}</ListItemText>
+    </ListItem>
+  ));
 
   return (
     <div>
-      <h2>Players</h2>
+      <Typography variant="h2" gutterBottom>Players</Typography>
 
-      <ul>
+      <List>
         { playerItems }
-      </ul>
+      </List>
     </div>
   );
 }

@@ -3,8 +3,9 @@ import {
   Card, compareRanks, ValidatedTurn, ValidTurn,
 } from 'agurk-shared';
 import styled from 'styled-components';
+import { Box } from '@material-ui/core';
 import PlayingCard, { PlayingCardPlaceholder } from './PlayingCard';
-import { PrimaryBadge } from '../styled/Badge';
+import Badge from '../styled/Badge';
 
 interface Props {
   playedTurns: ValidatedTurn[];
@@ -12,10 +13,6 @@ interface Props {
 
 const Centered = styled.div`
   text-align: center;
-`;
-
-const CardBox = styled.div`
-  margin-bottom: 0.5em;
 `;
 
 function toMaxRankedCard(maxRankCard: Card, currentCard: Card) {
@@ -26,17 +23,17 @@ export default function LastPlayedMaxCard({ playedTurns }: Props) {
   const validTurns = playedTurns.filter((turn) => turn.valid) as ValidTurn[];
   const playedCards = validTurns.flatMap((turn) => turn.cards);
   const highestPlayedCard = playedCards.length > 0
-    ? <PlayingCard card={playedCards.reduce(toMaxRankedCard)} />
-    : <PlayingCardPlaceholder />;
+    ? <PlayingCard sizeAccordingTo="height" card={playedCards.reduce(toMaxRankedCard)} />
+    : <PlayingCardPlaceholder sizeAccordingTo="height" />;
 
   return (
-    <div>
-      <CardBox>
+    <Box height="100%">
+      <Box height="75%" marginBottom={1}>
         { highestPlayedCard }
-      </CardBox>
+      </Box>
       <Centered>
-        <PrimaryBadge>Highest card</PrimaryBadge>
+        <Badge severity="info">Highest card</Badge>
       </Centered>
-    </div>
+    </Box>
   );
 }

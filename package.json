@@ -6,6 +6,7 @@
   "license": "MIT",
   "homepage": "https://simonmueller.github.io/agurk-client",
   "dependencies": {
+    "@material-ui/core": "^4.9.10",
     "agurk-shared": "github:SimonMueller/agurk-shared#semver:4.14",
     "jwt-decode": "^2.2.0",
     "react": "^16.13.1",

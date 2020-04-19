@@ -1,7 +1,7 @@
 import React from 'react';
 import { PlayerId } from 'agurk-shared';
 import { connect } from 'react-redux';
-import { PrimaryButton } from './styled/Button';
+import { Button } from '@material-ui/core';
 import PlayerIdList from './board/PlayerIdList';
 import { State } from '../redux';
 
@@ -14,7 +14,9 @@ function Lobby({ playerIds, startGame }: Props) {
   return (
     <div>
       <PlayerIdList playerIds={playerIds} />
-      <PrimaryButton type="button" onClick={startGame}>Start Game</PrimaryButton>
+      <Button size="large" fullWidth variant="contained" color="primary" onClick={startGame}>
+        Start Game
+      </Button>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Grid, Typography } from '@material-ui/core';
 import { GameStage, PlayerState } from '../../redux/game.reducer';
 import TextSecondTimer from '../TextSecondTimer';
 
@@ -11,31 +12,19 @@ interface Props {
   gameStage: GameStage;
 }
 
-const Flex = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: baseline;
-`;
-
-const OverviewParagraph = styled.p`
-  margin: 0;
+const BoldTypography = styled(Typography)`
   font-weight: bold;
-`;
-
-const OverviewTitle = styled.h2`
-  margin-bottom: 0;
 `;
 
 function YourTurn({ turnTimeoutInSeconds, turnRetriesLeft }: Pick<Props, 'turnTimeoutInSeconds' | 'turnRetriesLeft'>) {
   return (
-    <Flex>
-      <OverviewTitle>
+    <Grid container justify="space-between" alignItems="baseline">
+      <Typography variant="h2">
         Your turn
         { ' ' }
-      </OverviewTitle>
+      </Typography>
       { turnTimeoutInSeconds && (
-        <OverviewParagraph>
+        <BoldTypography variant="subtitle1">
           <TextSecondTimer timeoutInSeconds={turnTimeoutInSeconds} />
           { ' ' }
           seconds and
@@ -45,19 +34,19 @@ function YourTurn({ turnTimeoutInSeconds, turnRetriesLeft }: Pick<Props, 'turnTi
           { turnRetriesLeft === 1
             ? 'retry left'
             : 'retries left' }
-        </OverviewParagraph>
+        </BoldTypography>
       ) }
-    </Flex>
+    </Grid>
   );
 }
 
 function TheirTurn({ players }: Pick<Props, 'players'>) {
   const currentTurnPlayer = players.find((player) => player.isServerRequestingCards);
   return (
-    <OverviewTitle>
+    <Typography variant="h2">
       { currentTurnPlayer?.id }
       { '\'s turn' }
-    </OverviewTitle>
+    </Typography>
   );
 }
 
@@ -80,35 +69,35 @@ function HighestCyclePlayers({ players }: Pick<Props, 'players'>) {
   }
 
   return (
-    <OverviewTitle>
+    <Typography variant="h2">
       { highestCyclePlayerIds.join(' and ') }
       { ' ' }
       { highestCyclePlayerIds.length === 1
         ? 'wins the cycle'
         : 'win the cycle' }
-    </OverviewTitle>
+    </Typography>
   );
 }
 
 function RoundWinner({ players }: Pick<Props, 'players'>) {
   const roundWinner = players.find((player) => player.isRoundWinner);
   return (
-    <OverviewTitle>
+    <Typography variant="h2">
       { roundWinner
         ? `${roundWinner.id} wins the round`
         : 'No round winner' }
-    </OverviewTitle>
+    </Typography>
   );
 }
 
 function GameWinner({ players }: Pick<Props, 'players'>) {
   const gameWinner = players.find((player) => player.isGameWinner);
   return (
-    <OverviewTitle>
+    <Typography variant="h2">
       { gameWinner
         ? `${gameWinner.id} wins the game 🎉🎉`
         : 'No game winner' }
-    </OverviewTitle>
+    </Typography>
   );
 }
 

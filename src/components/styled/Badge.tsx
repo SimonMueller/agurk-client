@@ -1,27 +1,13 @@
 import styled from 'styled-components';
-import { Theme } from './theme';
+import { Severity, Theme } from '../../theme';
 
-export const Badge = styled.span`
-  background-color: transparent;
-  border-radius: 0.25em;
-  font-size: 0.7em;
-  margin: 0 0.5em;
-  padding: 0.15em 0.25em;
+export default styled.span`
+  background-color: ${({ theme, severity }: { theme: Theme, severity: Severity }) => (theme.palette[severity].main)};
+  border-radius: 0.25rem;
+  font-size: ${({ theme }: { theme: Theme }) => (theme.typography.caption.fontSize)};
+  margin: 0 ${({ theme }: { theme: Theme }) => (theme.spacing(1))}px;
+  padding: 0.15rem 0.25rem;
   font-weight: bold;
   text-transform: uppercase;
-`;
-
-export const PrimaryBadge = styled(Badge)`
-  background-color: ${({ theme }: { theme: Theme }) => (theme.colors.primary)};
-  color: white;
-`;
-
-export const AccentBadge = styled(Badge)`
-  background-color: ${({ theme }: { theme: Theme }) => (theme.colors.accent)};
-  color: white;
-`;
-
-export const ErrorBadge = styled(Badge)`
-  background-color: ${({ theme }: { theme: Theme }) => (theme.colors.error)};
   color: white;
 `;

@@ -1,10 +1,23 @@
+import React, { ReactNode } from 'react';
 import styled from 'styled-components';
-import { Theme } from './theme';
+import { Box } from '@material-ui/core';
+import { Severity, Theme } from '../../theme';
 
-export default styled.div`
-  background-color: ${({ theme }: { theme: Theme }) => (theme.colors.error)};
-  padding: 0.5em;
+interface Props {
+  children: ReactNode | ReactNode[];
+  severity: Severity;
+}
+
+const MessageBox = styled(Box)`
   width: 100%;
   color: white;
-  font-weight: bold;
+  background-color: ${({ theme, severity }: { theme: Theme, severity: Severity }) => (theme.palette[severity].main)};
 `;
+
+export default function Message({ children, severity }: Props) {
+  return (
+    <MessageBox padding={1} severity={severity}>
+      {children}
+    </MessageBox>
+  );
+}

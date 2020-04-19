@@ -1,9 +1,8 @@
 import React from 'react';
 import { Card as CardData } from 'agurk-shared';
 import styled from 'styled-components';
+import { Box, ButtonBase } from '@material-ui/core';
 import PlayingCard, { generateCardKey } from './PlayingCard';
-import { UnstyledButton } from '../styled/Button';
-import { Theme } from '../styled/theme';
 
 export type SelectableCard = CardData & { isSelected: boolean };
 
@@ -12,39 +11,34 @@ interface Props {
   handleSelect: (card: CardData) => void;
 }
 
-const cardBoxOverlap = '2.75em';
+const maxCardCountPerRow = 7;
+const overlapWidthInPercent = 50;
+const cardOverlapInPercent = 100 / maxCardCountPerRow;
+const cardWidthInPercent = (100 / maxCardCountPerRow) * (100 / overlapWidthInPercent);
+const containerWidthInPercent = 100 - cardOverlapInPercent;
 
-const Flex = styled.div`
+const Flex = styled(Box)`
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: 1em;
-  width: calc(100% - ${cardBoxOverlap});
-
-  @media(min-width: ${({ theme }: { theme: Theme }) => (theme.breakpoints.minWidth)}) {
-    width: 100%;
-  }
+  width: ${containerWidthInPercent}%;
 `;
 
-const Box = styled.div`
-  margin-right: -${cardBoxOverlap};
-  margin-bottom: 0.5em;
-
-  @media(min-width: ${({ theme }: { theme: Theme }) => (theme.breakpoints.minWidth)}) {
-    margin-right: 0.5em;
-  }
+const Overlapping = styled.div`
+  margin-right: -${cardOverlapInPercent}%;
+  width: ${cardWidthInPercent}%;
 `;
 
 export default function CardList({ cards, handleSelect }: Props) {
   const cardItems = cards.map((card) => (
-    <Box key={generateCardKey(card)}>
-      <UnstyledButton onClick={() => handleSelect(card)}>
+    <Overlapping key={generateCardKey(card)}>
+      <ButtonBase onClick={() => handleSelect(card)}>
         <PlayingCard card={card} isSelected={card.isSelected} />
-      </UnstyledButton>
-    </Box>
+      </ButtonBase>
+    </Overlapping>
   ));
 
   return (
-    <Flex>
+    <Flex marginBottom={1}>
       { cardItems }
     </Flex>
   );

@@ -1,5 +1,6 @@
 import React from 'react';
 import { ValidatedTurn } from 'agurk-shared';
+import { Box, Grid } from '@material-ui/core';
 import styled from 'styled-components';
 import Turn, { generateTurnKey } from './Turn';
 
@@ -7,9 +8,10 @@ interface Props {
   turns: ValidatedTurn[];
 }
 
-const Flex = styled.div`
-  display: flex;
-  flex-wrap: wrap;
+const HeightBox = styled(Box)`
+  min-height: 7rem;
+  max-height: 12rem;
+  height: 10vw;
 `;
 
 export default function TurnList({ turns }: Props) {
@@ -19,11 +21,15 @@ export default function TurnList({ turns }: Props) {
       ? [current, ...acc]
       : acc;
   }, []);
-  const turnItems = mostRecentPlayerTurns.map((turn) => (<Turn key={generateTurnKey(turn)} turn={turn} />));
+  const turnItems = mostRecentPlayerTurns.map((turn) => (
+    <HeightBox marginRight={1} marginBottom={1} key={generateTurnKey(turn)}>
+      <Turn turn={turn} />
+    </HeightBox>
+  ));
 
   return (
-    <Flex>
+    <Grid container>
       { turnItems }
-    </Flex>
+    </Grid>
   );
 }

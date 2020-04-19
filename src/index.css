@@ -15,18 +15,3 @@ html {
 *, *:before, *:after {
   box-sizing: inherit;
 }
-
-h1 {
-  text-align: center;
-  font-size: 2.5em;
-}
-
-h2 {
-  font-size: 1.75em;
-}
-
-h3 {
-  font-size: 1.25em;
-  font-weight: bold;
-  text-transform: uppercase;
-}

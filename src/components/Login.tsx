@@ -1,35 +1,18 @@
-import React, { FormEvent, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { connect } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
-import styled from 'styled-components';
-import { PrimaryButton } from './styled/Button';
+import {
+  Button, Container, TextField, Typography, Box,
+} from '@material-ui/core';
 import { GameAction } from '../redux/game.action';
 import { authenticate } from '../redux/authentication.action';
 import { State } from '../redux';
-import ErrorMessage from './styled/Message';
+import Message from './styled/Message';
 
 interface Props {
   dispatch: ThunkDispatch<State, undefined, GameAction>;
   error: string | undefined;
 }
-
-const Container = styled.div`
-  max-width: 500px;
-  margin: auto;
-`;
-
-const Input = styled.input`
-  padding: 0.5em;
-  width: 100%;
-  height: 3em;
-  margin-bottom: 1em;
-  display: block;
-  font-size: 1em;
-`;
-
-const SpacedForm = styled.form`
-  margin-bottom: 1em;
-`;
 
 function Login({ dispatch, error }: Props) {
   const [nameInput, setNameInput] = useState<string>('');
@@ -40,43 +23,55 @@ function Login({ dispatch, error }: Props) {
     event.preventDefault();
   }
 
-  function handleNameChange(event: FormEvent<HTMLInputElement>) {
-    setNameInput(event.currentTarget.value);
+  function handleNameChange(event: ChangeEvent<HTMLInputElement>) {
+    setNameInput(event.target.value);
   }
 
-  function handleTokenChange(event: FormEvent<HTMLInputElement>) {
-    setTokenInput(event.currentTarget.value);
+  function handleTokenChange(event: ChangeEvent<HTMLInputElement>) {
+    setTokenInput(event.target.value);
   }
 
   return (
-    <Container>
-      <h2>Login</h2>
+    <Container maxWidth="sm">
+      <Typography variant="h1" gutterBottom>Login</Typography>
 
-      <SpacedForm onSubmit={handleSubmit}>
-        <Input
-          placeholder="Player name"
-          id="name"
-          value={nameInput}
-          onChange={handleNameChange}
-          type="text"
-          name="name"
-          required
-        />
+      <Box marginBottom={2}>
+        <form onSubmit={handleSubmit}>
+          <Box marginBottom={1}>
+            <TextField
+              variant="outlined"
+              label="Player name"
+              id="name"
+              value={nameInput}
+              onChange={handleNameChange}
+              type="text"
+              name="name"
+              fullWidth
+              margin="dense"
+              size="medium"
+              required
+            />
 
-        <Input
-          placeholder="Access token"
-          id="token"
-          value={tokenInput}
-          onChange={handleTokenChange}
-          type="password"
-          name="token"
-          required
-        />
+            <TextField
+              variant="outlined"
+              label="Access token"
+              id="token"
+              value={tokenInput}
+              onChange={handleTokenChange}
+              type="password"
+              name="token"
+              fullWidth
+              margin="dense"
+              size="medium"
+              required
+            />
+          </Box>
 
-        <PrimaryButton type="submit">Log in</PrimaryButton>
-      </SpacedForm>
+          <Button size="large" fullWidth variant="contained" color="primary" type="submit">Log in</Button>
+        </form>
+      </Box>
 
-      { error && <ErrorMessage>{error}</ErrorMessage>}
+      { error && <Message severity="error"><Typography variant="body1">{error}</Typography></Message> }
     </Container>
   );
 }

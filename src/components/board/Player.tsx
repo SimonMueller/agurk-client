@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import { PlayerState } from '../../redux/game.reducer';
-import { AccentBadge } from '../styled/Badge';
+import Badge from '../styled/Badge';
 
 interface Props {
   player: PlayerState;
@@ -42,11 +42,11 @@ export default function Player({ player }: Props) {
       { player.isServerRequestingCards
         ? <ActivePlayerName isOut={player.isOut}>{ player.id }</ActivePlayerName>
         : <InactivePlayerName isOut={player.isOut}>{ player.id }</InactivePlayerName>}
-      <AccentBadge>
+      <Badge severity="warning">
         Penalty
         {' '}
         {penaltySum}
-      </AccentBadge>
+      </Badge>
     </>
   );
 }
