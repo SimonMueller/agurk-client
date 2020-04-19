@@ -175,6 +175,7 @@ export default function (state: State = INITIAL_STATE, action: GameAction): Stat
           ],
           isOut: isPlayerWithIdOut(action.outPlayers, player.id),
           isRoundWinner: player.id === action.winner,
+          outReason: findPlayerOutReason(action.outPlayers, player.id),
         })),
       };
     case START_CYCLE:
