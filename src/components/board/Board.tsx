@@ -34,7 +34,7 @@ const Grid = styled.div`
   display: grid;
   row-gap: ${({ theme }: { theme: Theme }) => (theme.spacing(2))}px;
 
-  @media(min-width: ${({ theme }: { theme: Theme }) => (theme.breakpoints.values.sm)}px) {
+  @media(min-width: ${({ theme }: { theme: Theme }) => (theme.breakpoints.values.md)}px) {
     grid-template-columns: 30% 65%;
     grid-template-rows: auto auto auto;
     column-gap: 5%;
@@ -48,7 +48,7 @@ const OverviewBox = styled.div`
   grid-row-start: 1;
   grid-row-end: span 1;
 
-  @media(min-width: ${({ theme }: { theme: Theme }) => (theme.breakpoints.values.sm)}px) {
+  @media(min-width: ${({ theme }: { theme: Theme }) => (theme.breakpoints.values.md)}px) {
     grid-column-start: 2;
     grid-column-end: span 1;
     grid-row-start: 1;
@@ -62,7 +62,7 @@ const PlayedTurnsBox = styled.div`
   grid-row-start: 2;
   grid-row-end: span 1;
 
-  @media(min-width: ${({ theme }: { theme: Theme }) => (theme.breakpoints.values.sm)}px) {
+  @media(min-width: ${({ theme }: { theme: Theme }) => (theme.breakpoints.values.md)}px) {
     grid-column-start: 2;
     grid-column-end: span 1;
     grid-row-start: 2;
@@ -76,7 +76,7 @@ const HandBox = styled.div`
   grid-row-start: 3;
   grid-row-end: span 1;
 
-  @media(min-width: ${({ theme }: { theme: Theme }) => (theme.breakpoints.values.sm)}px) {
+  @media(min-width: ${({ theme }: { theme: Theme }) => (theme.breakpoints.values.md)}px) {
     grid-column-start: 2;
     grid-column-end: span 1;
     grid-row-start: 3;
@@ -90,7 +90,7 @@ const PlayersBox = styled.div`
   grid-row-start: 4;
   grid-row-end: span 1;
 
-  @media(min-width: ${({ theme }: { theme: Theme }) => (theme.breakpoints.values.sm)}px) {
+  @media(min-width: ${({ theme }: { theme: Theme }) => (theme.breakpoints.values.md)}px) {
     grid-column-start: 1;
     grid-column-end: span 1;
     grid-row-start: 1;
@@ -104,7 +104,7 @@ const NavigationBox = styled.div`
   grid-row-start: 6;
   grid-row-end: span 1;
 
-  @media(min-width: ${({ theme }: { theme: Theme }) => (theme.breakpoints.values.sm)}px) {
+  @media(min-width: ${({ theme }: { theme: Theme }) => (theme.breakpoints.values.md)}px) {
     grid-column-start: 1;
     grid-column-end: span 1;
     grid-row-start: 3;
