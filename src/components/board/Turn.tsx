@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { InvalidTurn, ValidatedTurn, ValidTurn } from 'agurk-shared';
 import { Box, Grid } from '@material-ui/core';
 import PlayingCard, { generateCardKey, PlayingCardPlaceholder } from './PlayingCard';
-import Badge from '../styled/Badge';
+import Badge from '../Badge';
 
 interface Props {
   turn: ValidatedTurn;

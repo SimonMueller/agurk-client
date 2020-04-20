@@ -5,7 +5,7 @@ import {
 import styled from 'styled-components';
 import { Box } from '@material-ui/core';
 import PlayingCard, { PlayingCardPlaceholder } from './PlayingCard';
-import Badge from '../styled/Badge';
+import Badge from '../Badge';
 
 interface Props {
   playedTurns: ValidatedTurn[];

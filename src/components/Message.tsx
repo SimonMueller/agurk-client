@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import styled from 'styled-components';
 import { Box } from '@material-ui/core';
-import { Severity, Theme } from '../../theme';
+import { Severity, Theme } from '../theme';
 
 interface Props {
   children: ReactNode | ReactNode[];

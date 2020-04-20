@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Severity, Theme } from '../../theme';
+import { Severity, Theme } from '../theme';
 
 export default styled.span`
   background-color: ${({ theme, severity }: { theme: Theme, severity: Severity }) => (theme.palette[severity].main)};

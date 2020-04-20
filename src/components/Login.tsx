@@ -7,7 +7,7 @@ import {
 import { GameAction } from '../redux/game.action';
 import { authenticate } from '../redux/authentication.action';
 import { State } from '../redux';
-import Message from './styled/Message';
+import Message from './Message';
 
 interface Props {
   dispatch: ThunkDispatch<State, undefined, GameAction>;
