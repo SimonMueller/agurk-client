@@ -34,8 +34,15 @@ const Card = styled(Paper)`
   border-style: solid;
   border-radius: 6%;
   margin: auto;
-  max-width: ${({ size }: StyledCardProps) => (size === 'small' ? '4rem' : '6rem')};
-  min-width: 4rem;
+  width: ${({ size }: StyledCardProps) => (size === 'small' ? '4.5rem' : '6rem')};
+
+  @media(min-width: ${({ theme }: { theme: Theme }) => (theme.breakpoints.values.sm)}px) {
+    width: ${({ size }: StyledCardProps) => (size === 'small' ? '5rem' : '6.5rem')};
+  }
+
+  @media(min-width: ${({ theme }: { theme: Theme }) => (theme.breakpoints.values.md)}px) {
+    width: ${({ size }: StyledCardProps) => (size === 'small' ? '5.5rem' : '7rem')};
+  }
 `;
 
 const Image = styled.img`
