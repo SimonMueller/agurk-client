@@ -6,7 +6,7 @@ import {
 } from '@material-ui/core';
 import { GameAction } from '../redux/game.action';
 import { authenticate } from '../redux/authentication.action';
-import { State } from '../redux';
+import { State } from '../redux/root.reducer';
 import Message from './Message';
 
 interface Props {

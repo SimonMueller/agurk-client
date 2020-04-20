@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Container, Box } from '@material-ui/core';
-import { State } from '../redux';
+import { State } from '../redux/root.reducer';
 import Login from './Login';
 import Game from './Game';
 import Header from './Header';

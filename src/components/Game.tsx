@@ -7,7 +7,7 @@ import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
 import {
   createAuthenticationApi, createGameApi, dispatchWebSocketMessageAsActions,
 } from '../communication/webSocketServerApi';
-import { State } from '../redux';
+import { State } from '../redux/root.reducer';
 import { unauthenticateWithError } from '../redux/authentication.action';
 import Lobby from './Lobby';
 import Board from './board/Board';

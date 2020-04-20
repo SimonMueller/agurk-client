@@ -6,7 +6,7 @@ import { Action, Dispatch } from 'redux';
 import { Box, Button } from '@material-ui/core';
 import Hand from './Hand';
 import PlayerStateList from './PlayerStateList';
-import { State } from '../../redux';
+import { State } from '../../redux/root.reducer';
 import { WebSocketGameApi } from '../../communication/webSocketServerApi';
 import { resetGame } from '../../redux/game.action';
 import { GameStage, PlayerState } from '../../redux/game.reducer';

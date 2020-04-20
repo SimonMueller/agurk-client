@@ -3,7 +3,7 @@ import { PlayerId } from 'agurk-shared';
 import { connect } from 'react-redux';
 import { Button } from '@material-ui/core';
 import PlayerIdList from './board/PlayerIdList';
-import { State } from '../redux';
+import { State } from '../redux/root.reducer';
 
 interface Props {
   playerIds: PlayerId[];

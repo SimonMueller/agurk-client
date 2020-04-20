@@ -1,13 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
 import App from './App';
-import reducer from '../redux';
 import theme from '../theme';
-
-const store = createStore(reducer);
+import store from '../redux/store';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
