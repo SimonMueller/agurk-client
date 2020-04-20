@@ -11,11 +11,16 @@ export const SET_CARDS_IN_HAND = 'SET_CARDS_IN_HAND';
 export const ADD_PLAYER_TURN = 'ADD_PLAYER_TURN';
 export const START_ROUND = 'START_ROUND';
 export const END_ROUND = 'END_ROUND';
+export const ADD_OUT_PLAYERS = 'SET_OUT_PLAYERS';
 export const START_CYCLE = 'START_CYCLE';
 export const END_CYCLE = 'END_CYCLE';
 export const REQUEST_CARDS = 'REQUEST_CARDS';
 export const START_PLAYER_TURN = 'START_PLAYER_TURN';
 export const RESET_GAME = 'RESET_GAME';
+
+interface AddOutPlayersAction extends Action<typeof ADD_OUT_PLAYERS> {
+  readonly outPlayers: OutPlayer[];
+}
 
 interface SetPlayerIdAction extends Action<typeof SET_PLAYER_ID> {
   readonly playerId: PlayerId;
@@ -52,7 +57,6 @@ interface StartRoundAction extends Action<typeof START_ROUND>{
 interface EndRoundAction extends Action<typeof END_ROUND>{
   readonly winner: PlayerId | undefined;
   readonly penalties: Penalty[];
-  readonly outPlayers: OutPlayer[];
 }
 
 interface StartCycleAction extends Action<typeof START_CYCLE>{
@@ -62,7 +66,6 @@ interface StartCycleAction extends Action<typeof START_CYCLE>{
 
 interface EndCycleAction extends Action<typeof END_CYCLE>{
   readonly highestTurnPlayerIds: PlayerId[];
-  readonly outPlayers: OutPlayer[];
 }
 
 interface RequestCardsAction extends Action<typeof REQUEST_CARDS>{
@@ -75,7 +78,7 @@ interface ResetGameAction extends Action<typeof RESET_GAME>{}
 
 export type GameAction = StartGameAction | EndGameSuccessAction | EndGameErrorAction | SetCardsInHandAction |
   AddPlayerTurnAction | StartRoundAction | EndRoundAction | StartCycleAction | EndCycleAction | RequestCardsAction |
-  StartPlayerTurnAction | ResetGameAction | SetPlayerIdAction;
+  StartPlayerTurnAction | ResetGameAction | SetPlayerIdAction | AddOutPlayersAction;
 
 export function setPlayerId(playerId: string): GameAction {
   return {
@@ -139,12 +142,18 @@ export function startRound(playerIds: PlayerId[]): GameAction {
   };
 }
 
-export function endRound(winner: PlayerId | undefined, penalties: Penalty[], outPlayers: OutPlayer[]): GameAction {
+export function addOutPlayers(outPlayers: OutPlayer[]): GameAction {
+  return {
+    type: ADD_OUT_PLAYERS,
+    outPlayers,
+  };
+}
+
+export function endRound(winner: PlayerId | undefined, penalties: Penalty[]): GameAction {
   return {
     type: END_ROUND,
     winner,
     penalties,
-    outPlayers,
   };
 }
 
@@ -156,11 +165,10 @@ export function startCycle(orderedPlayerIds: PlayerId[], isLastOfRound: boolean)
   };
 }
 
-export function endCycle(outPlayers: OutPlayer[], highestTurnPlayerIds: PlayerId[]): GameAction {
+export function endCycle(highestTurnPlayerIds: PlayerId[]): GameAction {
   return {
     type: END_CYCLE,
     highestTurnPlayerIds,
-    outPlayers,
   };
 }
 

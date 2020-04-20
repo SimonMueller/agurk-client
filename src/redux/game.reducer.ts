@@ -2,15 +2,18 @@ import {
   Card, cardEquals, OutPlayer, Penalty, PlayerId, ValidatedTurn,
 } from 'agurk-shared';
 import {
+  ADD_OUT_PLAYERS,
   ADD_PLAYER_TURN,
   END_CYCLE,
-  END_GAME_ERROR, END_GAME_SUCCESS,
+  END_GAME_ERROR,
+  END_GAME_SUCCESS,
   END_ROUND,
   GameAction,
   REQUEST_CARDS,
   RESET_GAME,
   SET_CARDS_IN_HAND,
-  SET_PLAYER_ID, START_CYCLE,
+  SET_PLAYER_ID,
+  START_CYCLE,
   START_GAME,
   START_PLAYER_TURN,
   START_ROUND,
@@ -18,12 +21,6 @@ import {
 
 function filterPenaltiesForPlayerId(penalties: Penalty[], playerId: PlayerId) {
   return penalties.filter((penalty) => penalty.playerId === playerId);
-}
-
-function isPlayerWithIdOut(outPlayers: OutPlayer[], player: PlayerState) {
-  return player.isOut
-    ? true
-    : outPlayers.some((outPlayer) => outPlayer.id === player.id);
 }
 
 function isPlayerIdOneOfHighestTurnPlayers(highestTurnPlayerIds: PlayerId[], playerId: PlayerId) {
@@ -39,8 +36,14 @@ function isTurnValidAndFromPlayer(playedTurn: ValidatedTurn, playerId: PlayerId 
   return playedTurn.playerId === playerId && playedTurn.valid;
 }
 
-function findPlayerOutReason(outPlayers: OutPlayer[], playerId: PlayerId) {
-  return outPlayers.find((outPlayer) => outPlayer.id === playerId)?.reason;
+function isPlayerWithIdOut(outPlayers: OutPlayer[], player: PlayerState) {
+  return player.isOut
+    ? true
+    : outPlayers.some((outPlayer) => outPlayer.id === player.id);
+}
+
+function findPlayerOutReason(outPlayers: OutPlayer[], player: PlayerState) {
+  return outPlayers.find((outPlayer) => outPlayer.id === player.id)?.reason;
 }
 
 function findPlayerOrder(orderedPlayerIds: PlayerId[], player: PlayerState) {
@@ -106,6 +109,15 @@ export default function (state: State = INITIAL_STATE, action: GameAction): Stat
       return {
         ...state,
         playerId: action.playerId,
+      };
+    case ADD_OUT_PLAYERS:
+      return {
+        ...state,
+        players: state.players.map((player) => ({
+          ...player,
+          isOut: isPlayerWithIdOut(action.outPlayers, player),
+          outReason: findPlayerOutReason(action.outPlayers, player),
+        })),
       };
     case START_GAME:
       return {
@@ -175,9 +187,7 @@ export default function (state: State = INITIAL_STATE, action: GameAction): Stat
             ...player.penalties,
             ...filterPenaltiesForPlayerId(action.penalties, player.id),
           ],
-          isOut: isPlayerWithIdOut(action.outPlayers, player),
           isRoundWinner: player.id === action.winner,
-          outReason: findPlayerOutReason(action.outPlayers, player.id),
         })),
       };
     case START_CYCLE:
@@ -196,8 +206,6 @@ export default function (state: State = INITIAL_STATE, action: GameAction): Stat
         players: state.players.map((player) => ({
           ...player,
           isCycleHighestTurnPlayer: isPlayerIdOneOfHighestTurnPlayers(action.highestTurnPlayerIds, player.id),
-          isOut: isPlayerWithIdOut(action.outPlayers, player),
-          outReason: findPlayerOutReason(action.outPlayers, player.id),
         })),
       };
     case REQUEST_CARDS:

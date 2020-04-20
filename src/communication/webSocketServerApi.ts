@@ -6,6 +6,7 @@ import {
 import { WebSocketSubject } from 'rxjs/webSocket';
 import { Action } from 'redux';
 import {
+  addOutPlayers,
   addPlayerTurn,
   endCycle,
   endGameError,
@@ -56,11 +57,13 @@ export function dispatchWebSocketMessageAsActions(message: Message, dispatch: (a
     case MessageName.BROADCAST_START_ROUND:
       return dispatch(startRound(message.data.players));
     case MessageName.BROADCAST_END_ROUND:
-      return dispatch(endRound(message.data.winner, message.data.penalties, message.data.outPlayers));
+      dispatch(addOutPlayers(message.data.outPlayers));
+      return dispatch(endRound(message.data.winner, message.data.penalties));
     case MessageName.BROADCAST_START_CYCLE:
       return dispatch(startCycle(message.data.orderedPlayers, message.data.isLastOfRound));
     case MessageName.BROADCAST_END_CYCLE:
-      return dispatch(endCycle(message.data.outPlayers, message.data.highestTurnPlayers));
+      dispatch(addOutPlayers(message.data.outPlayers));
+      return dispatch(endCycle(message.data.highestTurnPlayers));
     case MessageName.BROADCAST_PLAYER_TURN:
       return dispatch(addPlayerTurn(message.data));
     case MessageName.AVAILABLE_CARDS_IN_HAND:
