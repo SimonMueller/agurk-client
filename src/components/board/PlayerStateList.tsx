@@ -23,17 +23,9 @@ function ActiveOrderedPlayers({ players }: Props) {
     </ListItem>
   ));
 
-  if (activePlayerItems.length === 0) {
-    return null;
-  }
-
-  return (
-    <>
-      <Typography variant="h2" gutterBottom>Players</Typography>
-
-      <List>{ activePlayerItems }</List>
-    </>
-  );
+  return activePlayerItems.length
+    ? <List>{ activePlayerItems }</List>
+    : null;
 }
 
 function OutPlayers({ players }: Props) {
@@ -54,6 +46,8 @@ function OutPlayers({ players }: Props) {
 export default function PlayerStateList({ players }: Props) {
   return (
     <div>
+      <Typography variant="h2" gutterBottom>Players</Typography>
+
       <ActiveOrderedPlayers players={players} />
       <OutPlayers players={players} />
     </div>
