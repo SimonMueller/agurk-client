@@ -15,7 +15,7 @@ interface Props {
 const Flex = styled(Box)`
   display: flex;
   flex-wrap: wrap;
-  width: calc(100% - 3.5rem);
+  width: calc(100% - 3.25rem);
 
  @media(min-width: ${({ theme }: { theme: Theme }) => (theme.breakpoints.values.sm)}px) {
     width: calc(100% - 2.5rem);
@@ -23,7 +23,7 @@ const Flex = styled(Box)`
 `;
 
 const OverlappingBox = styled(Box)`
-  margin-right: -3.5rem;
+  margin-right: -3.25rem;
 
   @media(min-width: ${({ theme }: { theme: Theme }) => (theme.breakpoints.values.sm)}px) {
     margin-right: -2.5rem;

@@ -34,14 +34,14 @@ const Card = styled(Paper)`
   border-style: solid;
   border-radius: 6%;
   margin: auto;
-  width: ${({ size }: StyledCardProps) => (size === 'small' ? '4.5rem' : '6rem')};
+  width: ${({ size }: StyledCardProps) => (size === 'small' ? '4.5rem' : '5.5rem')};
 
   @media(min-width: ${({ theme }: { theme: Theme }) => (theme.breakpoints.values.sm)}px) {
-    width: ${({ size }: StyledCardProps) => (size === 'small' ? '5rem' : '6.5rem')};
+    width: ${({ size }: StyledCardProps) => (size === 'small' ? '5rem' : '6rem')};
   }
 
   @media(min-width: ${({ theme }: { theme: Theme }) => (theme.breakpoints.values.md)}px) {
-    width: ${({ size }: StyledCardProps) => (size === 'small' ? '5.5rem' : '7rem')};
+    width: ${({ size }: StyledCardProps) => (size === 'small' ? '5.5rem' : '6.5rem')};
   }
 `;
 
