@@ -3,6 +3,7 @@ import { Card as CardData } from 'agurk-shared';
 import styled from 'styled-components';
 import { Box, ButtonBase } from '@material-ui/core';
 import PlayingCard, { generateCardKey } from './PlayingCard';
+import { Theme } from '../../theme';
 
 export type SelectableCard = CardData & { isSelected: boolean };
 
@@ -11,21 +12,22 @@ interface Props {
   handleSelect: (card: CardData) => void;
 }
 
-const maxCardCountPerRow = 7;
-const overlapWidthInPercent = 50;
-const cardOverlapInPercent = Math.floor(100 / maxCardCountPerRow);
-const cardWidthInPercent = Math.floor((100 / maxCardCountPerRow) * (100 / overlapWidthInPercent));
-const containerWidthInPercent = 100 - cardOverlapInPercent;
-
 const Flex = styled(Box)`
   display: flex;
   flex-wrap: wrap;
-  width: ${containerWidthInPercent}%;
+  width: calc(100% - 3.75rem);
+
+ @media(min-width: ${({ theme }: { theme: Theme }) => (theme.breakpoints.values.sm)}px) {
+    width: calc(100% - 2.5rem);
+  }
 `;
 
 const OverlappingBox = styled(Box)`
-  margin-right: -${cardOverlapInPercent}%;
-  width: ${cardWidthInPercent}%;
+  margin-right: -3.75rem;
+
+  @media(min-width: ${({ theme }: { theme: Theme }) => (theme.breakpoints.values.sm)}px) {
+    margin-right: -2.5rem;
+  }
 `;
 
 export default function CardList({ cards, handleSelect }: Props) {
