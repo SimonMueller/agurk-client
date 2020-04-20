@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Card, ValidatedTurn } from 'agurk-shared';
 import styled from 'styled-components';
 import { Action, Dispatch } from 'redux';
-import { Button } from '@material-ui/core';
+import { Box, Button } from '@material-ui/core';
 import Hand from './Hand';
 import PlayerStateList from './PlayerStateList';
 import { State } from '../../redux';
@@ -33,6 +33,7 @@ interface Props {
 const Grid = styled.div`
   display: grid;
   row-gap: ${({ theme }: { theme: Theme }) => (theme.spacing(2))}px;
+  margin-bottom: ${({ theme }: { theme: Theme }) => (theme.spacing(2))}px;
 
   @media(min-width: ${({ theme }: { theme: Theme }) => (theme.breakpoints.values.md)}px) {
     grid-template-columns: 30% 65%;
@@ -42,7 +43,7 @@ const Grid = styled.div`
   }
 `;
 
-const OverviewBox = styled.div`
+const OverviewBox = styled(Box)`
   grid-column-start: 1;
   grid-column-end: span 1;
   grid-row-start: 1;
@@ -56,7 +57,7 @@ const OverviewBox = styled.div`
   }
 `;
 
-const PlayedTurnsBox = styled.div`
+const PlayedTurnsBox = styled(Box)`
   grid-column-start: 1;
   grid-column-end: span 1;
   grid-row-start: 2;
@@ -70,7 +71,7 @@ const PlayedTurnsBox = styled.div`
   }
 `;
 
-const HandBox = styled.div`
+const HandBox = styled(Box)`
   grid-column-start: 1;
   grid-column-end: span 1;
   grid-row-start: 3;
@@ -84,7 +85,7 @@ const HandBox = styled.div`
   }
 `;
 
-const PlayersBox = styled.div`
+const PlayersBox = styled(Box)`
   grid-column-start: 1;
   grid-column-end: span 1;
   grid-row-start: 4;
@@ -98,7 +99,7 @@ const PlayersBox = styled.div`
   }
 `;
 
-const NavigationBox = styled.div`
+const NavigationBox = styled(Box)`
   grid-column-start: 1;
   grid-column-end: span 1;
   grid-row-start: 6;
