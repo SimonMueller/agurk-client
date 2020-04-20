@@ -37,13 +37,17 @@ function isTurnValidAndFromPlayer(playedTurn: ValidatedTurn, playerId: PlayerId 
 }
 
 function isPlayerWithIdOut(outPlayers: OutPlayer[], player: PlayerState) {
-  return player.isOut
+  const foundOutPlayer = outPlayers.find((outPlayer) => outPlayer.id === player.id);
+  return foundOutPlayer
     ? true
-    : outPlayers.some((outPlayer) => outPlayer.id === player.id);
+    : player.isOut;
 }
 
 function findPlayerOutReason(outPlayers: OutPlayer[], player: PlayerState) {
-  return outPlayers.find((outPlayer) => outPlayer.id === player.id)?.reason;
+  const foundOutPlayer = outPlayers.find((outPlayer) => outPlayer.id === player.id);
+  return foundOutPlayer
+    ? foundOutPlayer.reason
+    : player.outReason;
 }
 
 function findPlayerOrder(orderedPlayerIds: PlayerId[], player: PlayerState) {
