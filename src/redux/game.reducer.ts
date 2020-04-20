@@ -20,8 +20,10 @@ function filterPenaltiesForPlayerId(penalties: Penalty[], playerId: PlayerId) {
   return penalties.filter((penalty) => penalty.playerId === playerId);
 }
 
-function isPlayerWithIdOut(outPlayers: OutPlayer[], playerId: PlayerId) {
-  return outPlayers.some((outPlayer) => outPlayer.id === playerId);
+function isPlayerWithIdOut(outPlayers: OutPlayer[], player: PlayerState) {
+  return player.isOut
+    ? true
+    : outPlayers.some((outPlayer) => outPlayer.id === player.id);
 }
 
 function isPlayerIdOneOfHighestTurnPlayers(highestTurnPlayerIds: PlayerId[], playerId: PlayerId) {
@@ -173,7 +175,7 @@ export default function (state: State = INITIAL_STATE, action: GameAction): Stat
             ...player.penalties,
             ...filterPenaltiesForPlayerId(action.penalties, player.id),
           ],
-          isOut: isPlayerWithIdOut(action.outPlayers, player.id),
+          isOut: isPlayerWithIdOut(action.outPlayers, player),
           isRoundWinner: player.id === action.winner,
           outReason: findPlayerOutReason(action.outPlayers, player.id),
         })),
@@ -194,7 +196,7 @@ export default function (state: State = INITIAL_STATE, action: GameAction): Stat
         players: state.players.map((player) => ({
           ...player,
           isCycleHighestTurnPlayer: isPlayerIdOneOfHighestTurnPlayers(action.highestTurnPlayerIds, player.id),
-          isOut: isPlayerWithIdOut(action.outPlayers, player.id),
+          isOut: isPlayerWithIdOut(action.outPlayers, player),
           outReason: findPlayerOutReason(action.outPlayers, player.id),
         })),
       };
