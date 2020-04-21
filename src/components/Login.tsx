@@ -68,7 +68,7 @@ function Login({ dispatch, error }: Props) {
             />
           </Box>
 
-          <Button size="large" fullWidth variant="contained" color="primary" type="submit">Log in</Button>
+          <Button size="large" fullWidth variant="contained" color="secondary" type="submit">Log in</Button>
         </form>
       </Box>
 

@@ -14,7 +14,7 @@ function Lobby({ playerIds, startGame }: Props) {
   return (
     <div>
       <PlayerIdList playerIds={playerIds} />
-      <Button size="large" fullWidth variant="contained" color="primary" onClick={startGame}>
+      <Button size="large" fullWidth variant="contained" color="secondary" onClick={startGame}>
         Start Game
       </Button>
     </div>

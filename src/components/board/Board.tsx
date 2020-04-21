@@ -145,7 +145,7 @@ function Board({ state, playCards, closeGame }: Props) {
       { state.stage === GameStage.END
         && (
         <NavigationBox>
-          <Button fullWidth variant="contained" color="primary" onClick={closeGame}>
+          <Button fullWidth variant="contained" color="secondary" onClick={closeGame}>
             Return to lobby
           </Button>
         </NavigationBox>
