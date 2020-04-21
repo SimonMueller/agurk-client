@@ -7,6 +7,7 @@ import { ThemeProvider as MuiThemeProvider } from '@material-ui/core';
 import App from './components/App';
 import * as serviceWorker from './serviceWorker';
 import './index.css';
+import 'typeface-roboto';
 import theme from './theme';
 import store from './redux/store';
 
