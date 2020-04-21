@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "6c649c657da698e8bde4fe7e2f669e60",
+    "revision": "3294e142462e2aedb7cb972181a47905",
     "url": "/agurk-client/index.html"
   },
   {
