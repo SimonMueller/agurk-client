@@ -2,7 +2,8 @@
   "extends": [
     "react-app",
     "airbnb",
-    "plugin:import/typescript"
+    "plugin:import/typescript",
+    "plugin:jest-dom/recommended"
   ],
   "overrides": [
     {
@@ -11,7 +12,9 @@
         "max-len": ["error", { "code":  120}],
         "react/jsx-filename-extension": ["warn", { "extensions": [".tsx"] }],
         "consistent-return": ["off", { "treatUndefinedAsUnspecified": false }],
-        "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*.test.js", "**/*.spec.js", "**/test-utils.tsx"]}]
+        "import/no-extraneous-dependencies": ["error", {"devDependencies": [
+          "**/*.test.js", "**/*.spec.js", "**/test-utils.tsx", "**/setupTests.ts"
+        ]}]
       }
     }
   ]
