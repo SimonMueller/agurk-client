@@ -59,7 +59,7 @@ export function generateCardKey(card: CardData): string {
 function JokerCard({ card }: JokerCardProps) {
   const lowercaseColor = card.color.toLowerCase();
   const cardSrcFile = '/agurk-client/images/joker.svg';
-  return <Image src={cardSrcFile} alt={`joker card of color ${lowercaseColor}`} />;
+  return <Image src={cardSrcFile} alt={`joker of rank ${card.rank} and color ${lowercaseColor}`} />;
 }
 
 function SuitCard({ card }: SuitCardProps) {
