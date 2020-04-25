@@ -4,7 +4,7 @@ import {
   MessageName,
 } from 'agurk-shared';
 import { WebSocketSubject } from 'rxjs/webSocket';
-import { Action } from 'redux';
+import { Action, Dispatch } from 'redux';
 import {
   addOutPlayers,
   addPlayerTurn,
@@ -41,7 +41,7 @@ function sendAuthenticate(subject: WebSocketSubject<Message>, token: string): vo
   return subject.next({ name: MessageName.AUTHENTICATE, data: token });
 }
 
-export function dispatchWebSocketMessageAsActions(message: Message, dispatch: (action: Action) => void) {
+export function dispatchWebSocketMessageAsActions(message: Message, dispatch: Dispatch<Action>) {
   // eslint-disable-next-line default-case
   switch (message.name) {
     case MessageName.BROADCAST_LOBBY_PLAYERS:
