@@ -18,35 +18,35 @@ describe('Last played max card component', () => {
   });
 
   it('shows info badge if turns is not empty', () => {
-    const turn: ValidatedTurn = {
+    const turns: ValidatedTurn[] = [{
       valid: true,
       cards: [createSuitCard(2, Suits.HEARTS)],
       playerId: 'testplayer',
-    };
-    const { getByText } = render(<LastPlayedMaxCard playedTurns={[turn]} />);
+    }];
+    const { getByText } = render(<LastPlayedMaxCard playedTurns={turns} />);
 
     expect(getByText('Highest card')).toBeVisible();
   });
 
   it('shows card of valid single turn', () => {
-    const turn: ValidatedTurn = {
+    const turns: ValidatedTurn[] = [{
       valid: true,
       cards: [createSuitCard(2, Suits.HEARTS)],
       playerId: 'testplayer',
-    };
-    const { getByAltText } = render(<LastPlayedMaxCard playedTurns={[turn]} />);
+    }];
+    const { getByAltText } = render(<LastPlayedMaxCard playedTurns={turns} />);
 
     expect(getByAltText('card of rank 2 and suit hearts')).toBeVisible();
   });
 
   it('shows placeholder for invalid single turn', () => {
-    const turn: ValidatedTurn = {
+    const turns: ValidatedTurn[] = [{
       valid: false,
       cards: [createSuitCard(2, Suits.HEARTS)],
       playerId: 'testplayer',
       invalidReason: 'some reason',
-    };
-    const { getByAltText } = render(<LastPlayedMaxCard playedTurns={[turn]} />);
+    }];
+    const { getByAltText } = render(<LastPlayedMaxCard playedTurns={turns} />);
 
     expect(getByAltText('card placeholder')).toBeVisible();
   });
