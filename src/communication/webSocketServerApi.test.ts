@@ -47,10 +47,10 @@ describe('Websocket server API', () => {
     it('broadcast end game (error)', () => {
       const mockedDispatch = jest.fn();
       dispatchWebSocketMessageAsActions({
-        name: MessageName.BROADCAST_END_GAME, data: { isValid: false, error: Error('some error') },
+        name: MessageName.BROADCAST_END_GAME, data: { isValid: false, errorMessage: 'some error' },
       }, mockedDispatch);
 
-      expect(mockedDispatch).toHaveBeenCalledWith(endGameError(Error('some error')));
+      expect(mockedDispatch).toHaveBeenCalledWith(endGameError('some error'));
     });
 
     it('broadcast start round', () => {

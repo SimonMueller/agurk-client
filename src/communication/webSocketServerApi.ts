@@ -53,7 +53,7 @@ export function dispatchWebSocketMessageAsActions(message: Message, dispatch: Di
       if (message.data.isValid) {
         return dispatch(endGameSuccess(message.data.winner));
       }
-      return dispatch(endGameError(message.data.error));
+      return dispatch(endGameError(message.data.errorMessage));
     case MessageName.BROADCAST_START_ROUND:
       return dispatch(startRound(message.data.players));
     case MessageName.BROADCAST_END_ROUND:
