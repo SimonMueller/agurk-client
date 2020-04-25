@@ -1,5 +1,5 @@
 import {
-  Card, Error, OutPlayer, Penalty, PlayerId, ValidatedTurn,
+  Card, OutPlayer, Penalty, PlayerId, ValidatedTurn,
 } from 'agurk-shared';
 import { Action } from 'redux';
 
@@ -35,7 +35,7 @@ interface EndGameSuccessAction extends Action<typeof END_GAME_SUCCESS>{
 }
 
 interface EndGameErrorAction extends Action<typeof END_GAME_ERROR>{
-  readonly error: Error;
+  readonly errorMessage: string;
 }
 
 interface SetCardsInHandAction extends Action<typeof SET_CARDS_IN_HAND>{
@@ -100,10 +100,10 @@ export function resetGame(): GameAction {
   };
 }
 
-export function endGameError(error: Error): GameAction {
+export function endGameError(errorMessage: string): GameAction {
   return {
     type: END_GAME_ERROR,
-    error,
+    errorMessage,
   };
 }
 
