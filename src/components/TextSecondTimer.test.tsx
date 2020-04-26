@@ -5,7 +5,7 @@ import TextSecondTimer from './TextSecondTimer';
 describe('Text second timer component', () => {
   beforeEach(() => jest.useFakeTimers());
 
-  it('shows zero if timeout is zero', async () => {
+  it('shows zero if timeout is zero', () => {
     const { getByText } = render(<TextSecondTimer timeoutInSeconds={0} />);
 
     expect(getByText('0')).toBeVisible();
