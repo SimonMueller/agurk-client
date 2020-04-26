@@ -65,7 +65,7 @@ function HighestCyclePlayers({ players }: Pick<Props, 'players'>) {
     .map((player) => player.id);
 
   if (highestCyclePlayerIds.length === 0) {
-    return <h2>No cycle winner</h2>;
+    return <Typography variant="h2">No cycle winner</Typography>;
   }
 
   return (
