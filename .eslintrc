@@ -17,8 +17,8 @@
         ]}],
         "import/extensions": [
           "error", {
-          "ts": "never",
-          "tsx": "never"
+            "ts": "never",
+            "tsx": "never"
         }]
       }
     }
