@@ -16,7 +16,7 @@ export default function TextSecondTimer({ timeoutInSeconds }: Props) {
       const newTimeLeftInMillis = timeLeftInSeconds - 1;
       return newTimeLeftInMillis < 0
         ? clearInterval(interval)
-        : setTimeLeftInSeconds(timeLeftInSeconds - 1);
+        : setTimeLeftInSeconds((prevState) => prevState - 1);
     }, 1000);
     return () => clearInterval(interval);
   });
