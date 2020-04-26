@@ -3,7 +3,7 @@ import {
   List, ListItem, ListItemText, Typography,
 } from '@material-ui/core';
 import Player from './Player';
-import { PlayerState } from '../../redux/game.reducer';
+import { PlayerState } from '../../redux/gamePlayers.reducer';
 
 interface Props {
   players: PlayerState[];

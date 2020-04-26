@@ -9,11 +9,12 @@ import PlayerStateList from './PlayerStateList';
 import { State } from '../../redux/root.reducer';
 import { WebSocketGameApi } from '../../communication/webSocketServerApi';
 import { resetGame } from '../../redux/game.action';
-import { GameStage, PlayerState } from '../../redux/game.reducer';
 import Overview from './Overview';
 import { setIsInGame } from '../../redux/lobby.action';
 import PlayedTurns from './PlayedTurns';
 import { Theme } from '../../theme';
+import { GameStage } from '../../redux/gameState.reducer';
+import { PlayerState } from '../../redux/gamePlayers.reducer';
 
 interface Props {
   state: {
@@ -156,15 +157,17 @@ function Board({ state, playCards, closeGame }: Props) {
 
 const mapStateToProps = (state: State, ownProps: { serverApi: WebSocketGameApi }) => ({
   state: {
-    cardsInHand: state.game.cardsInHand,
+    cardsInHand: state.game.state.cardsInHand,
     players: state.game.players,
-    stage: state.game.stage,
-    playedTurns: state.game.validatedTurns,
-    playerState: state.game.players.find((player) => player.id === state.game.playerId),
+    stage: state.game.state.stage,
+    playedTurns: state.game.state.validatedTurns,
+    playerState: state.game.players.find((player) => player.id === state.game.state.playerId),
     playCards: (cards: Card[]) => ownProps.serverApi.sendPlayCards(cards),
-    isLastCycleOfRound: state.game.isLastCycleOfRound,
-    turnTimeoutInSeconds: state.game.turnTimeoutInMillis ? state.game.turnTimeoutInMillis / 1000 : undefined,
-    turnRetriesLeft: state.game.turnRetriesLeft,
+    isLastCycleOfRound: state.game.state.isLastCycleOfRound,
+    turnTimeoutInSeconds: state.game.state.turnTimeoutInMillis
+      ? state.game.state.turnTimeoutInMillis / 1000
+      : undefined,
+    turnRetriesLeft: state.game.state.turnRetriesLeft,
   },
   playCards: (cards: Card[]) => ownProps.serverApi.sendPlayCards(cards),
 });

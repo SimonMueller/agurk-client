@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Grid, Typography } from '@material-ui/core';
-import { GameStage, PlayerState } from '../../redux/game.reducer';
 import TextSecondTimer from '../TextSecondTimer';
+import { GameStage } from '../../redux/gameState.reducer';
+import { PlayerState } from '../../redux/gamePlayers.reducer';
 
 interface Props {
   isServerRequestingCards: boolean;
