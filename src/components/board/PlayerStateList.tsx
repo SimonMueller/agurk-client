@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  List, ListItem, ListItemText, Step, StepContent, StepLabel, Stepper, Typography,
+  List, ListItem, ListItemText, Step, StepLabel, Stepper, Typography,
 } from '@material-ui/core';
 import Player from './Player';
 import { PlayerState } from '../../redux/gamePlayers.reducer';
@@ -25,12 +25,9 @@ function ActiveOrderedPlayers({ players }: Props) {
         completed={isCompleted}
         key={player.id}
       >
-        <StepLabel error={player.isOut}>
+        <StepLabel>
           <Player player={player} />
         </StepLabel>
-        <StepContent>
-          {player.outReason}
-        </StepContent>
       </Step>
     );
   });
