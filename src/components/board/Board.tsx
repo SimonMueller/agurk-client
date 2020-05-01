@@ -64,6 +64,7 @@ const PlayedTurnsBox = styled(Box)`
   grid-column-end: span 1;
   grid-row-start: 2;
   grid-row-end: span 1;
+  min-height: 25vh;
 
   @media(min-width: ${({ theme }: { theme: Theme }) => (theme.breakpoints.values.md)}px) {
     grid-column-start: 2;
