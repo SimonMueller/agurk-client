@@ -16,9 +16,8 @@ function byOrderAsc(first: PlayerState, second: PlayerState) {
 function ActiveOrderedPlayers({ players }: Props) {
   const orderedActivePlayers = players.filter((player) => !player.isOut).sort(byOrderAsc);
   const currentActivePlayerIndex = orderedActivePlayers.findIndex((player) => player.isServerRequestingCards);
-  const isSingleActivePlayer = orderedActivePlayers.length === 1;
   const activePlayerItems = orderedActivePlayers.map((player) => {
-    const isCompleted = currentActivePlayerIndex > player.order || isSingleActivePlayer;
+    const isCompleted = currentActivePlayerIndex > player.order;
     return (
       <Step
         active={player.isServerRequestingCards}
