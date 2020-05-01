@@ -1,17 +1,12 @@
 import React from 'react';
-import styled from 'styled-components';
 import { InvalidTurn, ValidatedTurn, ValidTurn } from 'agurk-shared';
-import { Box, Grid } from '@material-ui/core';
+import { Box, Grid, Typography } from '@material-ui/core';
 import PlayingCard, { generateCardKey, PlayingCardPlaceholder } from './PlayingCard';
 import Badge from '../Badge';
 
 interface Props {
   turn: ValidatedTurn;
 }
-
-const Centered = styled.div`
-  text-align: center;
-`;
 
 export function generateTurnKey(turn: ValidatedTurn): string {
   return turn.playerId + turn.valid;
@@ -35,7 +30,9 @@ function Valid({ turn }: { turn: ValidTurn }) {
           { cardItems }
         </Grid>
       </Box>
-      <Centered><span>{turn.playerId}</span></Centered>
+      <Typography variant="body1" align="center">
+        {turn.playerId}
+      </Typography>
     </>
   );
 }
@@ -52,10 +49,14 @@ function Invalid({ turn }: { turn: InvalidTurn }) {
             : cardItems }
         </Grid>
       </Box>
-      <Centered><span>{turn.playerId}</span></Centered>
-      <Centered>
-        <Badge severity="error">{turn.invalidReason}</Badge>
-      </Centered>
+      <Typography variant="body1" align="center">
+        {turn.playerId}
+      </Typography>
+      <Typography variant="body1" align="center">
+        <Badge severity="error">
+          {turn.invalidReason}
+        </Badge>
+      </Typography>
     </>
   );
 }
