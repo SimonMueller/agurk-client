@@ -72,6 +72,8 @@ export function dispatchWebSocketMessageAsActions(message: Message, dispatch: Di
       return dispatch(requestCards(message.data.timeoutInMillis, message.data.retriesLeft));
     case MessageName.BROADCAST_START_PLAYER_TURN:
       return dispatch(startPlayerTurn(message.data));
+    case MessageName.BROADCAST_OUT_PLAYER_AFTER_TURN:
+      return dispatch(addOutPlayers([message.data]));
   }
 }
 
