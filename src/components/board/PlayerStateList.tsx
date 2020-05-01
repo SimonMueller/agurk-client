@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  List, ListItem, ListItemText, Typography,
+  List, ListItem, ListItemText, Step, StepContent, StepLabel, Stepper, Typography,
 } from '@material-ui/core';
 import Player from './Player';
 import { PlayerState } from '../../redux/gamePlayers.reducer';
@@ -15,16 +15,28 @@ function byOrderAsc(first: PlayerState, second: PlayerState) {
 
 function ActiveOrderedPlayers({ players }: Props) {
   const orderedActivePlayers = players.filter((player) => !player.isOut).sort(byOrderAsc);
-  const activePlayerItems = orderedActivePlayers.map((player) => (
-    <ListItem key={player.id}>
-      <ListItemText>
-        <Player player={player} />
-      </ListItemText>
-    </ListItem>
-  ));
+  const currentActivePlayerIndex = orderedActivePlayers.findIndex((player) => player.isServerRequestingCards);
+  const isSingleActivePlayer = orderedActivePlayers.length === 1;
+  const activePlayerItems = orderedActivePlayers.map((player) => {
+    const isCompleted = currentActivePlayerIndex > player.order || isSingleActivePlayer;
+    return (
+      <Step
+        active={player.isServerRequestingCards}
+        completed={isCompleted}
+        key={player.id}
+      >
+        <StepLabel error={player.isOut}>
+          <Player player={player} />
+        </StepLabel>
+        <StepContent>
+          {player.outReason}
+        </StepContent>
+      </Step>
+    );
+  });
 
   return activePlayerItems.length
-    ? <List>{ activePlayerItems }</List>
+    ? <Stepper orientation="vertical">{ activePlayerItems }</Stepper>
     : null;
 }
 
