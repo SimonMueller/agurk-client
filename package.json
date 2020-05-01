@@ -17,7 +17,8 @@
     "redux-thunk": "^2.3.0",
     "rxjs": "^6.5.5",
     "styled-components": "^5.1.0",
-    "typeface-roboto": "0.0.75"
+    "typeface-roboto": "0.0.75",
+    "snyk": "^1.316.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -27,7 +28,9 @@
     "eject": "react-scripts eject",
     "lint": "eslint src/**/*.tsx",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -78,5 +81,6 @@
     "coverageReporters": [
       "text"
     ]
-  }
+  },
+  "snyk": true
 }
