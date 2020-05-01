@@ -7,7 +7,7 @@
   "homepage": "https://simonmueller.github.io/agurk-client",
   "dependencies": {
     "@material-ui/core": "^4.9.10",
-    "agurk-shared": "github:SimonMueller/agurk-shared#semver:4.15",
+    "agurk-shared": "github:SimonMueller/agurk-shared#semver:4.16",
     "jwt-decode": "^2.2.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
