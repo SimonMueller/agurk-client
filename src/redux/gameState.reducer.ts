@@ -1,6 +1,4 @@
-import {
-  Card, cardEquals, PlayerId, ValidatedTurn,
-} from 'agurk-shared';
+import { Card, PlayerId, ValidatedTurn } from 'agurk-shared';
 import {
   ADD_OUT_PLAYERS,
   ADD_PLAYER_TURN,
@@ -8,7 +6,8 @@ import {
   END_GAME_ERROR,
   END_GAME_SUCCESS,
   END_ROUND,
-  GameAction, REQUEST_CARDS,
+  GameAction,
+  REQUEST_CARDS,
   RESET_GAME,
   SET_CARDS_IN_HAND,
   SET_PLAYER_ID,
@@ -16,15 +15,6 @@ import {
   START_GAME,
   START_ROUND,
 } from './game.action';
-
-function filterAvailableCardsAfterTurn(cardsInHand: Card[], turn: ValidatedTurn) {
-  return cardsInHand.filter((cardInHand) => turn.cards
-    .find((turnCard) => cardEquals(cardInHand, turnCard)) === undefined);
-}
-
-function isTurnValidAndFromPlayer(playedTurn: ValidatedTurn, playerId: PlayerId | undefined) {
-  return playedTurn.playerId === playerId && playedTurn.valid;
-}
 
 export enum GameStage {
   START,
@@ -67,7 +57,6 @@ export default function (state = INITIAL_STATE, action: GameAction): State {
       return { ...state, stage: GameStage.END };
     case RESET_GAME:
       return {
-        ...state,
         ...INITIAL_STATE,
         playerId: state.playerId,
       };
@@ -85,9 +74,6 @@ export default function (state = INITIAL_STATE, action: GameAction): State {
           ...state.validatedTurns,
           action.turn,
         ],
-        cardsInHand: isTurnValidAndFromPlayer(action.turn, state.playerId)
-          ? filterAvailableCardsAfterTurn(state.cardsInHand, action.turn)
-          : state.cardsInHand,
       };
     case START_ROUND:
       return { ...state, stage: GameStage.BEFORE_CYCLE };
