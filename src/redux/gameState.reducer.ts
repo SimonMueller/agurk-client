@@ -16,12 +16,12 @@ import {
 } from './game.action';
 
 export enum GameStage {
-  START,
-  END,
-  BETWEEN_ROUNDS,
-  BETWEEN_CYCLES,
-  BEFORE_CYCLE,
-  IN_CYCLE,
+  START = 'START',
+  END = 'END',
+  BETWEEN_ROUNDS = 'BETWEEN_ROUNDS',
+  BETWEEN_CYCLES = 'BETWEEN_CYCLES',
+  BEFORE_CYCLE = 'BEFORE_CYCLE',
+  IN_CYCLE = 'IN_CYCLE',
 }
 
 export interface State {
