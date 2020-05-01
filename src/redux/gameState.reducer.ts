@@ -1,4 +1,4 @@
-import { Card, PlayerId, ValidatedTurn } from 'agurk-shared';
+import { Card, ValidatedTurn } from 'agurk-shared';
 import {
   ADD_OUT_PLAYERS,
   ADD_PLAYER_TURN,
@@ -10,7 +10,6 @@ import {
   REQUEST_CARDS,
   RESET_GAME,
   SET_CARDS_IN_HAND,
-  SET_PLAYER_ID,
   START_CYCLE,
   START_GAME,
   START_ROUND,
@@ -26,7 +25,6 @@ export enum GameStage {
 }
 
 export interface State {
-  playerId: PlayerId | undefined;
   stage: GameStage;
   validatedTurns: ValidatedTurn[];
   cardsInHand: Card[];
@@ -37,7 +35,6 @@ export interface State {
 
 const INITIAL_STATE: State = {
   stage: GameStage.START,
-  playerId: undefined,
   validatedTurns: [],
   cardsInHand: [],
   isLastCycleOfRound: false,
@@ -47,8 +44,6 @@ const INITIAL_STATE: State = {
 
 export default function (state = INITIAL_STATE, action: GameAction): State {
   switch (action.type) {
-    case SET_PLAYER_ID:
-      return { ...state, playerId: action.playerId };
     case ADD_OUT_PLAYERS:
       return state;
     case START_GAME:
@@ -56,10 +51,7 @@ export default function (state = INITIAL_STATE, action: GameAction): State {
     case END_GAME_SUCCESS:
       return { ...state, stage: GameStage.END };
     case RESET_GAME:
-      return {
-        ...INITIAL_STATE,
-        playerId: state.playerId,
-      };
+      return INITIAL_STATE;
     case END_GAME_ERROR:
       return { ...state, stage: GameStage.END };
     case SET_CARDS_IN_HAND:

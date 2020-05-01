@@ -1,7 +1,6 @@
 import { Action, Dispatch } from 'redux';
 import jwtDecode from 'jwt-decode';
 import { AuthenticationBody, JwtPayload } from 'agurk-shared';
-import { setPlayerId } from './game.action';
 
 const API_SERVER_URI = process.env.REACT_APP_API_SERVER_URI as string;
 
@@ -64,7 +63,6 @@ export function authenticate(data: AuthenticationBody) {
           const token = body.jwt;
           const subject = extractSubjectFromToken(body.jwt);
           dispatch(authenticateWithToken(token, subject));
-          dispatch(setPlayerId(subject));
         } else {
           dispatch(authenticationError('Authentication failed'));
         }

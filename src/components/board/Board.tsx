@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Card, ValidatedTurn } from 'agurk-shared';
+import { Card, PlayerId, ValidatedTurn } from 'agurk-shared';
 import styled from 'styled-components';
 import { Action, Dispatch } from 'redux';
 import { Box, Button } from '@material-ui/core';
@@ -17,6 +17,7 @@ import { GameStage } from '../../redux/gameState.reducer';
 import { PlayerState } from '../../redux/gamePlayers.reducer';
 
 interface Props {
+  playerId: PlayerId;
   state: {
     players: PlayerState[]
     playedTurns: ValidatedTurn[];
@@ -157,13 +158,13 @@ function Board({ state, playCards, closeGame }: Props) {
   );
 }
 
-const mapStateToProps = (state: State, ownProps: { serverApi: WebSocketGameApi }) => ({
+const mapStateToProps = (state: State, ownProps: { serverApi: WebSocketGameApi, playerId: PlayerId }) => ({
   state: {
     cardsInHand: state.game.state.cardsInHand,
     players: state.game.players,
     stage: state.game.state.stage,
     playedTurns: state.game.state.validatedTurns,
-    playerState: state.game.players.find((player) => player.id === state.game.state.playerId),
+    playerState: state.game.players.find((player) => player.id === ownProps.playerId),
     playCards: (cards: Card[]) => ownProps.serverApi.sendPlayCards(cards),
     isLastCycleOfRound: state.game.state.isLastCycleOfRound,
     turnTimeoutInSeconds: state.game.state.turnTimeoutInMillis

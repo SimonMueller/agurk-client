@@ -3,7 +3,6 @@ import {
 } from 'agurk-shared';
 import { Action } from 'redux';
 
-export const SET_PLAYER_ID = 'SET_PLAYER_ID';
 export const START_GAME = 'START_GAME';
 export const END_GAME_SUCCESS = 'END_GAME_SUCCESS';
 export const END_GAME_ERROR = 'END_GAME_ERROR';
@@ -20,10 +19,6 @@ export const RESET_GAME = 'RESET_GAME';
 
 interface AddOutPlayersAction extends Action<typeof ADD_OUT_PLAYERS> {
   readonly outPlayers: OutPlayer[];
-}
-
-interface SetPlayerIdAction extends Action<typeof SET_PLAYER_ID> {
-  readonly playerId: PlayerId;
 }
 
 interface StartGameAction extends Action<typeof START_GAME> {
@@ -78,14 +73,7 @@ interface ResetGameAction extends Action<typeof RESET_GAME>{}
 
 export type GameAction = StartGameAction | EndGameSuccessAction | EndGameErrorAction | SetCardsInHandAction |
   AddPlayerTurnAction | StartRoundAction | EndRoundAction | StartCycleAction | EndCycleAction | RequestCardsAction |
-  StartPlayerTurnAction | ResetGameAction | SetPlayerIdAction | AddOutPlayersAction;
-
-export function setPlayerId(playerId: string): GameAction {
-  return {
-    type: SET_PLAYER_ID,
-    playerId,
-  };
-}
+  StartPlayerTurnAction | ResetGameAction | AddOutPlayersAction;
 
 export function startGame(playerIds: PlayerId[]): GameAction {
   return {
