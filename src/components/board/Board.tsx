@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Card, ValidatedTurn } from 'agurk-shared';
 import styled from 'styled-components';
@@ -115,6 +115,8 @@ const NavigationBox = styled(Box)`
 `;
 
 function Board({ state, playCards, closeGame }: Props) {
+  useEffect(() => closeGame, [closeGame]);
+
   if (!state.playerState) {
     return <p>Loading game...</p>;
   }
@@ -175,7 +177,7 @@ const mapStateToProps = (state: State, ownProps: { serverApi: WebSocketGameApi }
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
   closeGame: () => {
-    resetGame();
+    dispatch(resetGame());
     dispatch(setIsInGame(false));
   },
 });
