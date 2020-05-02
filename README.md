@@ -9,6 +9,12 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
+## Getting Started
+
+To be able to play locally please setup and start a local [server](https://github.com/SimonMueller/agurk-server) first.
+
+After that you should be able to start the frontend with `npm start` and log in with the access token set in the server configuration.
+
 # Resources
 ## Card images
 
