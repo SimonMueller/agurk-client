@@ -6,6 +6,7 @@ const API_SERVER_URI = process.env.REACT_APP_API_SERVER_URI as string;
 
 export const AUTHENTICATE_WITH_TOKEN = 'AUTHENTICATE_WITH_TOKEN';
 export const AUTHENTICATION_ERROR = 'AUTHENTICATION_ERROR';
+export const REQUEST_AUTHENTICATION = 'REQUEST_AUTHENTICATION';
 export const UNAUTHENTICATE_WITH_ERROR = 'UNAUTHENTICATE_WITH_ERROR';
 
 interface AuthenticateWithTokenAction extends Action<typeof AUTHENTICATE_WITH_TOKEN>{
@@ -21,7 +22,10 @@ interface UnauthenticateWithErrorAction extends Action<typeof UNAUTHENTICATE_WIT
   readonly message: string;
 }
 
-export type AuthenticationAction = AuthenticateWithTokenAction | AuthenticationError | UnauthenticateWithErrorAction;
+type RequestAuthentication = Action<typeof REQUEST_AUTHENTICATION>;
+
+export type AuthenticationAction = AuthenticateWithTokenAction | AuthenticationError | UnauthenticateWithErrorAction |
+  RequestAuthentication;
 
 export function authenticateWithToken(token: string, subject: string): AuthenticationAction {
   return {
@@ -45,12 +49,19 @@ export function authenticationError(message: string): AuthenticationAction {
   };
 }
 
+export function requestAuthentication(): AuthenticationAction {
+  return {
+    type: REQUEST_AUTHENTICATION,
+  };
+}
+
 function extractSubjectFromToken(token: string) {
   return (jwtDecode(token) as JwtPayload).sub;
 }
 
 export function authenticate(data: AuthenticationBody) {
   return function postAuthentication(dispatch: Dispatch<Action>) {
+    dispatch(requestAuthentication());
     fetch(`${API_SERVER_URI}/authenticate`, {
       method: 'POST',
       mode: 'cors',

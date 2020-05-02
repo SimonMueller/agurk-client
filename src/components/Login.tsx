@@ -2,7 +2,7 @@ import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { connect } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
 import {
-  Button, Container, TextField, Typography, Box,
+  Button, Container, TextField, Typography, Box, CircularProgress,
 } from '@material-ui/core';
 import { GameAction } from '../redux/game.action';
 import { authenticate } from '../redux/authentication.action';
@@ -12,9 +12,10 @@ import Message from './Message';
 interface Props {
   dispatch: ThunkDispatch<State, undefined, GameAction>;
   error: string | undefined;
+  isRequestingAuthentication: boolean;
 }
 
-function Login({ dispatch, error }: Props) {
+function Login({ dispatch, error, isRequestingAuthentication }: Props) {
   const [nameInput, setNameInput] = useState<string>('');
   const [tokenInput, setTokenInput] = useState<string>('');
 
@@ -68,7 +69,17 @@ function Login({ dispatch, error }: Props) {
             />
           </Box>
 
-          <Button size="large" fullWidth variant="contained" color="secondary" type="submit">Log in</Button>
+          <Button
+            size="large"
+            fullWidth
+            variant={isRequestingAuthentication ? 'outlined' : 'contained'}
+            color="secondary"
+            type="submit"
+          >
+            { isRequestingAuthentication
+              ? <CircularProgress size={25} color="secondary" />
+              : 'Log in'}
+          </Button>
         </form>
       </Box>
 
@@ -79,6 +90,7 @@ function Login({ dispatch, error }: Props) {
 
 const mapStateToProps = (state: State) => ({
   error: state.authentication.error,
+  isRequestingAuthentication: state.authentication.isRequesting,
 });
 
 export default connect(mapStateToProps)(Login);

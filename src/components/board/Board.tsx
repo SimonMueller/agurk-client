@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Card, PlayerId, ValidatedTurn } from 'agurk-shared';
 import styled from 'styled-components';
 import { Action, Dispatch } from 'redux';
-import { Box, Button } from '@material-ui/core';
+import { Box, Button, CircularProgress } from '@material-ui/core';
 import Hand from './Hand';
 import PlayerStateList from './PlayerStateList';
 import { State } from '../../redux/root.reducer';
@@ -31,6 +31,11 @@ interface Props {
   playCards: (cards: Card[]) => void;
   closeGame: () => void;
 }
+
+const CenteredFlex = styled.div`
+  display: flex;
+  justify-content: center;
+`;
 
 const Grid = styled.div`
   display: grid;
@@ -120,7 +125,7 @@ function Board({ state, playCards, closeGame }: Props) {
   useEffect(() => closeGame, [closeGame]);
 
   if (!state.playerState) {
-    return <p>Loading game...</p>;
+    return <CenteredFlex><CircularProgress /></CenteredFlex>;
   }
 
   return (
