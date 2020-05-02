@@ -12,6 +12,8 @@ import {
   START_PLAYER_TURN,
 } from './game.action';
 
+const LOWEST_ORDER_PRECEDENCE = Number.MAX_SAFE_INTEGER;
+
 function filterPenaltiesForPlayerId(penalties: Penalty[], playerId: PlayerId) {
   return penalties.filter((penalty) => penalty.playerId === playerId);
 }
@@ -34,8 +36,11 @@ function findPlayerOutReason(outPlayers: OutPlayer[], player: PlayerState) {
     : player.outReason;
 }
 
-function findPlayerOrder(orderedPlayerIds: PlayerId[], player: PlayerState) {
-  return orderedPlayerIds.findIndex((playerId) => playerId === player.id);
+function findPlayerOrder(orderedActivePlayerIds: PlayerId[], player: PlayerState) {
+  const foundIndex = orderedActivePlayerIds.findIndex((playerId) => playerId === player.id);
+  return foundIndex === -1
+    ? LOWEST_ORDER_PRECEDENCE
+    : foundIndex;
 }
 
 export interface PlayerState {
@@ -61,7 +66,7 @@ const INITIAL_PLAYER_STATE = {
   penalties: [],
   isOut: false,
   isServerRequestingCards: false,
-  order: -1,
+  order: LOWEST_ORDER_PRECEDENCE,
 };
 
 export default function (state = INITIAL_STATE, action: GameAction): State {
