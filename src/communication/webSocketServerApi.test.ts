@@ -140,5 +140,16 @@ describe('Websocket server API', () => {
 
       expect(mockedDispatch).toHaveBeenCalledWith(startPlayerTurn('testplayer'));
     });
+
+    it('broadcast out player after turn', () => {
+      const mockedDispatch = jest.fn();
+
+      dispatchWebSocketMessageAsActions({
+        name: MessageName.BROADCAST_OUT_PLAYER_AFTER_TURN,
+        data: { id: 'testplayer', reason: 'some reason' },
+      }, mockedDispatch);
+
+      expect(mockedDispatch).toHaveBeenCalledWith(addOutPlayers([{ id: 'testplayer', reason: 'some reason' }]));
+    });
   });
 });
