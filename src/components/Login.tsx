@@ -73,6 +73,7 @@ function Login({ dispatch, error, isRequestingAuthentication }: Props) {
             size="large"
             fullWidth
             variant={isRequestingAuthentication ? 'outlined' : 'contained'}
+            disabled={isRequestingAuthentication}
             color="secondary"
             type="submit"
           >
