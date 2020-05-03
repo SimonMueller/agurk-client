@@ -7,7 +7,12 @@ import { PlayerState } from '../../redux/gamePlayers.reducer';
 
 interface Props {
   isServerRequestingCards: boolean;
-  players: PlayerState[];
+  players: Pick<PlayerState, 'id' |
+    'isServerRequestingCards' |
+    'isRoundWinner' |
+    'isGameWinner' |
+    'isCycleHighestTurnPlayer'
+    >[];
   turnRetriesLeft: number;
   turnTimeoutInSeconds: number | undefined;
   gameStage: GameStage;
