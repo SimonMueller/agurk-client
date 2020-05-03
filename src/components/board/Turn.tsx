@@ -1,12 +1,19 @@
 import React from 'react';
 import { InvalidTurn, ValidatedTurn, ValidTurn } from 'agurk-shared';
-import { Box, Grid, Typography } from '@material-ui/core';
+import {
+  Box, Grid, Tooltip, Typography,
+} from '@material-ui/core';
+import styled from 'styled-components';
 import PlayingCard, { generateCardKey, PlayingCardPlaceholder } from './PlayingCard';
 import Badge from '../Badge';
 
 interface Props {
   turn: ValidatedTurn;
 }
+
+const PlayerIdMaxWidthBox = styled(Box)`
+  max-width: ${({ cardCount }: {cardCount: number }) => (`${cardCount * 6}rem`)};
+`;
 
 export function generateTurnKey(turn: ValidatedTurn): string {
   return turn.playerId + turn.valid;
@@ -30,9 +37,13 @@ function Valid({ turn }: { turn: ValidTurn }) {
           { cardItems }
         </Grid>
       </Box>
-      <Typography variant="body1" align="center">
-        {turn.playerId}
-      </Typography>
+      <PlayerIdMaxWidthBox cardCount={cardItems.length}>
+        <Tooltip title={turn.playerId}>
+          <Typography variant="body1" align="center" noWrap>
+            {turn.playerId}
+          </Typography>
+        </Tooltip>
+      </PlayerIdMaxWidthBox>
     </>
   );
 }
