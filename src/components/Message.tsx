@@ -12,6 +12,7 @@ const MessageBox = styled(Box)`
   width: 100%;
   color: white;
   background-color: ${({ theme, severity }: { theme: Theme, severity: Severity }) => (theme.palette[severity].main)};
+  border-radius: 2px;
 `;
 
 export default function Message({ children, severity }: Props) {
