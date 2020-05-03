@@ -28,6 +28,17 @@ describe('Hand component', () => {
     expect(queryByRole('button', { name: playCardsButtonText })).toBeNull();
   });
 
+  it('displays given cards', () => {
+    const mockedPlayCards = jest.fn();
+    const { getByAltText } = render(<Hand
+      cardsInHand={[createSuitCard(14, Suits.HEARTS), createSuitCard(2, Suits.DIAMONDS)]}
+      isServerRequestingCards={false}
+      playCards={mockedPlayCards}
+    />);
+
+    expect(getByAltText('card of rank 14 and suit hearts')).toBeVisible();
+    expect(getByAltText('card of rank 2 and suit diamonds')).toBeVisible();
+  });
 
   it('play cards is called with empty selected cards after button click', () => {
     const mockedPlayCards = jest.fn();
