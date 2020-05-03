@@ -16,7 +16,7 @@ interface PlayTurnProps {
 function PlayTurn({ handlePlayClick }: PlayTurnProps) {
   return (
     <Button size="large" fullWidth variant="contained" color="secondary" onClick={handlePlayClick}>
-      Play Cards
+      Play cards
     </Button>
   );
 }
