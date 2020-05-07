@@ -1,6 +1,6 @@
 import React from 'react';
 import { ValidatedTurn } from 'agurk-shared';
-import { Box, Grid } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import Turn, { generateTurnKey } from './Turn';
 
 interface Props {
@@ -15,13 +15,13 @@ export default function TurnList({ turns }: Props) {
       : acc;
   }, []);
   const turnItems = mostRecentPlayerTurns.map((turn) => (
-    <Box marginRight={1} marginBottom={1} key={generateTurnKey(turn)}>
+    <Grid item key={generateTurnKey(turn)}>
       <Turn turn={turn} />
-    </Box>
+    </Grid>
   ));
 
   return (
-    <Grid container>
+    <Grid container spacing={2}>
       { turnItems }
     </Grid>
   );
