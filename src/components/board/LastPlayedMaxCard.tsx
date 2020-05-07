@@ -27,7 +27,7 @@ export default function LastPlayedMaxCard({ playedTurns }: Props) {
     : <PlayingCardPlaceholder size="small" />;
 
   return (
-    <Box>
+    <Box marginRight={2}>
       <Box marginBottom={1}>
         { highestPlayedCard }
       </Box>
