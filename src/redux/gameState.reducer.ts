@@ -79,7 +79,10 @@ export default function (state = INITIAL_STATE, action: GameAction): State {
         isLastCycleOfRound: action.isLastOfRound,
       };
     case END_CYCLE:
-      return { ...state, stage: GameStage.BETWEEN_CYCLES };
+      return {
+        ...state,
+        stage: state.isLastCycleOfRound ? GameStage.BETWEEN_ROUNDS : GameStage.BETWEEN_CYCLES,
+      };
     case REQUEST_CARDS:
       return {
         ...state,

@@ -1,6 +1,6 @@
 import { Colors, createJokerCard, ValidatedTurn } from 'agurk-shared';
 import reducer, { GameStage } from './gameState.reducer';
-import { addPlayerTurn, requestCards } from './game.action';
+import { addPlayerTurn, endCycle, requestCards } from './game.action';
 
 describe('Game state reducer', () => {
   describe('with initial state and after', () => {
@@ -50,6 +50,30 @@ describe('Game state reducer', () => {
           isLastCycleOfRound: false,
           turnTimeoutInMillis: 500,
           turnRetriesLeft: 2,
+        },
+      );
+    });
+  });
+
+  describe('with last cycle in round', () => {
+    it('end cycle', () => {
+      const state = {
+        stage: GameStage.IN_CYCLE,
+        validatedTurns: [],
+        cardsInHand: [],
+        isLastCycleOfRound: true,
+        turnTimeoutInMillis: 500,
+        turnRetriesLeft: 1,
+      };
+
+      expect(reducer(state, endCycle([]))).toEqual(
+        {
+          stage: GameStage.BETWEEN_ROUNDS,
+          validatedTurns: [],
+          cardsInHand: [],
+          isLastCycleOfRound: true,
+          turnTimeoutInMillis: 500,
+          turnRetriesLeft: 1,
         },
       );
     });
