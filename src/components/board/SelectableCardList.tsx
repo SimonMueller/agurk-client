@@ -30,8 +30,13 @@ const OverlappingBox = styled(Box)`
   }
 `;
 
+function byRankAsc(first: CardData, second: CardData) {
+  return Math.sign(first.rank - second.rank);
+}
+
 export default function CardList({ cards, handleSelect }: Props) {
-  const cardItems = cards.map((card) => (
+  const sortedCards = [...cards].sort(byRankAsc);
+  const cardItems = sortedCards.map((card) => (
     <OverlappingBox key={generateCardKey(card)} marginBottom={1}>
       <ButtonBase onClick={() => handleSelect(card)}>
         <PlayingCard card={card} isSelected={card.isSelected} />

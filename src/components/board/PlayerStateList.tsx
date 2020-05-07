@@ -14,7 +14,8 @@ function byOrderAsc(first: PlayerState, second: PlayerState) {
 }
 
 function ActiveOrderedPlayers({ players }: Props) {
-  const orderedActivePlayers = players.filter((player) => !player.isOut).sort(byOrderAsc);
+  const activePlayers = players.filter((player) => !player.isOut);
+  const orderedActivePlayers = [...activePlayers].sort(byOrderAsc);
   const currentActivePlayerIndex = orderedActivePlayers.findIndex((player) => player.isServerRequestingCards);
   const activePlayerItems = orderedActivePlayers.map((player) => {
     const isCompleted = currentActivePlayerIndex > player.order;
