@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ValidatedTurn } from 'agurk-shared';
-import { Divider, Grid } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import Turn from './Turn';
 import LastPlayedMaxCard from './LastPlayedMaxCard';
 
@@ -42,7 +42,6 @@ export default function TurnStack({ playedTurns }: Props) {
       <Grid item>
         <LastPlayedMaxCard playedTurns={playedTurns} />
       </Grid>
-      <Divider orientation="vertical" flexItem />
       <Grid item>
         <MostRecentTurn playedTurns={playedTurns} />
       </Grid>
