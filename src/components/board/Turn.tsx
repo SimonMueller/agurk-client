@@ -11,7 +11,7 @@ interface Props {
   turn: ValidatedTurn;
 }
 
-const PlayerIdMaxWidthBox = styled(Box)`
+const PlayerIdMaxWidthBox = styled.div`
   max-width: ${({ cardCount }: {cardCount: number }) => (`${cardCount * 6}rem`)};
 `;
 
