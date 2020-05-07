@@ -21,9 +21,9 @@ export function generateTurnKey(turn: ValidatedTurn): string {
 
 function createCardItems(turn: ValidatedTurn) {
   return turn.cards.map((card) => (
-    <Box marginRight={1} key={generateCardKey(card)}>
+    <Grid item key={generateCardKey(card)}>
       <PlayingCard size="small" card={card} />
-    </Box>
+    </Grid>
   ));
 }
 
@@ -33,7 +33,7 @@ function Valid({ turn }: { turn: ValidTurn }) {
   return (
     <>
       <Box marginBottom={1}>
-        <Grid container justify="center">
+        <Grid container spacing={1}>
           { cardItems }
         </Grid>
       </Box>
@@ -54,7 +54,7 @@ function Invalid({ turn }: { turn: InvalidTurn }) {
   return (
     <>
       <Box marginBottom={1}>
-        <Grid container justify="center">
+        <Grid container spacing={1}>
           { cardItems.length === 0
             ? <PlayingCardPlaceholder size="small" />
             : cardItems }
