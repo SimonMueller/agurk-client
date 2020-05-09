@@ -1,39 +1,26 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { ValidatedTurn } from 'agurk-shared';
 import { Grid } from '@material-ui/core';
 import Turn from './Turn';
 import LastPlayedMaxCard from './LastPlayedMaxCard';
+import hideAfterTimeout from '../hideAfterTimeout';
 
 interface Props {
   playedTurns: ValidatedTurn[];
 }
 
-function findLastTurn(playedTurns: ValidatedTurn[]): ValidatedTurn | undefined {
-  return playedTurns[playedTurns.length - 1];
-}
+const InvalidTurnHiddenAfterTimeout = hideAfterTimeout(2000)(Turn);
 
 function MostRecentTurn({ playedTurns }: Props) {
-  const [displayedTurn, setDisplayedTurn] = useState<ValidatedTurn | undefined>(undefined);
-  const SHOW_INVALID_TURN_TIMEOUT = 2000;
+  const mostRecentTurn: ValidatedTurn | undefined = playedTurns[playedTurns.length - 1];
 
-  useEffect(() => {
-    const previousTurn = findLastTurn(playedTurns);
-    setDisplayedTurn(previousTurn);
+  if (mostRecentTurn) {
+    return mostRecentTurn.valid
+      ? <Turn turn={mostRecentTurn} />
+      : <InvalidTurnHiddenAfterTimeout turn={mostRecentTurn} />;
+  }
 
-    if (previousTurn && !previousTurn.valid) {
-      const validTurns = playedTurns.filter((turn) => turn.valid);
-      const previousValidTurn = findLastTurn(validTurns);
-
-      const timeout: number = setTimeout(() => {
-        setDisplayedTurn(previousValidTurn);
-      }, SHOW_INVALID_TURN_TIMEOUT);
-      return () => clearTimeout(timeout);
-    }
-  }, [playedTurns]);
-
-  return displayedTurn
-    ? <Turn turn={displayedTurn} />
-    : null;
+  return null;
 }
 
 export default function TurnStack({ playedTurns }: Props) {
