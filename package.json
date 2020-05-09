@@ -69,7 +69,9 @@
   },
   "jest": {
     "collectCoverageFrom": [
-      "src/**/*.{ts,tsx}"
+      "src/**/*.{ts,tsx}",
+      "!src/**/*.d.ts",
+      "!src/**/serviceWorker.ts"
     ],
     "coveragePathIgnorePatterns": [
       "<rootDir>/node_modules/",
