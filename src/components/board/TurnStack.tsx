@@ -14,13 +14,13 @@ const InvalidTurnHiddenAfterTimeout = hideAfterTimeout(2000)(Turn);
 function MostRecentTurn({ playedTurns }: Props) {
   const mostRecentTurn: ValidatedTurn | undefined = playedTurns[playedTurns.length - 1];
 
-  if (mostRecentTurn) {
-    return mostRecentTurn.valid
-      ? <Turn turn={mostRecentTurn} />
-      : <InvalidTurnHiddenAfterTimeout turn={mostRecentTurn} />;
+  if (!mostRecentTurn) {
+    return null;
   }
 
-  return null;
+  return mostRecentTurn.valid
+    ? <Turn turn={mostRecentTurn} />
+    : <InvalidTurnHiddenAfterTimeout turn={mostRecentTurn} />;
 }
 
 export default function TurnStack({ playedTurns }: Props) {
