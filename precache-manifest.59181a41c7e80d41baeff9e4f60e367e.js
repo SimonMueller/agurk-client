@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "9ef0c774dc49e8ed1e85381b30842cba",
+    "revision": "77c42e5f3173d68421aa3121daa3368a",
     "url": "/agurk-client/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/agurk-client/static/css/2.70228737.chunk.css"
   },
   {
-    "revision": "ab39524f13a929dc8e12",
+    "revision": "95876f9385c5fe93861c",
     "url": "/agurk-client/static/css/main.039a6f61.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/agurk-client/static/js/2.2ef46b7c.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "ab39524f13a929dc8e12",
-    "url": "/agurk-client/static/js/main.4617b266.chunk.js"
+    "revision": "95876f9385c5fe93861c",
+    "url": "/agurk-client/static/js/main.5ea8474a.chunk.js"
   },
   {
     "revision": "3b72d7b6c57ca67758d6",
