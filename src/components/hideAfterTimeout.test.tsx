@@ -37,7 +37,7 @@ describe('hide after timeout HOC', () => {
     expect(queryByText('Test')).toBeNull();
   });
 
-  it('shows the component again until timeout if a prop changed', () => {
+  it('shows the component again if a prop changed', () => {
     const { queryByText, rerender } = render(<TextWithPropHiddenAfter2Seconds count={1} />);
 
     act(() => {
@@ -47,5 +47,21 @@ describe('hide after timeout HOC', () => {
     rerender(<TextWithPropHiddenAfter2Seconds count={2} />);
 
     expect(queryByText('Test 2')).toBeVisible();
+  });
+
+  it('hides the component again if a prop changed and after timeout completed', () => {
+    const { queryByText, rerender } = render(<TextWithPropHiddenAfter2Seconds count={1} />);
+
+    act(() => {
+      jest.runAllTimers();
+    });
+
+    rerender(<TextWithPropHiddenAfter2Seconds count={2} />);
+
+    act(() => {
+      jest.runAllTimers();
+    });
+
+    expect(queryByText('Test 2')).toBeNull();
   });
 });
