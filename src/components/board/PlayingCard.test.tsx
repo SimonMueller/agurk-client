@@ -3,7 +3,7 @@ import {
   Card, Color, Colors, JOKER_CARD_KIND, Suit, SUIT_CARD_KIND, SuitRank, Suits,
 } from 'agurk-shared';
 import { render } from '../../utils/test-utils';
-import PlayingCard from './PlayingCard';
+import PlayingCard, { PlayingCardPlaceholder } from './PlayingCard';
 
 describe('Playing card component', () => {
   it('has alt text representing suit card rank and suit', () => {
@@ -56,6 +56,23 @@ describe('Playing card component', () => {
         expect(getByAltText(`joker of rank ${rank} and color ${lowercaseColor}`))
           .toHaveAttribute('src', '/agurk-client/images/joker.svg');
       });
+    });
+  });
+
+  describe('placeholder', () => {
+    const cardPlaceholderAlt = 'card placeholder';
+
+    it('has alt text representing placeholder', () => {
+      const { getByAltText } = render(<PlayingCardPlaceholder />);
+
+      expect(getByAltText(cardPlaceholderAlt)).toBeVisible();
+    });
+
+    it('shows correct image', () => {
+      const { getByAltText } = render(<PlayingCardPlaceholder />);
+
+      expect(getByAltText(cardPlaceholderAlt))
+        .toHaveAttribute('src', '/agurk-client/images/placeholder.svg');
     });
   });
 });
