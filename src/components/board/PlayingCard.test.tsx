@@ -1,11 +1,14 @@
 import React from 'react';
 import {
-  Card, Color, Colors, JOKER_CARD_KIND, Suit, SUIT_CARD_KIND, SuitRank, Suits,
+  Card, Color, Colors, JOKER_CARD_KIND, Rank, Suit, SUIT_CARD_KIND, SuitRank, Suits,
 } from 'agurk-shared';
 import { render } from '../../utils/test-utils';
 import PlayingCard, { PlayingCardPlaceholder } from './PlayingCard';
 
 describe('Playing card component', () => {
+  const suitCardAlt = (rank: Rank, suit: Suit) => `card of rank ${rank} and suit ${suit.toLowerCase()}`;
+  const jokerCardAlt = (color: Color) => `joker of rank 15 and color ${color.toLowerCase()}`;
+
   it('has alt text representing suit card rank and suit', () => {
     const card: Card = {
       suit: Suits.DIAMONDS,
@@ -14,7 +17,7 @@ describe('Playing card component', () => {
     };
     const { getByAltText } = render(<PlayingCard card={card} />);
 
-    expect(getByAltText('card of rank 3 and suit diamonds')).toBeVisible();
+    expect(getByAltText(suitCardAlt(3, Suits.DIAMONDS))).toBeVisible();
   });
 
   it('has alt text representing joker card rank and color', () => {
@@ -25,7 +28,7 @@ describe('Playing card component', () => {
     };
     const { getByAltText } = render(<PlayingCard card={card} />);
 
-    expect(getByAltText('joker of rank 15 and color black')).toBeVisible();
+    expect(getByAltText(jokerCardAlt(Colors.BLACK))).toBeVisible();
   });
 
   describe('shows correct card image', () => {
@@ -36,11 +39,10 @@ describe('Playing card component', () => {
         Suits.SPADES, Suits.CLUBS, Suits.DIAMONDS, Suits.HEARTS,
       ])('and suit %s ', (suit: Suit) => {
         const card: Card = { suit, rank, kind: SUIT_CARD_KIND };
-        const lowercaseSuit = suit.toLowerCase();
         const { getByAltText } = render(<PlayingCard card={card} />);
 
-        expect(getByAltText(`card of rank ${rank} and suit ${lowercaseSuit}`))
-          .toHaveAttribute('src', `/agurk-client/images/${rank}-${lowercaseSuit}.svg`);
+        expect(getByAltText(suitCardAlt(rank, suit)))
+          .toHaveAttribute('src', `/agurk-client/images/${rank}-${suit.toLowerCase()}.svg`);
       });
     });
 
@@ -50,10 +52,9 @@ describe('Playing card component', () => {
       ])('and color %s ', (color: Color) => {
         const rank = 15;
         const card: Card = { color, rank, kind: JOKER_CARD_KIND };
-        const lowercaseColor = color.toLowerCase();
         const { getByAltText } = render(<PlayingCard card={card} />);
 
-        expect(getByAltText(`joker of rank ${rank} and color ${lowercaseColor}`))
+        expect(getByAltText(`joker of rank ${rank} and color ${color.toLowerCase()}`))
           .toHaveAttribute('src', '/agurk-client/images/joker.svg');
       });
     });
