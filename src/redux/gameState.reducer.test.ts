@@ -10,16 +10,14 @@ describe('Game state reducer', () => {
         valid: true,
         cards: [createJokerCard(Colors.BLACK)],
       };
-      expect(reducer(undefined, addPlayerTurn(validTurn))).toEqual(
-        {
-          stage: GameStage.START,
-          validatedTurns: [validTurn],
-          cardsInHand: [],
-          isLastCycleOfRound: false,
-          turnTimeoutInMillis: undefined,
-          turnRetriesLeft: 0,
-        },
-      );
+      expect(reducer(undefined, addPlayerTurn(validTurn))).toEqual({
+        stage: GameStage.START,
+        validatedTurns: [validTurn],
+        cardsInHand: [],
+        isLastCycleOfRound: false,
+        turnTimeoutInMillis: undefined,
+        turnRetriesLeft: 0,
+      });
     });
 
     it('add invalid player turn', () => {
@@ -29,29 +27,25 @@ describe('Game state reducer', () => {
         cards: [createJokerCard(Colors.BLACK)],
         invalidReason: 'some reason',
       };
-      expect(reducer(undefined, addPlayerTurn(invalidTurn))).toEqual(
-        {
-          stage: GameStage.START,
-          validatedTurns: [invalidTurn],
-          cardsInHand: [],
-          isLastCycleOfRound: false,
-          turnTimeoutInMillis: undefined,
-          turnRetriesLeft: 0,
-        },
-      );
+      expect(reducer(undefined, addPlayerTurn(invalidTurn))).toEqual({
+        stage: GameStage.START,
+        validatedTurns: [invalidTurn],
+        cardsInHand: [],
+        isLastCycleOfRound: false,
+        turnTimeoutInMillis: undefined,
+        turnRetriesLeft: 0,
+      });
     });
 
     it('request cards', () => {
-      expect(reducer(undefined, requestCards(500, 2))).toEqual(
-        {
-          stage: GameStage.START,
-          validatedTurns: [],
-          cardsInHand: [],
-          isLastCycleOfRound: false,
-          turnTimeoutInMillis: 500,
-          turnRetriesLeft: 2,
-        },
-      );
+      expect(reducer(undefined, requestCards(500, 2))).toEqual({
+        stage: GameStage.START,
+        validatedTurns: [],
+        cardsInHand: [],
+        isLastCycleOfRound: false,
+        turnTimeoutInMillis: 500,
+        turnRetriesLeft: 2,
+      });
     });
   });
 
@@ -66,16 +60,14 @@ describe('Game state reducer', () => {
         turnRetriesLeft: 1,
       };
 
-      expect(reducer(state, endCycle([]))).toEqual(
-        {
-          stage: GameStage.BETWEEN_ROUNDS,
-          validatedTurns: [],
-          cardsInHand: [],
-          isLastCycleOfRound: true,
-          turnTimeoutInMillis: 500,
-          turnRetriesLeft: 1,
-        },
-      );
+      expect(reducer(state, endCycle([]))).toEqual({
+        stage: GameStage.BETWEEN_ROUNDS,
+        validatedTurns: [],
+        cardsInHand: [],
+        isLastCycleOfRound: true,
+        turnTimeoutInMillis: 500,
+        turnRetriesLeft: 1,
+      });
     });
   });
 });
