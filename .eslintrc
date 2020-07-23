@@ -13,7 +13,7 @@
         "react/jsx-filename-extension": ["warn", { "extensions": [".tsx"] }],
         "consistent-return": ["off", { "treatUndefinedAsUnspecified": false }],
         "import/no-extraneous-dependencies": ["error", {"devDependencies": [
-          "**/*.test.js", "**/*.spec.js", "**/test-utils.tsx", "**/setupTests.ts"
+          "**/*.test.tsx", "**/*.spec.tsx", "**/test-utils.tsx", "**/setupTests.ts"
         ]}],
         "import/extensions": [
           "error", {

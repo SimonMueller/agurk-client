@@ -1,6 +1,7 @@
 import React from 'react';
+import userEvent from '@testing-library/user-event';
 import { createSuitCard, Suits } from 'agurk-shared';
-import { render, fireEvent } from '../../utils/test-utils';
+import { render } from '../../utils/test-utils';
 import Hand from './Hand';
 
 describe('Hand component', () => {
@@ -48,13 +49,7 @@ describe('Hand component', () => {
       playCards={mockedPlayCards}
     />);
 
-    fireEvent(
-      getByRole('button', { name: playCardsButtonText }),
-      new MouseEvent('click', {
-        bubbles: true,
-        cancelable: true,
-      }),
-    );
+    userEvent.click(getByRole('button', { name: playCardsButtonText }));
 
     expect(mockedPlayCards).toHaveBeenCalledWith([]);
   });
@@ -67,21 +62,9 @@ describe('Hand component', () => {
       playCards={mockedPlayCards}
     />);
 
-    fireEvent(
-      getByAltText('card of rank 14 and suit hearts'),
-      new MouseEvent('click', {
-        bubbles: true,
-        cancelable: true,
-      }),
-    );
+    userEvent.click(getByAltText('card of rank 14 and suit hearts'));
 
-    fireEvent(
-      getByRole('button', { name: playCardsButtonText }),
-      new MouseEvent('click', {
-        bubbles: true,
-        cancelable: true,
-      }),
-    );
+    userEvent.click(getByRole('button', { name: playCardsButtonText }));
 
     expect(mockedPlayCards).toHaveBeenCalledWith([{
       ...createSuitCard(14, Suits.HEARTS),
