@@ -32,9 +32,9 @@ describe('Playing card component', () => {
   });
 
   describe('shows correct card image', () => {
-    describe.each<SuitRank>([
-      2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
-    ])('for suit card with rank %i', (rank: SuitRank) => {
+    const cardRanks = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14] as const;
+
+    describe.each<SuitRank>(cardRanks)('for suit card with rank %i', (rank: SuitRank) => {
       it.each<Suit>([
         Suits.SPADES, Suits.CLUBS, Suits.DIAMONDS, Suits.HEARTS,
       ])('and suit %s ', (suit: Suit) => {
@@ -47,9 +47,9 @@ describe('Playing card component', () => {
     });
 
     describe('for joker card with rank 15', () => {
-      it.each<Color>([
-        Colors.BLACK, Colors.RED, Colors.WHITE,
-      ])('and color %s ', (color: Color) => {
+      const cardColors = [Colors.BLACK, Colors.RED, Colors.WHITE];
+
+      it.each<Color>(cardColors)('and color %s ', (color: Color) => {
         const rank = 15;
         const card: Card = { color, rank, kind: JOKER_CARD_KIND };
         const { getByAltText } = render(<PlayingCard card={card} />);

@@ -1,4 +1,5 @@
 import React from 'react';
+import userEvent from '@testing-library/user-event';
 import { render } from '../utils/test-utils';
 import Login from './Login';
 
@@ -28,6 +29,24 @@ describe('Login component', () => {
     const input = getByLabelText(playerNameLabelText);
 
     expect(input).toHaveValue('');
+  });
+
+  it('contains player name after user input', () => {
+    const { getByLabelText } = render(<Login />);
+    const input = getByLabelText(playerNameLabelText);
+
+    userEvent.type(input, 'player 42');
+
+    expect(input).toHaveValue('player 42');
+  });
+
+  it('contains access token after user input', () => {
+    const { getByLabelText } = render(<Login />);
+    const input = getByLabelText(accessTokenLabelText);
+
+    userEvent.type(input, 'supersecret');
+
+    expect(input).toHaveValue('supersecret');
   });
 
   it('log in button is visible', () => {
