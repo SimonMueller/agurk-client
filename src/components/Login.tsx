@@ -33,7 +33,7 @@ function Login({ dispatch, error, isRequestingAuthentication }: Props) {
   }
 
   return (
-    <Container maxWidth="sm">
+    <Container maxWidth="xs">
       <Typography variant="h1" gutterBottom>Login</Typography>
 
       <Box marginBottom={2}>
