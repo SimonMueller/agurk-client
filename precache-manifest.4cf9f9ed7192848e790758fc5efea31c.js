@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "b4d35b63b10816ba4214549ff2d83029",
+    "revision": "8f185c7c23fe5873fdda46f86d46fe71",
     "url": "/agurk-client/index.html"
   },
   {
-    "revision": "0e068166146a8c031667",
+    "revision": "53be12582775300bb123",
     "url": "/agurk-client/static/css/2.70228737.chunk.css"
   },
   {
-    "revision": "ea59424f652768cc39ee",
+    "revision": "0a60caad67fb8d38b2d4",
     "url": "/agurk-client/static/css/main.039a6f61.chunk.css"
   },
   {
-    "revision": "0e068166146a8c031667",
-    "url": "/agurk-client/static/js/2.d702ee27.chunk.js"
+    "revision": "53be12582775300bb123",
+    "url": "/agurk-client/static/js/2.5a329633.chunk.js"
   },
   {
-    "revision": "8a15f088c1575f8b7fb94057fe700fc4",
-    "url": "/agurk-client/static/js/2.d702ee27.chunk.js.LICENSE.txt"
+    "revision": "f881ac7cbd2077a56bf0ef47bedc4e45",
+    "url": "/agurk-client/static/js/2.5a329633.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "ea59424f652768cc39ee",
-    "url": "/agurk-client/static/js/main.526081d9.chunk.js"
+    "revision": "0a60caad67fb8d38b2d4",
+    "url": "/agurk-client/static/js/main.0c553cc4.chunk.js"
   },
   {
     "revision": "3b72d7b6c57ca67758d6",
