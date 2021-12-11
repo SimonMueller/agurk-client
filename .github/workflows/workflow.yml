@@ -40,7 +40,7 @@ jobs:
       uses: actions/upload-artifact@v2
       if: github.ref == 'refs/heads/master'
       with:
-        name: build
+        name: build-${{ matrix.os }}
         path: build
 
   deploy:
@@ -59,7 +59,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           path: build
-          name: build
+          name: build-ubuntu-latest
 
       - name: deploy
         uses: JamesIves/github-pages-deploy-action@4.1.7
