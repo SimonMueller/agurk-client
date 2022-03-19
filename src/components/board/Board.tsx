@@ -17,7 +17,6 @@ import { GameStage } from '../../redux/gameState.reducer';
 import { PlayerState } from '../../redux/gamePlayers.reducer';
 
 interface Props {
-  playerId: PlayerId;
   state: {
     players: PlayerState[]
     playedTurns: ValidatedTurn[];
@@ -171,7 +170,6 @@ const mapStateToProps = (state: State, ownProps: { serverApi: WebSocketGameApi, 
     stage: state.game.state.stage,
     playedTurns: state.game.state.validatedTurns,
     playerState: state.game.players.find((player) => player.id === ownProps.playerId),
-    playCards: (cards: Card[]) => ownProps.serverApi.sendPlayCards(cards),
     isLastCycleOfRound: state.game.state.isLastCycleOfRound,
     turnTimeoutInSeconds: state.game.state.turnTimeoutInMillis
       ? state.game.state.turnTimeoutInMillis / 1000
@@ -180,7 +178,6 @@ const mapStateToProps = (state: State, ownProps: { serverApi: WebSocketGameApi, 
   },
   playCards: (cards: Card[]) => ownProps.serverApi.sendPlayCards(cards),
 });
-
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
   closeGame: () => {

@@ -1,7 +1,9 @@
 {
+  "parser": "@typescript-eslint/parser",
   "extends": [
     "react-app",
     "airbnb",
+    "plugin:@typescript-eslint/recommended",
     "plugin:import/typescript",
     "plugin:jest-dom/recommended"
   ],
@@ -15,11 +17,20 @@
         "import/no-extraneous-dependencies": ["error", {"devDependencies": [
           "**/*.test.tsx", "**/*.spec.tsx", "**/test-utils.tsx", "**/setupTests.ts"
         ]}],
+        "react/require-default-props": "off",
         "import/extensions": [
           "error", {
             "ts": "never",
             "tsx": "never"
-        }]
+        }],
+        "no-shadow": "off",
+        "@typescript-eslint/no-shadow": "error"
+      }
+    },
+    {
+      "files": ["**/*.reducer.ts"],
+      "rules": {
+        "default-param-last": "off"
       }
     }
   ]

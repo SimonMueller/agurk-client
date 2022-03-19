@@ -13,7 +13,7 @@ describe('Overview component', () => {
       turnTimeoutInSeconds={1}
     />);
 
-    expect(container).toBeEmpty();
+    expect(container).toBeEmptyDOMElement();
   });
 
   it('displays no game winner on end game', () => {

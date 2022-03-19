@@ -42,7 +42,7 @@ const INITIAL_STATE: State = {
   turnRetriesLeft: 0,
 };
 
-export default function (state = INITIAL_STATE, action: GameAction): State {
+export default function reduce(state = INITIAL_STATE, action: GameAction): State {
   switch (action.type) {
     case ADD_OUT_PLAYERS:
       return state;

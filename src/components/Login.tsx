@@ -1,4 +1,6 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react';
+import React, {
+  ChangeEvent, FormEvent, useCallback, useState,
+} from 'react';
 import { connect } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
 import {
@@ -18,18 +20,16 @@ interface Props {
 function Login({ dispatch, error, isRequestingAuthentication }: Props) {
   const [nameInput, setNameInput] = useState<string>('');
   const [tokenInput, setTokenInput] = useState<string>('');
+  const handleNameChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+    setNameInput(event.target.value);
+  }, [setNameInput]);
+  const handleTokenChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+    setTokenInput(event.target.value);
+  }, [setTokenInput]);
 
   function handleSubmit(event: FormEvent) {
     dispatch(authenticate({ name: nameInput, token: tokenInput }));
     event.preventDefault();
-  }
-
-  function handleNameChange(event: ChangeEvent<HTMLInputElement>) {
-    setNameInput(event.target.value);
-  }
-
-  function handleTokenChange(event: ChangeEvent<HTMLInputElement>) {
-    setTokenInput(event.target.value);
   }
 
   return (
@@ -77,14 +77,14 @@ function Login({ dispatch, error, isRequestingAuthentication }: Props) {
             color="secondary"
             type="submit"
           >
-            { isRequestingAuthentication
+            {isRequestingAuthentication
               ? <CircularProgress size={25} color="secondary" />
               : 'Log in'}
           </Button>
         </form>
       </Box>
 
-      { error && <Message severity="error"><Typography variant="body1">{error}</Typography></Message> }
+      {error && <Message severity="error"><Typography variant="body1">{error}</Typography></Message>}
     </Container>
   );
 }

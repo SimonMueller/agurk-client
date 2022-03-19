@@ -24,7 +24,7 @@ const BoldTypography = styled(Typography)`
 
 function YourTurn({ turnTimeoutInSeconds, turnRetriesLeft }: Pick<Props, 'turnTimeoutInSeconds' | 'turnRetriesLeft'>) {
   return (
-    <Grid container justify="space-between" alignItems="baseline">
+    <Grid container justifyContent="space-between" alignItems="baseline">
       <Typography variant="h2">
         Your turn
         { ' ' }

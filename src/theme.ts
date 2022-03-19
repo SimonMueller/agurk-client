@@ -1,10 +1,10 @@
-import { createMuiTheme, responsiveFontSizes, Theme as MuiTheme } from '@material-ui/core';
+import { createTheme, responsiveFontSizes, Theme as MuiTheme } from '@material-ui/core';
 
 export type Severity = 'warning' | 'info' | 'error' | 'success';
 
 export type Theme = MuiTheme;
 
-const theme: Theme = createMuiTheme({
+const theme: Theme = createTheme({
   typography: {
     h1: { fontSize: '3rem' },
     h2: { fontSize: '2.25rem' },

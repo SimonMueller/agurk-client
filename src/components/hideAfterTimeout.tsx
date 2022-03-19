@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 
-export default function (timeoutInMillis: number) {
-  return <P extends {}>(Component: React.ComponentType<P>) => (props: P) => {
+export default function hideAfterTimeout(timeoutInMillis: number) {
+  return <P extends object>(Component: React.ComponentType<P>) => function Wrapper(props: P) {
     const [isHidden, setIsHidden] = useState<boolean>(false);
 
     useEffect(() => {
       setIsHidden(false);
-      const timeoutId: number = setTimeout(() => setIsHidden(true), timeoutInMillis);
+      const timeoutId: ReturnType<typeof setTimeout> = setTimeout(() => setIsHidden(true), timeoutInMillis);
       return () => clearTimeout(timeoutId);
     }, [props]);
 

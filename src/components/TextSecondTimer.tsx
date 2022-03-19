@@ -12,7 +12,7 @@ export default function TextSecondTimer({ timeoutInSeconds }: Props) {
   }, [timeoutInSeconds]);
 
   useEffect(() => {
-    const interval: number = setInterval(() => {
+    const interval: ReturnType<typeof setTimeout> = setInterval(() => {
       const newTimeLeftInMillis = timeLeftInSeconds - 1;
       return newTimeLeftInMillis < 0
         ? clearInterval(interval)
@@ -21,5 +21,6 @@ export default function TextSecondTimer({ timeoutInSeconds }: Props) {
     return () => clearInterval(interval);
   });
 
-  return (<>{ timeLeftInSeconds }</>);
+  // eslint-disable-next-line react/jsx-no-useless-fragment
+  return <>{ timeLeftInSeconds }</>;
 }

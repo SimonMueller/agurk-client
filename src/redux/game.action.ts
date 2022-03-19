@@ -68,8 +68,7 @@ interface RequestCardsAction extends Action<typeof REQUEST_CARDS>{
   readonly turnRetriesLeft: number;
 }
 
-interface ResetGameAction extends Action<typeof RESET_GAME>{}
-
+type ResetGameAction = Action<typeof RESET_GAME>;
 
 export type GameAction = StartGameAction | EndGameSuccessAction | EndGameErrorAction | SetCardsInHandAction |
   AddPlayerTurnAction | StartRoundAction | EndRoundAction | StartCycleAction | EndCycleAction | RequestCardsAction |

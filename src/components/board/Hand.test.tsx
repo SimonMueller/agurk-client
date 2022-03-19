@@ -26,7 +26,7 @@ describe('Hand component', () => {
       playCards={mockedPlayCards}
     />);
 
-    expect(queryByRole('button', { name: playCardsButtonText })).toBeNull();
+    expect(queryByRole('button', { name: playCardsButtonText })).not.toBeInTheDocument();
   });
 
   it('displays given cards', () => {

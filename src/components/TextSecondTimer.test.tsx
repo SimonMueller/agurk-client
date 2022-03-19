@@ -27,7 +27,7 @@ describe('Text second timer component', () => {
     const { getByText } = render(<TextSecondTimer timeoutInSeconds={20} />);
 
     act(() => {
-      jest.advanceTimersByTime(10000);
+      jest.advanceTimersByTime(11000);
     });
 
     expect(getByText('10')).toBeVisible();

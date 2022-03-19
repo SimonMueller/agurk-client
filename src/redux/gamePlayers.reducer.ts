@@ -12,6 +12,20 @@ import {
   START_PLAYER_TURN,
 } from './game.action';
 
+export interface PlayerState {
+  id: PlayerId;
+  isGameWinner: boolean;
+  isCycleHighestTurnPlayer: boolean;
+  penalties: Penalty[];
+  isRoundWinner: boolean;
+  isOut: boolean;
+  outReason?: string;
+  isServerRequestingCards: boolean;
+  order: number;
+}
+
+export type State = PlayerState[];
+
 const LOWEST_ORDER_PRECEDENCE = Number.MAX_SAFE_INTEGER;
 
 function filterPenaltiesForPlayerId(penalties: Penalty[], playerId: PlayerId) {
@@ -43,20 +57,6 @@ function findPlayerOrder(orderedActivePlayerIds: PlayerId[], player: PlayerState
     : foundIndex;
 }
 
-export interface PlayerState {
-  id: PlayerId;
-  isGameWinner: boolean;
-  isCycleHighestTurnPlayer: boolean;
-  penalties: Penalty[];
-  isRoundWinner: boolean;
-  isOut: boolean;
-  outReason?: string;
-  isServerRequestingCards: boolean;
-  order: number;
-}
-
-export type State = PlayerState[];
-
 const INITIAL_STATE: State = [];
 
 const INITIAL_PLAYER_STATE = {
@@ -69,7 +69,7 @@ const INITIAL_PLAYER_STATE = {
   order: LOWEST_ORDER_PRECEDENCE,
 };
 
-export default function (state = INITIAL_STATE, action: GameAction): State {
+export default function reduce(state = INITIAL_STATE, action: GameAction): State {
   switch (action.type) {
     case ADD_OUT_PLAYERS:
       return state.map((player) => ({

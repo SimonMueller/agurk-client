@@ -3,8 +3,12 @@ import hideAfterTimeout from './hideAfterTimeout';
 import { render, act } from '../utils/test-utils';
 
 describe('hide after timeout HOC', () => {
-  const TextWithProp = ({ count = 0 }: { count: number }) => <p>{`Test ${count}`}</p>;
-  const Text = () => <p>Test</p>;
+  function TextWithProp({ count = 0 }: { count: number }) {
+    return <p>{`Test ${count}`}</p>;
+  }
+  function Text() {
+    return <p>Test</p>;
+  }
   const hideAfter2Seconds = hideAfterTimeout(2000);
   const TextHiddenAfter2Seconds = hideAfter2Seconds(Text);
   const TextWithPropHiddenAfter2Seconds = hideAfter2Seconds(TextWithProp);
@@ -21,7 +25,7 @@ describe('hide after timeout HOC', () => {
     const { getByText } = render(<TextHiddenAfter2Seconds />);
 
     act(() => {
-      jest.runTimersToTime(1500);
+      jest.advanceTimersByTime(1500);
     });
 
     expect(getByText('Test')).toBeVisible();
@@ -31,10 +35,10 @@ describe('hide after timeout HOC', () => {
     const { queryByText } = render(<TextHiddenAfter2Seconds />);
 
     act(() => {
-      jest.runTimersToTime(2100);
+      jest.advanceTimersByTime(2100);
     });
 
-    expect(queryByText('Test')).toBeNull();
+    expect(queryByText('Test')).not.toBeInTheDocument();
   });
 
   it('shows the component again if a prop changed before new timeout completed', () => {
@@ -62,6 +66,6 @@ describe('hide after timeout HOC', () => {
       jest.runAllTimers();
     });
 
-    expect(queryByText('Test 2')).toBeNull();
+    expect(queryByText('Test 2')).not.toBeInTheDocument();
   });
 });

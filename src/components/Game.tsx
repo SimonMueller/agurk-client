@@ -27,16 +27,20 @@ function respondToAuthenticationRequestFromServer(
   dispatch: Dispatch<Action>,
 ) {
   subject.pipe(filter((message) => message.name === MessageName.REQUEST_AUTHENTICATION))
-    .subscribe(() => {
-      const webSocketAuthenticationApi = createAuthenticationApi(subject);
-      webSocketAuthenticationApi.sendAuthenticate(authenticationToken);
-    },
-    () => dispatch(unauthenticateWithError('Could not authenticate with the game server. Try to login again...')));
+    .subscribe(
+      () => {
+        const webSocketAuthenticationApi = createAuthenticationApi(subject);
+        webSocketAuthenticationApi.sendAuthenticate(authenticationToken);
+      },
+      () => dispatch(unauthenticateWithError('Could not authenticate with the game server. Try to login again...')),
+    );
 }
 
 function handleMessagesFromServer(subject: WebSocketSubject<Message>, dispatch: Dispatch<Action>) {
-  subject.subscribe((message) => dispatchWebSocketMessageAsActions(message, dispatch),
-    () => dispatch(unauthenticateWithError('Could not contact the game server. Try again later...')));
+  subject.subscribe(
+    (message) => dispatchWebSocketMessageAsActions(message, dispatch),
+    () => dispatch(unauthenticateWithError('Could not contact the game server. Try again later...')),
+  );
 }
 
 function Game({
@@ -61,13 +65,9 @@ function Game({
     return () => subject.complete();
   }, [subject, dispatch, authenticationToken]);
 
-  return (
-    <>
-      { isInGame
-        ? <Board playerId={authenticatedSubject} serverApi={gameApi} />
-        : <Lobby startGame={gameApi.sendStartGame} /> }
-    </>
-  );
+  return isInGame
+    ? <Board playerId={authenticatedSubject} serverApi={gameApi} />
+    : <Lobby startGame={gameApi.sendStartGame} />;
 }
 
 const mapStateToProps = (state: State) => ({

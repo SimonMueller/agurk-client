@@ -11,7 +11,7 @@ const INITIAL_STATE: State = {
   isInGame: false,
 };
 
-export default function (state: State = INITIAL_STATE, action: LobbyAction): State {
+export default function reduce(state: State = INITIAL_STATE, action: LobbyAction): State {
   switch (action.type) {
     case SET_LOBBY_PLAYERS:
       return {

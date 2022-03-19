@@ -22,7 +22,7 @@ const INITIAL_STATE: State = {
   error: undefined,
 };
 
-export default function (state: State = INITIAL_STATE, action: AuthenticationAction): State {
+export default function reduce(state: State = INITIAL_STATE, action: AuthenticationAction): State {
   switch (action.type) {
     case AUTHENTICATE_WITH_TOKEN:
       return {
